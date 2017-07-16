@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Analytics with R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="datawrangling.html">Data Wrangling</a>
+</li>
+<li>
+  <a href="dataviz.html">Data Visualization</a>
+</li>
+<li>
+  <a href="linearregression.html">Data Analysis</a>
+</li>
+<li>
+  <a href="sampleanalyses.html">Sample Analyses</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p><br/> <br/></p>
+<div class="figure">
+<img src="Data%20Wrangling.png" />
+
+</div>
+<hr width="90%">
+<div id="introduction-to-r-programming" class="section level1">
+<h1>Introduction to R Programming</h1>
+<p>Use the links to the left to navigate through introductory R programming topics, including:</p>
+<p>–Data Frames</p>
+<p>–Filtering Data</p>
+<p>–Summarize Data</p>
+<p>–Manipulate Data</p>
+<p>–Visualize Data</p>
+</div>
+<div id="packages" class="section level1">
+<h1>Packages</h1>
+<p>You will need to use various packages in order to achieve your desired data manipulation/analysis goals. A package is a suite of commands, data, and code that serve as toolkits for simplifying various programming tasks.</p>
+<p>For Example: I want to do this thing which is really complicated.</p>
+<p>Instead of doing all that, I can use this package and it is really easy.</p>
+<p>OR</p>
+<p>For Example, this package allows us to perform thiese functions, and comes with this sample data.</p>
+</div>
+<div id="data-frames" class="section level1">
+<h1>Data Frames</h1>
+<p>A <strong>Data Frame</strong> is a list of vectors (columns of data) of equal length. <br/> <em>Example:</em></p>
+<pre class="r"><code># Vectors
+
+name &lt;- c(&quot;Kenia&quot;, &quot;Sabrina&quot;, &quot;Kelvin&quot;, &quot;Alex&quot;)
+age &lt;- c(&quot;24&quot;, &quot;24&quot;, &quot;27&quot;, &quot;26&quot;)
+sex &lt;- c(&quot;Female&quot;, &quot;Female&quot;, &quot;Male&quot;, &quot;Male&quot;)
+
+
+# Data Frame
+
+dataframe &lt;- data.frame(name, age, sex)</code></pre>
+<p><br/> <br/></p>
+<p>We can use the <strong>print()</strong> command to view the dataframe.</p>
+<pre><code>     name age    sex
+1   Kenia  24 Female
+2 Sabrina  24 Female
+3  Kelvin  27   Male
+4    Alex  26   Male</code></pre>
+<p><br/> <br/></p>
+<p>We can print a <strong>single column</strong>.</p>
+<pre class="r"><code>dataframe[&quot;name&quot;]</code></pre>
+<pre><code>     name
+1   Kenia
+2 Sabrina
+3  Kelvin
+4    Alex</code></pre>
+<p>We can identify the column by name(above), or index number(below).</p>
+<pre class="r"><code>dataframe[1]</code></pre>
+<pre><code>     name
+1   Kenia
+2 Sabrina
+3  Kelvin
+4    Alex</code></pre>
+<p><br/> <br/></p>
+<p>We can print a <strong>single row</strong>.</p>
+<pre class="r"><code>dataframe[3, ]</code></pre>
+<pre><code>    name age  sex
+3 Kelvin  27 Male</code></pre>
+<p>Or <strong>multiple rows</strong>.</p>
+<pre class="r"><code>dataframe[1:3, ]</code></pre>
+<pre><code>     name age    sex
+1   Kenia  24 Female
+2 Sabrina  24 Female
+3  Kelvin  27   Male</code></pre>
+<pre class="r"><code># Don&#39;t forget the comma!</code></pre>
+<p><br/> <br/> To <strong>load a dataframe from a file on your computer</strong></p>
+<p><em>(You will need the file path for your data file)</em></p>
+<pre class="r"><code>mydata &lt;- read.csv(&quot;filepath&quot;)  #Read a .csv file
+mydata &lt;- read.delim(&quot;filepath&quot;)  #Read other table data formats</code></pre>
+</div>
+<div id="filter-data" class="section level1">
+<h1>Filter Data</h1>
+<p>Load the <strong>dplyr</strong> package.</p>
+<pre class="r"><code>install.packages(&quot;dplyr&quot;)  #Install the package if you haven&#39;t before.
+library(dplyr)  #Load the package</code></pre>
+<p><br/> <br/> Load the <strong>starwars</strong> dataframe.</p>
+<pre class="r"><code>starwarsdata &lt;- starwars
+
+print(starwarsdata)</code></pre>
+<pre><code># A tibble: 87 x 13
+                 name height  mass    hair_color  skin_color eye_color
+                &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;         &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;
+ 1     Luke Skywalker    172    77         blond        fair      blue
+ 2              C-3PO    167    75          &lt;NA&gt;        gold    yellow
+ 3              R2-D2     96    32          &lt;NA&gt; white, blue       red
+ 4        Darth Vader    202   136          none       white    yellow
+ 5        Leia Organa    150    49         brown       light     brown
+ 6          Owen Lars    178   120   brown, grey       light      blue
+ 7 Beru Whitesun lars    165    75         brown       light      blue
+ 8              R5-D4     97    32          &lt;NA&gt;  white, red       red
+ 9  Biggs Darklighter    183    84         black       light     brown
+10     Obi-Wan Kenobi    182    77 auburn, white        fair blue-gray
+# ... with 77 more rows, and 7 more variables: birth_year &lt;dbl&gt;,
+#   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<p><br/> <br/> <strong>Wait</strong>: Before we start filtering, you should understand how the Magrittr package allows us to use pipes to tie together multiple dplyr functions into a single executable command.</p>
+<p>Below, we can both define the dataframe, and print the table as we did above with one single script of dplyr commands that are piped together with Magrittr “%&gt;%” piping.</p>
+<pre class="r"><code>starwarsdata&lt;- starwars%&gt;%   #Step 1: Define the Dataframe
+  print()  #Step 2: Print the table</code></pre>
+<pre><code># A tibble: 87 x 13
+                 name height  mass    hair_color  skin_color eye_color
+                &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;         &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;
+ 1     Luke Skywalker    172    77         blond        fair      blue
+ 2              C-3PO    167    75          &lt;NA&gt;        gold    yellow
+ 3              R2-D2     96    32          &lt;NA&gt; white, blue       red
+ 4        Darth Vader    202   136          none       white    yellow
+ 5        Leia Organa    150    49         brown       light     brown
+ 6          Owen Lars    178   120   brown, grey       light      blue
+ 7 Beru Whitesun lars    165    75         brown       light      blue
+ 8              R5-D4     97    32          &lt;NA&gt;  white, red       red
+ 9  Biggs Darklighter    183    84         black       light     brown
+10     Obi-Wan Kenobi    182    77 auburn, white        fair blue-gray
+# ... with 77 more rows, and 7 more variables: birth_year &lt;dbl&gt;,
+#   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<p><br/> <br/> <strong>Filter Columns</strong><br />
+We will only keep the columns for name, eye color, species, and homeworld. <br/> <br/></p>
+<pre class="r"><code>starwarsdata %&gt;% 
+subset(select = c(&quot;name&quot;, &quot;eye_color&quot;, &quot;species&quot;, &quot;homeworld&quot;))</code></pre>
+<pre><code># A tibble: 87 x 4
+                 name eye_color species homeworld
+                &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;
+ 1     Luke Skywalker      blue   Human  Tatooine
+ 2              C-3PO    yellow   Droid  Tatooine
+ 3              R2-D2       red   Droid     Naboo
+ 4        Darth Vader    yellow   Human  Tatooine
+ 5        Leia Organa     brown   Human  Alderaan
+ 6          Owen Lars      blue   Human  Tatooine
+ 7 Beru Whitesun lars      blue   Human  Tatooine
+ 8              R5-D4       red   Droid  Tatooine
+ 9  Biggs Darklighter     brown   Human  Tatooine
+10     Obi-Wan Kenobi blue-gray   Human   Stewjon
+# ... with 77 more rows</code></pre>
+<p><br/> <br/> <strong>Notice:</strong> If we call <em>starwarsdata</em>, the changes are not retained. We get all of the columns again.</p>
+<pre class="r"><code>print(starwarsdata)</code></pre>
+<pre><code># A tibble: 87 x 13
+                 name height  mass    hair_color  skin_color eye_color
+                &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;         &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;
+ 1     Luke Skywalker    172    77         blond        fair      blue
+ 2              C-3PO    167    75          &lt;NA&gt;        gold    yellow
+ 3              R2-D2     96    32          &lt;NA&gt; white, blue       red
+ 4        Darth Vader    202   136          none       white    yellow
+ 5        Leia Organa    150    49         brown       light     brown
+ 6          Owen Lars    178   120   brown, grey       light      blue
+ 7 Beru Whitesun lars    165    75         brown       light      blue
+ 8              R5-D4     97    32          &lt;NA&gt;  white, red       red
+ 9  Biggs Darklighter    183    84         black       light     brown
+10     Obi-Wan Kenobi    182    77 auburn, white        fair blue-gray
+# ... with 77 more rows, and 7 more variables: birth_year &lt;dbl&gt;,
+#   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<p><br/> <br/> If we want to keep the changes, we need to define a new object. <em>We will define “starwars_subset”</em></p>
+<pre class="r"><code>starwars_subset &lt;- starwarsdata %&gt;% 
+subset(select = c(&quot;name&quot;, &quot;eye_color&quot;, &quot;species&quot;, &quot;homeworld&quot;))
+
+print(starwars_subset)</code></pre>
+<pre><code># A tibble: 87 x 4
+                 name eye_color species homeworld
+                &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;
+ 1     Luke Skywalker      blue   Human  Tatooine
+ 2              C-3PO    yellow   Droid  Tatooine
+ 3              R2-D2       red   Droid     Naboo
+ 4        Darth Vader    yellow   Human  Tatooine
+ 5        Leia Organa     brown   Human  Alderaan
+ 6          Owen Lars      blue   Human  Tatooine
+ 7 Beru Whitesun lars      blue   Human  Tatooine
+ 8              R5-D4       red   Droid  Tatooine
+ 9  Biggs Darklighter     brown   Human  Tatooine
+10     Obi-Wan Kenobi blue-gray   Human   Stewjon
+# ... with 77 more rows</code></pre>
+<p><br/> <br/> <strong>Filter Rows</strong> <br/> <br/> Let’s filter the star wars dataset to show rows representing <strong>Humans Only</strong>.</p>
+<pre class="r"><code>starwars_subset %&gt;% 
+filter(species == &quot;Human&quot;)</code></pre>
+<pre><code># A tibble: 35 x 4
+                 name eye_color species homeworld
+                &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;
+ 1     Luke Skywalker      blue   Human  Tatooine
+ 2        Darth Vader    yellow   Human  Tatooine
+ 3        Leia Organa     brown   Human  Alderaan
+ 4          Owen Lars      blue   Human  Tatooine
+ 5 Beru Whitesun lars      blue   Human  Tatooine
+ 6  Biggs Darklighter     brown   Human  Tatooine
+ 7     Obi-Wan Kenobi blue-gray   Human   Stewjon
+ 8   Anakin Skywalker      blue   Human  Tatooine
+ 9     Wilhuff Tarkin      blue   Human    Eriadu
+10           Han Solo     brown   Human  Corellia
+# ... with 25 more rows</code></pre>
+<p><br/> <br/> Let’s filter the star wars dataset to show rows representing <strong>Humans with Blue Eyes Only</strong>.</p>
+<pre class="r"><code>starwars_subset %&gt;% 
+filter(species == &quot;Human&quot; &amp; eye_color == &quot;blue&quot;)</code></pre>
+<pre><code># A tibble: 12 x 4
+                 name eye_color species  homeworld
+                &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;
+ 1     Luke Skywalker      blue   Human   Tatooine
+ 2          Owen Lars      blue   Human   Tatooine
+ 3 Beru Whitesun lars      blue   Human   Tatooine
+ 4   Anakin Skywalker      blue   Human   Tatooine
+ 5     Wilhuff Tarkin      blue   Human     Eriadu
+ 6   Jek Tono Porkins      blue   Human Bestine IV
+ 7              Lobot      blue   Human     Bespin
+ 8         Mon Mothma      blue   Human  Chandrila
+ 9       Qui-Gon Jinn      blue   Human       &lt;NA&gt;
+10      Finis Valorum      blue   Human  Coruscant
+11        Cliegg Lars      blue   Human   Tatooine
+12         Jocasta Nu      blue   Human  Coruscant</code></pre>
+<p><br/> <br/> <strong>Filter Columns</strong> <br/> <br/></p>
+</div>
+<div id="summarize-data" class="section level1">
+<h1>Summarize Data</h1>
+<p>xyz</p>
+</div>
+<div id="manipulate-data" class="section level1">
+<h1>Manipulate Data</h1>
+<p>zyx</p>
+</div>
+<div id="visualize-data" class="section level1">
+<h1>Visualize Data</h1>
+<p>xyz</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

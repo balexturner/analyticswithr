@@ -1,0 +1,15 @@
+name: "Analytics with R"
+output_dir: "."
+navbar:
+  title: "Analytics with R"
+  left:
+    - text: "Home"
+      href: index.html   
+    - text: "Data Wrangling"
+      href: datawrangling.html
+    - text: "Data Visualization"
+      href: dataviz.html
+    - text: "Data Analysis"
+      href: linearregression.html
+    - text: "Sample Analyses"
+      href: sampleanalyses.html

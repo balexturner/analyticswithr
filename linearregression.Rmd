@@ -1,0 +1,187 @@
+---
+title: ""
+output: html_document
+---
+<br/>
+<br/>
+
+![](/Users/Brett/Desktop/AWR/analyticswithr/Data Analysis.png)
+
+<hr width="90%">
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+<!--html_preserve-->
+<br/>
+<br/>
+<!--/html_preserve-->
+<br/>
+
+###Load the packages we will use in this analysis.
+```{r, echo=TRUE}
+library(ggplot2)
+library(magrittr)
+library(knitr)
+library(gvlma)
+library(visreg)
+```
+##Linear Regression
+
+An ordinary least squares(OLS) regression is a statistical method used for evaluating the relationship between two continuous dependent(outcome) and independent(predictor) variables.
+
+
+To explain how this works as simply as possible, a linear regression line is the line that fits best through the observed points when you plot the points of your IVxDV. "Best Fit" in an OLS regression model is defined as the line which produces the smallest value when you take the sum of the squared distances between the estimation line and the observed points (residuals). The idea is that if you need to estimate a Y value that corresponds to a particular X value, the regression line would give you a safe theoretical base for estimation.
+
+
+Below is a scatterplot of observed values, and a regression line of estimated values.
+```{r, echo=FALSE}
+carslm<-lm(dist ~ speed, data=cars)
+visreg(carslm, xlab="X", ylab="Y")  #Plot the regression model.
+```
+
+
+
+##Example
+
+
+###Load Dataset
+We will load the **cars** dataset to run a simple linear regression. It contains two variables:
+
+* **Speed** = Speed (in mph)
+
+* **Dist** = Stopping Distance (in feet)
+
+```{r, echo=TRUE, fig.height=4, fig.width=4, message=FALSE, warning=FALSE}
+data(cars) #Load cars dataset.
+kable(cars[1:5,])   #Print first 5 rows of data.
+```
+
+
+###Preliminary Investigation of Data
+
+This is a scatterplot of the speed & stopping distance values for each observation. The relationship appears to show some linearity. That is to say, it appears that as speed increases, stopping distance increases
+```{r, echo=TRUE}
+plot(dist ~ speed, data=cars)
+```
+
+###Linear Regression
+Let's use a linear regression model to see how **effectively speed (IV)** estimates **stopping distance (DV)**.
+
+
+**First**, we define the model and it's parameters.
+```{r, echo=TRUE}
+#model <- lm(DV ~ IV, data=data)
+
+carslm<-lm(dist ~ speed, data=cars)
+```
+
+
+**Second**, we view the regression output.
+```{r, echo=TRUE}
+summary(carslm)
+```
+
+
+This is a visualization of the regression line (estimated values) among the scatter plot of the observed (actual) values.
+
+```{r, echo=TRUE}
+library(visreg) #Load visreg package.
+visreg(carslm)  #Plot the regression model.
+```
+
+##Reading the Regression Output
+
+
+###Coeficients
+These are the regression estimates and associated values. Note that the first line of coefficients represents the *Intercept*, where the regression line crosses the y-axis. subseqent lines represent slope of the regression line, denoting the change in the DV for every 1-unit increase of the IV.
+
+
+* **Estimate** = This is the estimated change in the dependent variable for every 1-unit change in the independent variable
+
+* **Std. Error** = Represents the standard error of the estimate, an indicator of how precise the predicted values are as compared to the observed values. Std. Error is calculated as follows:
+
+    + [square root of the [[sum of the squared deviations from the mean] divided by the [degrees of freedom *(n-1)* ]] divided by the square root of n.
+    + √( ∑ (m-i)2/n-1 ) / √n
+
+
+
+* **t value** = This value represents how effectively the model is predicting the outcome values, and is used to calculate the p-value. The t value is calculated as [Estimate] divided by [Standard Error]. The closer the t value is to zero (0), the less effective the model is at predicting the outcome. 
+
+* **Pr(>|t|)** = The p-value represents the rate at which the observed relationship would appear if the null hypothesis were true. In other words, it represents the likelihood that the relationship that is apparent in the data is occuring due to chance alone. The smaller the p-value, the greater the significance of your findings and the lower the likelihood that the relationship is occuring due to chance.
+
+
+
+###Residuals
+This section describes the residual values - the **differences between the values predicted by the regression model, and the value observed in the data**.
+
+* **Min** = The lowest residual value (Typically, the greatest under-prediction by the model).
+
+* **Max** = The highest residual value (Typically, the greatest over-prediction by the model).
+
+* **1Q** = This is the residual value which separates the lower 25% of residual values from upper 75%. 
+
+* **Median** = This is the median residual value, which separates the lower 50% of residual values from the upper 50%.
+
+* **3Q** = This is the residual value which separates the lower 75% of residual values from upper 25%. 
+
+<br/>
+
+##Assumptions required for a Linear Regression
+
+The following assumptions must be met in order to use a linear regression model for estimation.
+
+1. There is a linear relationship between the variables. *This assumption is violated if there is a correlation between X and Y that is caused by external variables which are omitted from the analysis (spurious relationships).*
+
+2. The residual values follow a normal distribution, and the mean of the residual values is approximately 0. **Residual values** = The differences between the observed values of the Dependent Variable (y) and the values predicted by the regression model(ŷ).*
+
+3. There can be no multicolinearity, meaning that the independent variables must be independent from eachother. Also, the error of the mean cannot be explained by the independent variables.
+
+4. There is no autocorrelation of the residuals, meaning that the current residual value is not dependent on a related previous value. *Particularly important for time-series analysis.*
+
+5. There must be homoscedasticity, meaning that the error value is relatively consistent throughout the regression, and variance in the data does not increase/decrease as X increases.
+
+##Testing Assumptions
+
+We can use the gvlma() function to test the assumptions of the linear regression.
+```{r, echo=TRUE}
+gvlma(carslm) 
+```
+
+
+We should run a diagnostic plot to assess the model.
+
+*Notice that 35, 23, and 49 are marked as outliers*
+```{r, echo=TRUE}
+plot(carslm)
+```
+
+The Q-Q plot plots the quantiles of the first dataset (observed) against the quantiles of the second dataset (estimated), and helps us determine if the two samples have a common distribution. In the Q-Q plot below, we can see that there are some outliers in the observed dataset (23, 35, 49). We should remove outliers and rebuild the regression model.
+
+ Removing the 3 outliers corrects our model, and all assumptions are accepted.
+```{r, echo=TRUE}
+carslm2 <- lm(dist ~ speed, data=cars[-c(23, 35, 49), ])
+gvlma(carslm2) #Test assumptions linear regression. All Good!
+```
+
+
+We can visually test the assumption of normally distributed residuals manually by using the resid() function to access the residuals from our model, and plotting them in a histogram.
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+kable(resid(carslm)[1:5])   #Print first 5 residual values
+
+ggplot(data=cars)+
+  geom_histogram(aes(x=resid(carslm)))  #Plot histogram of residual values.
+```

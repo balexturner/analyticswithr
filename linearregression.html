@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Analytics with R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="datawrangling.html">Data Wrangling</a>
+</li>
+<li>
+  <a href="dataviz.html">Data Visualization</a>
+</li>
+<li>
+  <a href="linearregression.html">Data Analysis</a>
+</li>
+<li>
+  <a href="sampleanalyses.html">Sample Analyses</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p><br/> <br/></p>
+<div class="figure">
+<img src="Data%20Analysis.png" />
+
+</div>
+<hr width="90%">
+<p>
+<br/>
+<br/>
+ <br/></p>
+<div id="load-the-packages-we-will-use-in-this-analysis." class="section level3">
+<h3>Load the packages we will use in this analysis.</h3>
+<pre class="r"><code>library(ggplot2)
+library(magrittr)
+library(knitr)
+library(gvlma)
+library(visreg)</code></pre>
+</div>
+<div id="linear-regression" class="section level2">
+<h2>Linear Regression</h2>
+<p>An ordinary least squares(OLS) regression is a statistical method used for evaluating the relationship between two continuous dependent(outcome) and independent(predictor) variables.</p>
+<p>To explain how this works as simply as possible, a linear regression line is the line that fits best through the observed points when you plot the points of your IVxDV. “Best Fit” in an OLS regression model is defined as the line which produces the smallest value when you take the sum of the squared distances between the estimation line and the observed points (residuals). The idea is that if you need to estimate a Y value that corresponds to a particular X value, the regression line would give you a safe theoretical base for estimation.</p>
+<p>Below is a scatterplot of observed values, and a regression line of estimated values. <img src="linearregression_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="example" class="section level2">
+<h2>Example</h2>
+<div id="load-dataset" class="section level3">
+<h3>Load Dataset</h3>
+<p>We will load the <strong>cars</strong> dataset to run a simple linear regression. It contains two variables:</p>
+<ul>
+<li><p><strong>Speed</strong> = Speed (in mph)</p></li>
+<li><p><strong>Dist</strong> = Stopping Distance (in feet)</p></li>
+</ul>
+<pre class="r"><code>data(cars)  #Load cars dataset.
+kable(cars[1:5, ])  #Print first 5 rows of data.</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">speed</th>
+<th align="right">dist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="right">7</td>
+<td align="right">22</td>
+</tr>
+<tr class="odd">
+<td align="right">8</td>
+<td align="right">16</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="preliminary-investigation-of-data" class="section level3">
+<h3>Preliminary Investigation of Data</h3>
+<p>This is a scatterplot of the speed &amp; stopping distance values for each observation. The relationship appears to show some linearity. That is to say, it appears that as speed increases, stopping distance increases</p>
+<pre class="r"><code>plot(dist ~ speed, data = cars)</code></pre>
+<p><img src="linearregression_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="linear-regression-1" class="section level3">
+<h3>Linear Regression</h3>
+<p>Let’s use a linear regression model to see how <strong>effectively speed (IV)</strong> estimates <strong>stopping distance (DV)</strong>.</p>
+<p><strong>First</strong>, we define the model and it’s parameters.</p>
+<pre class="r"><code># model &lt;- lm(DV ~ IV, data=data)
+
+carslm &lt;- lm(dist ~ speed, data = cars)</code></pre>
+<p><strong>Second</strong>, we view the regression output.</p>
+<pre class="r"><code>summary(carslm)</code></pre>
+<pre><code>
+Call:
+lm(formula = dist ~ speed, data = cars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-29.069  -9.525  -2.272   9.215  43.201 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -17.5791     6.7584  -2.601   0.0123 *  
+speed         3.9324     0.4155   9.464 1.49e-12 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 15.38 on 48 degrees of freedom
+Multiple R-squared:  0.6511,    Adjusted R-squared:  0.6438 
+F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
+<p>This is a visualization of the regression line (estimated values) among the scatter plot of the observed (actual) values.</p>
+<pre class="r"><code>library(visreg)  #Load visreg package.
+visreg(carslm)  #Plot the regression model.</code></pre>
+<p><img src="linearregression_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+</div>
+<div id="reading-the-regression-output" class="section level2">
+<h2>Reading the Regression Output</h2>
+<div id="coeficients" class="section level3">
+<h3>Coeficients</h3>
+<p>These are the regression estimates and associated values. Note that the first line of coefficients represents the <em>Intercept</em>, where the regression line crosses the y-axis. subseqent lines represent slope of the regression line, denoting the change in the DV for every 1-unit increase of the IV.</p>
+<ul>
+<li><p><strong>Estimate</strong> = This is the estimated change in the dependent variable for every 1-unit change in the independent variable</p></li>
+<li><p><strong>Std. Error</strong> = Represents the standard error of the estimate, an indicator of how precise the predicted values are as compared to the observed values. Std. Error is calculated as follows:</p>
+<ul>
+<li>[square root of the [[sum of the squared deviations from the mean] divided by the [degrees of freedom <em>(n-1)</em> ]] divided by the square root of n.</li>
+<li>√( ∑ (m-i)2/n-1 ) / √n</li>
+</ul></li>
+<li><p><strong>t value</strong> = This value represents how effectively the model is predicting the outcome values, and is used to calculate the p-value. The t value is calculated as [Estimate] divided by [Standard Error]. The closer the t value is to zero (0), the less effective the model is at predicting the outcome.</p></li>
+<li><p><strong>Pr(&gt;|t|)</strong> = The p-value represents the rate at which the observed relationship would appear if the null hypothesis were true. In other words, it represents the likelihood that the relationship that is apparent in the data is occuring due to chance alone. The smaller the p-value, the greater the significance of your findings and the lower the likelihood that the relationship is occuring due to chance.</p></li>
+</ul>
+</div>
+<div id="residuals" class="section level3">
+<h3>Residuals</h3>
+<p>This section describes the residual values - the <strong>differences between the values predicted by the regression model, and the value observed in the data</strong>.</p>
+<ul>
+<li><p><strong>Min</strong> = The lowest residual value (Typically, the greatest under-prediction by the model).</p></li>
+<li><p><strong>Max</strong> = The highest residual value (Typically, the greatest over-prediction by the model).</p></li>
+<li><p><strong>1Q</strong> = This is the residual value which separates the lower 25% of residual values from upper 75%.</p></li>
+<li><p><strong>Median</strong> = This is the median residual value, which separates the lower 50% of residual values from the upper 50%.</p></li>
+<li><p><strong>3Q</strong> = This is the residual value which separates the lower 75% of residual values from upper 25%.</p></li>
+</ul>
+<p><br/></p>
+</div>
+</div>
+<div id="assumptions-required-for-a-linear-regression" class="section level2">
+<h2>Assumptions required for a Linear Regression</h2>
+<p>The following assumptions must be met in order to use a linear regression model for estimation.</p>
+<ol style="list-style-type: decimal">
+<li><p>There is a linear relationship between the variables. <em>This assumption is violated if there is a correlation between X and Y that is caused by external variables which are omitted from the analysis (spurious relationships).</em></p></li>
+<li><p>The residual values follow a normal distribution, and the mean of the residual values is approximately 0. <strong>Residual values</strong> = The differences between the observed values of the Dependent Variable (y) and the values predicted by the regression model(ŷ).*</p></li>
+<li><p>There can be no multicolinearity, meaning that the independent variables must be independent from eachother. Also, the error of the mean cannot be explained by the independent variables.</p></li>
+<li><p>There is no autocorrelation of the residuals, meaning that the current residual value is not dependent on a related previous value. <em>Particularly important for time-series analysis.</em></p></li>
+<li><p>There must be homoscedasticity, meaning that the error value is relatively consistent throughout the regression, and variance in the data does not increase/decrease as X increases.</p></li>
+</ol>
+</div>
+<div id="testing-assumptions" class="section level2">
+<h2>Testing Assumptions</h2>
+<p>We can use the gvlma() function to test the assumptions of the linear regression.</p>
+<pre class="r"><code>gvlma(carslm)</code></pre>
+<pre><code>
+Call:
+lm(formula = dist ~ speed, data = cars)
+
+Coefficients:
+(Intercept)        speed  
+    -17.579        3.932  
+
+
+ASSESSMENT OF THE LINEAR MODEL ASSUMPTIONS
+USING THE GLOBAL TEST ON 4 DEGREES-OF-FREEDOM:
+Level of Significance =  0.05 
+
+Call:
+ gvlma(x = carslm) 
+
+                    Value  p-value                   Decision
+Global Stat        15.801 0.003298 Assumptions NOT satisfied!
+Skewness            6.528 0.010621 Assumptions NOT satisfied!
+Kurtosis            1.661 0.197449    Assumptions acceptable.
+Link Function       2.329 0.126998    Assumptions acceptable.
+Heteroscedasticity  5.283 0.021530 Assumptions NOT satisfied!</code></pre>
+<p>We should run a diagnostic plot to assess the model.</p>
+<p><em>Notice that 35, 23, and 49 are marked as outliers</em></p>
+<pre class="r"><code>plot(carslm)</code></pre>
+<p><img src="linearregression_files/figure-html/unnamed-chunk-9-1.png" width="672" /><img src="linearregression_files/figure-html/unnamed-chunk-9-2.png" width="672" /><img src="linearregression_files/figure-html/unnamed-chunk-9-3.png" width="672" /><img src="linearregression_files/figure-html/unnamed-chunk-9-4.png" width="672" /></p>
+<p>The Q-Q plot plots the quantiles of the first dataset (observed) against the quantiles of the second dataset (estimated), and helps us determine if the two samples have a common distribution. In the Q-Q plot below, we can see that there are some outliers in the observed dataset (23, 35, 49). We should remove outliers and rebuild the regression model.</p>
+<p>Removing the 3 outliers corrects our model, and all assumptions are accepted.</p>
+<pre class="r"><code>carslm2 &lt;- lm(dist ~ speed, data = cars[-c(23, 35, 49), ])
+gvlma(carslm2)  #Test assumptions linear regression. All Good!</code></pre>
+<pre><code>
+Call:
+lm(formula = dist ~ speed, data = cars[-c(23, 35, 49), ])
+
+Coefficients:
+(Intercept)        speed  
+    -15.137        3.608  
+
+
+ASSESSMENT OF THE LINEAR MODEL ASSUMPTIONS
+USING THE GLOBAL TEST ON 4 DEGREES-OF-FREEDOM:
+Level of Significance =  0.05 
+
+Call:
+ gvlma(x = carslm2) 
+
+                    Value p-value                Decision
+Global Stat        7.5910 0.10776 Assumptions acceptable.
+Skewness           0.8129 0.36725 Assumptions acceptable.
+Kurtosis           0.2210 0.63831 Assumptions acceptable.
+Link Function      3.2239 0.07257 Assumptions acceptable.
+Heteroscedasticity 3.3332 0.06789 Assumptions acceptable.</code></pre>
+<p>We can visually test the assumption of normally distributed residuals manually by using the resid() function to access the residuals from our model, and plotting them in a histogram.</p>
+<pre class="r"><code>kable(resid(carslm)[1:5])  #Print first 5 residual values</code></pre>
+<table>
+<tbody>
+<tr class="odd">
+<td align="right">3.849460</td>
+</tr>
+<tr class="even">
+<td align="right">11.849460</td>
+</tr>
+<tr class="odd">
+<td align="right">-5.947766</td>
+</tr>
+<tr class="even">
+<td align="right">12.052234</td>
+</tr>
+<tr class="odd">
+<td align="right">2.119825</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>ggplot(data = cars) + geom_histogram(aes(x = resid(carslm)))  #Plot histogram of residual values.</code></pre>
+<p><img src="linearregression_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,240 @@
+---
+title: ""
+output: html_document
+---
+<br/>
+<br/>
+
+![](/Users/Brett/Desktop/AWR/analyticswithr/Data Wrangling.png)
+
+<hr width="90%">
+
+```{r, eval=FALSE, include=FALSE}
+#Instructions for setting up sharing on linkedin.
+#https://developer.linkedin.com/docs/share-on-linkedin
+```
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+#Introduction to R Programming
+
+Use the links to the left to navigate through introductory R programming topics, including:
+
+--Data Frames
+
+--Filtering Data
+
+--Summarize Data
+
+--Manipulate Data
+
+--Visualize Data
+
+
+#Packages
+
+You will need to use various packages in order to achieve your desired data manipulation/analysis goals. A package is a suite of commands, data, and code that serve as toolkits for simplifying various programming tasks.
+
+For Example: I want to do this thing which is really complicated.
+
+Instead of doing all that, I can use this package and it is really easy.
+
+OR
+
+For Example, this package allows us to perform thiese functions, and comes with this sample data.
+
+#Data Frames
+
+A **Data Frame** is a list of vectors (columns of data) of equal length.
+<br/>
+*Example:*
+
+```{r, eval=TRUE, include=TRUE, echo=TRUE}
+
+#Vectors
+
+name <- c("Kenia", "Sabrina", "Kelvin", "Alex")
+age <- c("24","24","27","26")
+sex <- c("Female","Female","Male","Male")
+
+
+#Data Frame
+
+dataframe <- data.frame(name, age, sex)
+```
+
+<br/>
+<br/>
+
+We can use the **print()** command to view the dataframe.
+
+```{r, eval=TRUE, include=TRUE}
+print(dataframe)
+```
+
+<br/>
+<br/>
+
+We can print a **single column**.
+
+```{r, echo=TRUE}
+
+dataframe["name"]
+```
+We can identify the column by name(above), or index number(below).
+
+```{r, echo=TRUE}
+
+dataframe[1]
+```
+<br/>
+<br/>
+
+We can print a **single row**.
+
+```{r, echo=TRUE}
+
+dataframe[3,]
+
+```
+Or **multiple rows**.
+
+```{r, echo=TRUE}
+
+dataframe[1:3,]
+
+#Don't forget the comma!
+```
+<br/>
+<br/>
+To **load a dataframe from a file on your computer**
+
+*(You will need the file path for your data file)*
+```{r, eval=FALSE, include=TRUE, echo=TRUE}
+mydata <- read.csv("filepath")     #Read a .csv file
+mydata <- read.delim("filepath")   #Read other table data formats
+```
+
+
+#Filter Data
+
+Load the **dplyr** package.
+```{r, eval=FALSE, include=TRUE, echo=TRUE}
+install.packages("dplyr")  #Install the package if you haven't before.
+library(dplyr) #Load the package
+```
+```{r, include=FALSE}
+library(dplyr)
+```
+
+
+<br/>
+<br/>
+Load the **starwars** dataframe.
+```{r, eval=TRUE, include=TRUE, echo=TRUE}
+starwarsdata <- starwars
+
+print(starwarsdata)
+```
+<br/>
+<br/>
+**Wait**: Before we start filtering, you should understand how the Magrittr package allows us to use pipes to tie together multiple dplyr functions into a single executable command.
+
+
+Below, we can both define the dataframe, and print the table as we did above with one single script of dplyr commands that are piped together with Magrittr "%>%" piping.
+```{r, eval=TRUE, include=TRUE, echo=TRUE}
+starwarsdata<- starwars%>%   #Step 1: Define the Dataframe
+  print()  #Step 2: Print the table
+
+```
+<br/>
+<br/>
+**Filter Columns**  
+We will only keep the columns for name, eye color, species, and homeworld.
+<br/>
+<br/>
+```{r, eval=TRUE, include=TRUE, echo=TRUE}
+starwarsdata%>%
+  
+  subset(select=c("name","eye_color","species","homeworld"))
+
+```
+
+<br/>
+<br/>
+**Notice:** If we call *starwarsdata*, the changes are not retained. We get all of the columns again.
+```{r, eval=TRUE, include=TRUE, echo=TRUE}
+print(starwarsdata)
+```
+<br/>
+<br/>
+If we want to keep the changes, we need to define a new object. 
+*We will define "starwars_subset"*
+
+```{r, eval=TRUE, include=TRUE, echo=TRUE}
+starwars_subset<- starwarsdata%>%
+  
+  subset(select=c("name","eye_color","species","homeworld"))
+
+print(starwars_subset)
+
+```
+
+<br/>
+<br/>
+**Filter Rows**
+<br/>
+<br/>
+Let's filter the star wars dataset to show rows representing **Humans Only**.
+```{r, eval=TRUE, include=TRUE, echo=TRUE}
+starwars_subset%>%
+  
+  filter(species == "Human")
+
+```
+
+<br/>
+<br/>
+Let's filter the star wars dataset to show rows representing **Humans with Blue Eyes Only**.
+```{r, eval=TRUE, include=TRUE, echo=TRUE}
+starwars_subset%>%
+  
+  filter(species == "Human" & eye_color== "blue")
+
+```
+
+<br/>
+<br/>
+**Filter Columns**
+<br/>
+<br/>
+
+#Summarize Data
+xyz
+
+#Manipulate Data
+zyx
+
+#Visualize Data
+xyz
+
+
+
+
+
+
