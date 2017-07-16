@@ -4,12 +4,14 @@ navbar:
   title: "Analytics with R"
   left:
     - text: "Home"
-      href: index.html   
+      href: index.html  
+    - text: "R Basics"
+      href: rbasics.html
     - text: "Data Wrangling"
       href: datawrangling.html
     - text: "Data Visualization"
       href: dataviz.html
     - text: "Data Analysis"
-      href: linearregression.html
-    - text: "Sample Analyses"
-      href: sampleanalyses.html
+      menu:
+        - text: "Linear Regression"
+          href: ols.html

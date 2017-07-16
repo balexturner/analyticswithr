@@ -179,16 +179,25 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
+  <a href="rbasics.html">R Basics</a>
+</li>
+<li>
   <a href="datawrangling.html">Data Wrangling</a>
 </li>
 <li>
   <a href="dataviz.html">Data Visualization</a>
 </li>
-<li>
-  <a href="linearregression.html">Data Analysis</a>
-</li>
-<li>
-  <a href="sampleanalyses.html">Sample Analyses</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="ols.html">Linear Regression</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -206,29 +215,12 @@ $(document).ready(function () {
 </div>
 
 
-<p><br/> <br/></p>
+<p><br/></p>
 <div class="figure">
 <img src="Data%20Wrangling.png" />
 
 </div>
 <hr width="90%">
-<div id="introduction-to-r-programming" class="section level1">
-<h1>Introduction to R Programming</h1>
-<p>Use the links to the left to navigate through introductory R programming topics, including:</p>
-<p>–Data Frames</p>
-<p>–Filtering Data</p>
-<p>–Summarize Data</p>
-<p>–Manipulate Data</p>
-<p>–Visualize Data</p>
-</div>
-<div id="packages" class="section level1">
-<h1>Packages</h1>
-<p>You will need to use various packages in order to achieve your desired data manipulation/analysis goals. A package is a suite of commands, data, and code that serve as toolkits for simplifying various programming tasks.</p>
-<p>For Example: I want to do this thing which is really complicated.</p>
-<p>Instead of doing all that, I can use this package and it is really easy.</p>
-<p>OR</p>
-<p>For Example, this package allows us to perform thiese functions, and comes with this sample data.</p>
-</div>
 <div id="data-frames" class="section level1">
 <h1>Data Frames</h1>
 <p>A <strong>Data Frame</strong> is a list of vectors (columns of data) of equal length. <br/> <em>Example:</em></p>
@@ -328,8 +320,7 @@ print(starwarsdata)</code></pre>
 #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 <p><br/> <br/> <strong>Filter Columns</strong><br />
 We will only keep the columns for name, eye color, species, and homeworld. <br/> <br/></p>
-<pre class="r"><code>starwarsdata %&gt;% 
-subset(select = c(&quot;name&quot;, &quot;eye_color&quot;, &quot;species&quot;, &quot;homeworld&quot;))</code></pre>
+<pre class="r"><code>starwarsdata %&gt;% subset(select = c(&quot;name&quot;, &quot;eye_color&quot;, &quot;species&quot;, &quot;homeworld&quot;))</code></pre>
 <pre><code># A tibble: 87 x 4
                  name eye_color species homeworld
                 &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;
@@ -363,8 +354,8 @@ subset(select = c(&quot;name&quot;, &quot;eye_color&quot;, &quot;species&quot;, 
 #   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
 #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 <p><br/> <br/> If we want to keep the changes, we need to define a new object. <em>We will define “starwars_subset”</em></p>
-<pre class="r"><code>starwars_subset &lt;- starwarsdata %&gt;% 
-subset(select = c(&quot;name&quot;, &quot;eye_color&quot;, &quot;species&quot;, &quot;homeworld&quot;))
+<pre class="r"><code>starwars_subset &lt;- starwarsdata %&gt;% subset(select = c(&quot;name&quot;, &quot;eye_color&quot;, &quot;species&quot;, 
+    &quot;homeworld&quot;))
 
 print(starwars_subset)</code></pre>
 <pre><code># A tibble: 87 x 4
@@ -382,8 +373,7 @@ print(starwars_subset)</code></pre>
 10     Obi-Wan Kenobi blue-gray   Human   Stewjon
 # ... with 77 more rows</code></pre>
 <p><br/> <br/> <strong>Filter Rows</strong> <br/> <br/> Let’s filter the star wars dataset to show rows representing <strong>Humans Only</strong>.</p>
-<pre class="r"><code>starwars_subset %&gt;% 
-filter(species == &quot;Human&quot;)</code></pre>
+<pre class="r"><code>starwars_subset %&gt;% filter(species == &quot;Human&quot;)</code></pre>
 <pre><code># A tibble: 35 x 4
                  name eye_color species homeworld
                 &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;
@@ -399,8 +389,7 @@ filter(species == &quot;Human&quot;)</code></pre>
 10           Han Solo     brown   Human  Corellia
 # ... with 25 more rows</code></pre>
 <p><br/> <br/> Let’s filter the star wars dataset to show rows representing <strong>Humans with Blue Eyes Only</strong>.</p>
-<pre class="r"><code>starwars_subset %&gt;% 
-filter(species == &quot;Human&quot; &amp; eye_color == &quot;blue&quot;)</code></pre>
+<pre class="r"><code>starwars_subset %&gt;% filter(species == &quot;Human&quot; &amp; eye_color == &quot;blue&quot;)</code></pre>
 <pre><code># A tibble: 12 x 4
                  name eye_color species  homeworld
                 &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;

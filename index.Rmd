@@ -3,7 +3,7 @@ title: ""
 output: html_document
     
 ---
-<br/>
+
 <br/>
 
 ![](/Users/Brett/Desktop/AWR/analyticswithr/analyticswithR banner slim.png)
@@ -36,7 +36,15 @@ opts_knit$set(width=75)
 <br/>
 <br/>
 <br/>
-I hope you'll find this site to be a useful r-programming resource. The site is separted into four sections: **Data Wrangling**, **Visualization**, **Analysis**, and **Sample Analyses**. *Not all of the content is up yet, but it should be within the next week.*
+I hope you'll find this site to be a useful r-programming resource. The site is separted into the following five sections: 
+
+* **R Basics**
+* **Data Wrangling** 
+* **Data Visualization** 
+* **Data Analysis** 
+* **Sample Analyses**
+
+*Not all of the content is up yet, but it should be within the next week.*
 
 
 

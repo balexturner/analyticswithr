@@ -2,7 +2,7 @@
 title: ""
 output: html_document
 ---
-<br/>
+
 <br/>
 
 ![](/Users/Brett/Desktop/AWR/analyticswithr/Data Visualization.png)
@@ -16,3 +16,21 @@ output: html_document
 
 
 #####This Page is currently unavailable. Please check back for updates.
+
+
+The [ggplot2 package ](https://cran.r-project.org/web/packages/ggplot2/ggplot2.pdf) is the probably the most widely used package for producing elegant visualizations in r. There are extensive resources available online from the creators of ggplot2. [R for Data Science](http://r4ds.had.co.nz/index.html) is a thorough, easy-to-digest text for those becoming aquainted with data visualizations in r. 
+
+##Visualizing Data with ggplot2
+
+###Install ggplot2()
+```{r, echo=TRUE, eval=FALSE}
+install.packages("ggplot2")
+```
+
+###Load the ggplot2() package
+```{r, echo=TRUE}
+library(ggplot2)
+```
+
+
+

@@ -217,24 +217,81 @@ $(document).ready(function () {
 
 <p><br/></p>
 <div class="figure">
-<img src="Data%20Visualization.png" />
+<img src="R%20Programming%20Basics.png" />
 
 </div>
 <hr width="90%">
-<p><br/> <br/> <br/> <br/></p>
-<div id="this-page-is-currently-unavailable.-please-check-back-for-updates." class="section level5">
-<h5>This Page is currently unavailable. Please check back for updates.</h5>
-<p>The <a href="https://cran.r-project.org/web/packages/ggplot2/ggplot2.pdf">ggplot2 package</a> is the probably the most widely used package for producing elegant visualizations in r. There are extensive resources available online from the creators of ggplot2. <a href="http://r4ds.had.co.nz/index.html">R for Data Science</a> is a thorough, easy-to-digest text for those becoming aquainted with data visualizations in r.</p>
+<p><br/></p>
+<div id="download-r" class="section level2">
+<h2>Download R</h2>
+<p>R is a free software environment for statistical computing and graphics. See the <a href="https://www.r-project.org">R project homepage</a> for more information. <a href="https://cran.r-project.org/mirrors.html">Download r here</a>.</p>
+<p><br/></p>
 </div>
-<div id="visualizing-data-with-ggplot2" class="section level2">
-<h2>Visualizing Data with ggplot2</h2>
-<div id="install-ggplot2" class="section level3">
-<h3>Install ggplot2()</h3>
-<pre class="r"><code>install.packages(&quot;ggplot2&quot;)</code></pre>
+<div id="download-rstudio" class="section level2">
+<h2>Download RStudio</h2>
+<p><a href="https://www.rstudio.com">RStudio</a> is a free and open-source integrated development environment (IDE) for R. Ir provides a graphic interface and user-friendly environment for r programmers to write and test their code. <a href="https://www.rstudio.com/products/rstudio/download3/">Download RSTudio here</a>. RStudio is not the only IDE for r, but it is the most widely used.</p>
+<p><br/></p>
 </div>
-<div id="load-the-ggplot2-package" class="section level3">
-<h3>Load the ggplot2() package</h3>
-<pre class="r"><code>library(ggplot2)</code></pre>
+<div id="base-r" class="section level2">
+<h2>Base R</h2>
+<p>R has hundreds of native functions that are part of the base package. These are the functions which allow R to perform as a programming language, including basic arithmetic and various programming inputs/outputs.</p>
+<p>For example, r can automatically recognize basic calculations.</p>
+<div id="addition" class="section level5">
+<h5>Addition</h5>
+<pre class="r"><code>3+3</code></pre>
+<pre><code>## [1] 6</code></pre>
+</div>
+<div id="multiplication" class="section level5">
+<h5>Multiplication</h5>
+<pre class="r"><code>3*3</code></pre>
+<pre><code>## [1] 9</code></pre>
+</div>
+<div id="exponentiation" class="section level5">
+<h5>Exponentiation</h5>
+<pre class="r"><code>3^3</code></pre>
+<pre><code>## [1] 27</code></pre>
+</div>
+<div id="logarithms" class="section level5">
+<h5>Logarithms</h5>
+<pre class="r"><code>log(3)</code></pre>
+<pre><code>## [1] 1.098612</code></pre>
+</div>
+<div id="and-much-more." class="section level5">
+<h5><a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html">and much more</a>.</h5>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
+<p>Because r is an open source platform, users and developers from all over the world are able to contribute to r by creating packages that can be utilized by other r users. A <strong>Package</strong> is a suite of pre-defined commands, data, and code that serve as toolkits for simplifying various programming tasks.</p>
+<p>If you want to produce beautiful visualizations, scrape tweets from twitter, manipulate data quickly and efficiently, perform statistical analysis without having to write out entire complex algorithms, or do just about anything in r, then you will likely find yourself becoming familiar with various packages very soon after starting to use r.</p>
+<p><br/></p>
+<div id="installing-packages" class="section level5">
+<h5>Installing packages</h5>
+<p>In order to use a package, you will need to install it. A package is installed as follows:</p>
+<pre class="r"><code>install.packages(&quot;stringr&quot;)</code></pre>
+<p><em>This only ever needs to be done once per package, unless you are installing an updated version of a package after a new release.</em></p>
+<p><br/></p>
+</div>
+<div id="loading-packages-for-use" class="section level5">
+<h5>Loading packages for use</h5>
+<p>Each time R is restarted, you will need to load the packages that you intend to use in the current session. A packages is loaded as follows:</p>
+<pre class="r"><code>library(stringr)</code></pre>
+<p><br/></p>
+</div>
+<div id="package-help" class="section level5">
+<h5>Package Help</h5>
+<p>If you type a “?” before the name of an installed package, you will pull up the help page for the given package.</p>
+<pre class="r"><code>?stringr</code></pre>
+<p><br/></p>
+</div>
+<div id="using-a-package." class="section level5">
+<h5>Using a package.</h5>
+<p>The stringr package that we’ve installed above contains dozens of useful functions for dealing with text strings. For Example, the <strong>str_detect()</strong> function from stringr gives us a true or false value based on whether or not a specified string pattern appears in a body of text.</p>
+<pre class="r"><code>#str_detect(string, pattern)  This is the syntax for the str_detect function
+
+str_detect(&quot;Mary had a little lamb&quot;, &quot;Mary&quot;)  #example</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 </div>
 </div>
 

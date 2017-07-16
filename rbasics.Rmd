@@ -1,0 +1,98 @@
+---
+title: ""
+output: html_document
+---
+
+<br/>
+
+![](/Users/Brett/Desktop/AWR/analyticswithr/R Programming Basics.png)
+
+<hr width="90%">
+
+<br/>
+
+##Download R
+R is a free software environment for statistical computing and graphics. See the [R project homepage](https://www.r-project.org) for more information. [Download r here](https://cran.r-project.org/mirrors.html).
+
+<br/>
+
+##Download RStudio
+[RStudio](https://www.rstudio.com) is a free and open-source integrated development environment (IDE) for R. Ir provides a graphic interface and user-friendly environment for r programmers to write and test their code. [Download RSTudio here](https://www.rstudio.com/products/rstudio/download3/). RStudio is not the only IDE for r, but it is the most widely used.
+
+<br/>
+
+##Base R
+R has hundreds of native functions that are part of the base package. These are the functions which allow R to perform as a programming language, including basic arithmetic and various programming inputs/outputs. 
+
+For example, r can automatically recognize basic calculations.
+
+#####Addition
+```{r, echo=TRUE}
+3+3
+```
+
+#####Multiplication
+```{r, echo=TRUE}
+3*3
+```
+
+#####Exponentiation
+```{r, echo=TRUE}
+3^3
+```
+
+#####Logarithms
+```{r, echo=TRUE}
+log(3)
+```
+
+#####[and much more](https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html).
+
+<br/><br/>
+
+##Packages
+
+Because r is an open source platform, users and developers from all over the world are able to contribute to r by creating packages that can be utilized by other r users. A **Package** is a suite of pre-defined commands, data, and code that serve as toolkits for simplifying various programming tasks.
+
+If you want to produce beautiful visualizations, scrape tweets from twitter, manipulate data quickly and efficiently, perform statistical analysis without having to write out entire complex algorithms, or do just about anything in r, then you will likely find yourself becoming familiar with various packages very soon after starting to use r.
+
+<br/>
+
+#####Installing packages
+In order to use a package, you will need to install it.  A package is installed as follows:
+```{r, echo=TRUE, eval=FALSE}
+install.packages("stringr")
+```
+*This only ever needs to be done once per package, unless you are installing an updated version of a package after a new release.*
+
+<br/>
+
+#####Loading packages for use
+Each time R is restarted, you will need to load the packages that you intend to use in the current session. 
+A packages is loaded as follows:
+```{r, echo=TRUE, eval=TRUE}
+library(stringr)
+```
+
+<br/>
+
+#####Package Help
+If you type a "?" before the name of an installed package, you will pull up the help page for the given package.
+```{r, echo=TRUE}
+?stringr
+```
+
+<br/>
+
+#####Using a package.
+The stringr package that we've installed above contains dozens of useful functions for dealing with text strings. For Example, the **str_detect()** function from stringr gives us a true or false value based on whether or not a specified string pattern appears in a body of text.
+
+```{r, echo-TRUE}
+#str_detect(string, pattern)  This is the syntax for the str_detect function
+
+str_detect("Mary had a little lamb", "Mary")  #example
+```
+
+
+
+

@@ -179,16 +179,25 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
+  <a href="rbasics.html">R Basics</a>
+</li>
+<li>
   <a href="datawrangling.html">Data Wrangling</a>
 </li>
 <li>
   <a href="dataviz.html">Data Visualization</a>
 </li>
-<li>
-  <a href="linearregression.html">Data Analysis</a>
-</li>
-<li>
-  <a href="sampleanalyses.html">Sample Analyses</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="ols.html">Linear Regression</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -206,16 +215,23 @@ $(document).ready(function () {
 </div>
 
 
-<p><br/> <br/></p>
+<p><br/></p>
 <div class="figure">
 <img src="Data%20Analysis.png" />
 
 </div>
 <hr width="90%">
-<p>
-<br/>
-<br/>
- <br/></p>
+<div id="linear-regression" class="section level2">
+<h2>Linear Regression</h2>
+<p>An ordinary least squares(OLS) regression is a statistical method used for evaluating the relationship between two continuous dependent(outcome) and independent(predictor) variables.</p>
+<p>To explain how this works as simply as possible, a linear regression line is the line that fits best through observed points that are plotted on a graph. “Best Fit” in an OLS regression model is defined as the line which produces the smallest value when you take the sum of the squared distances between the estimation line and the observed points. The idea is that if you need to estimate a Y value that corresponds with a particular X value, the regression line would give you a safe theoretical base for estimation.</p>
+<p>Below is a scatterplot of observed values, and a regression line of estimated values.</p>
+<p><img src="ols_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><em>That is the line which produces the smallest value when you take the sum the squared distances between the line &amp; each observed point (residuals).</em></p>
+<p><br/> <br/></p>
+</div>
+<div id="example" class="section level2">
+<h2>Example</h2>
 <div id="load-the-packages-we-will-use-in-this-analysis." class="section level3">
 <h3>Load the packages we will use in this analysis.</h3>
 <pre class="r"><code>library(ggplot2)
@@ -224,14 +240,6 @@ library(knitr)
 library(gvlma)
 library(visreg)</code></pre>
 </div>
-<div id="linear-regression" class="section level2">
-<h2>Linear Regression</h2>
-<p>An ordinary least squares(OLS) regression is a statistical method used for evaluating the relationship between two continuous dependent(outcome) and independent(predictor) variables.</p>
-<p>To explain how this works as simply as possible, a linear regression line is the line that fits best through the observed points when you plot the points of your IVxDV. “Best Fit” in an OLS regression model is defined as the line which produces the smallest value when you take the sum of the squared distances between the estimation line and the observed points (residuals). The idea is that if you need to estimate a Y value that corresponds to a particular X value, the regression line would give you a safe theoretical base for estimation.</p>
-<p>Below is a scatterplot of observed values, and a regression line of estimated values. <img src="linearregression_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-</div>
-<div id="example" class="section level2">
-<h2>Example</h2>
 <div id="load-dataset" class="section level3">
 <h3>Load Dataset</h3>
 <p>We will load the <strong>cars</strong> dataset to run a simple linear regression. It contains two variables:</p>
@@ -276,7 +284,7 @@ kable(cars[1:5, ])  #Print first 5 rows of data.</code></pre>
 <h3>Preliminary Investigation of Data</h3>
 <p>This is a scatterplot of the speed &amp; stopping distance values for each observation. The relationship appears to show some linearity. That is to say, it appears that as speed increases, stopping distance increases</p>
 <pre class="r"><code>plot(dist ~ speed, data = cars)</code></pre>
-<p><img src="linearregression_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="ols_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 <div id="linear-regression-1" class="section level3">
 <h3>Linear Regression</h3>
@@ -308,7 +316,7 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
 <p>This is a visualization of the regression line (estimated values) among the scatter plot of the observed (actual) values.</p>
 <pre class="r"><code>library(visreg)  #Load visreg package.
 visreg(carslm)  #Plot the regression model.</code></pre>
-<p><img src="linearregression_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="ols_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 </div>
 <div id="reading-the-regression-output" class="section level2">
@@ -380,7 +388,7 @@ Heteroscedasticity  5.283 0.021530 Assumptions NOT satisfied!</code></pre>
 <p>We should run a diagnostic plot to assess the model.</p>
 <p><em>Notice that 35, 23, and 49 are marked as outliers</em></p>
 <pre class="r"><code>plot(carslm)</code></pre>
-<p><img src="linearregression_files/figure-html/unnamed-chunk-9-1.png" width="672" /><img src="linearregression_files/figure-html/unnamed-chunk-9-2.png" width="672" /><img src="linearregression_files/figure-html/unnamed-chunk-9-3.png" width="672" /><img src="linearregression_files/figure-html/unnamed-chunk-9-4.png" width="672" /></p>
+<p><img src="ols_files/figure-html/unnamed-chunk-9-1.png" width="672" /><img src="ols_files/figure-html/unnamed-chunk-9-2.png" width="672" /><img src="ols_files/figure-html/unnamed-chunk-9-3.png" width="672" /><img src="ols_files/figure-html/unnamed-chunk-9-4.png" width="672" /></p>
 <p>The Q-Q plot plots the quantiles of the first dataset (observed) against the quantiles of the second dataset (estimated), and helps us determine if the two samples have a common distribution. In the Q-Q plot below, we can see that there are some outliers in the observed dataset (23, 35, 49). We should remove outliers and rebuild the regression model.</p>
 <p>Removing the 3 outliers corrects our model, and all assumptions are accepted.</p>
 <pre class="r"><code>carslm2 &lt;- lm(dist ~ speed, data = cars[-c(23, 35, 49), ])
@@ -429,7 +437,7 @@ Heteroscedasticity 3.3332 0.06789 Assumptions acceptable.</code></pre>
 </tbody>
 </table>
 <pre class="r"><code>ggplot(data = cars) + geom_histogram(aes(x = resid(carslm)))  #Plot histogram of residual values.</code></pre>
-<p><img src="linearregression_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="ols_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
 
 

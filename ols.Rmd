@@ -1,8 +1,8 @@
 ---
 title: ""
 output: html_document
+
 ---
-<br/>
 <br/>
 
 ![](/Users/Brett/Desktop/AWR/analyticswithr/Data Analysis.png)
@@ -25,11 +25,31 @@ opts_chunk$set(echo=FALSE,
 opts_knit$set(width=75)
 ```
 
-<!--html_preserve-->
+
+
+
+##Linear Regression
+
+An ordinary least squares(OLS) regression is a statistical method used for evaluating the relationship between two continuous dependent(outcome) and independent(predictor) variables.
+
+
+To explain how this works as simply as possible, a linear regression line is the line that fits best through  observed points that are plotted on a graph. "Best Fit" in an OLS regression model is defined as the line which produces the smallest value when you take the sum of the squared distances between the estimation line and the observed points. The idea is that if you need to estimate a Y value that corresponds with a particular X value, the regression line would give you a safe theoretical base for estimation.
+
+
+Below is a scatterplot of observed values, and a regression line of estimated values.
+
+```{r, echo=FALSE}
+library(visreg)
+carslm<-lm(dist ~ speed, data=cars)
+visreg(carslm, xlab="X", ylab="Y")  #Plot the regression model.
+```
+
+*That is the line which produces the smallest value when you take the sum the squared distances between the line & each observed point (residuals).*
+
 <br/>
 <br/>
-<!--/html_preserve-->
-<br/>
+
+##Example
 
 ###Load the packages we will use in this analysis.
 ```{r, echo=TRUE}
@@ -39,24 +59,6 @@ library(knitr)
 library(gvlma)
 library(visreg)
 ```
-##Linear Regression
-
-An ordinary least squares(OLS) regression is a statistical method used for evaluating the relationship between two continuous dependent(outcome) and independent(predictor) variables.
-
-
-To explain how this works as simply as possible, a linear regression line is the line that fits best through the observed points when you plot the points of your IVxDV. "Best Fit" in an OLS regression model is defined as the line which produces the smallest value when you take the sum of the squared distances between the estimation line and the observed points (residuals). The idea is that if you need to estimate a Y value that corresponds to a particular X value, the regression line would give you a safe theoretical base for estimation.
-
-
-Below is a scatterplot of observed values, and a regression line of estimated values.
-```{r, echo=FALSE}
-carslm<-lm(dist ~ speed, data=cars)
-visreg(carslm, xlab="X", ylab="Y")  #Plot the regression model.
-```
-
-
-
-##Example
-
 
 ###Load Dataset
 We will load the **cars** dataset to run a simple linear regression. It contains two variables:

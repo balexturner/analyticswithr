@@ -2,7 +2,7 @@
 title: ""
 output: html_document
 ---
-<br/>
+
 <br/>
 
 ![](/Users/Brett/Desktop/AWR/analyticswithr/Data Wrangling.png)
@@ -30,33 +30,6 @@ opts_chunk$set(echo=FALSE,
                warning=FALSE)
 opts_knit$set(width=75)
 ```
-
-#Introduction to R Programming
-
-Use the links to the left to navigate through introductory R programming topics, including:
-
---Data Frames
-
---Filtering Data
-
---Summarize Data
-
---Manipulate Data
-
---Visualize Data
-
-
-#Packages
-
-You will need to use various packages in order to achieve your desired data manipulation/analysis goals. A package is a suite of commands, data, and code that serve as toolkits for simplifying various programming tasks.
-
-For Example: I want to do this thing which is really complicated.
-
-Instead of doing all that, I can use this package and it is really easy.
-
-OR
-
-For Example, this package allows us to perform thiese functions, and comes with this sample data.
 
 #Data Frames
 
@@ -170,7 +143,6 @@ We will only keep the columns for name, eye color, species, and homeworld.
 <br/>
 ```{r, eval=TRUE, include=TRUE, echo=TRUE}
 starwarsdata%>%
-  
   subset(select=c("name","eye_color","species","homeworld"))
 
 ```
@@ -188,7 +160,6 @@ If we want to keep the changes, we need to define a new object.
 
 ```{r, eval=TRUE, include=TRUE, echo=TRUE}
 starwars_subset<- starwarsdata%>%
-  
   subset(select=c("name","eye_color","species","homeworld"))
 
 print(starwars_subset)
@@ -203,7 +174,6 @@ print(starwars_subset)
 Let's filter the star wars dataset to show rows representing **Humans Only**.
 ```{r, eval=TRUE, include=TRUE, echo=TRUE}
 starwars_subset%>%
-  
   filter(species == "Human")
 
 ```
@@ -213,7 +183,6 @@ starwars_subset%>%
 Let's filter the star wars dataset to show rows representing **Humans with Blue Eyes Only**.
 ```{r, eval=TRUE, include=TRUE, echo=TRUE}
 starwars_subset%>%
-  
   filter(species == "Human" & eye_color== "blue")
 
 ```
