@@ -17,7 +17,7 @@ R is a free software environment for statistical computing and graphics. See the
 <br/>
 
 ##Download RStudio
-[RStudio](https://www.rstudio.com) is a free and open-source integrated development environment (IDE) for R. Ir provides a graphic interface and user-friendly environment for r programmers to write and test their code. [Download RSTudio here](https://www.rstudio.com/products/rstudio/download3/). RStudio is not the only IDE for r, but it is the most widely used.
+[RStudio](https://www.rstudio.com) is a free and open-source integrated development environment (IDE) for R. It provides a graphic interface and user-friendly environment for r programmers to write and test their code. [Download RSTudio here](https://www.rstudio.com/products/rstudio/download3/). RStudio is not the only IDE for r, but it is the most widely used.
 
 <br/>
 
