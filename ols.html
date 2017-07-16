@@ -419,6 +419,27 @@ visreg(carslm)  #Plot the regression model.</code></pre>
 </div>
 <div id="reading-the-regression-output" class="section level2">
 <h2>Reading the Regression Output</h2>
+<p><br/></p>
+<pre class="r"><code>summary(carslm)</code></pre>
+<pre><code>
+Call:
+lm(formula = dist ~ speed, data = cars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-29.069  -9.525  -2.272   9.215  43.201 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -17.5791     6.7584  -2.601   0.0123 *  
+speed         3.9324     0.4155   9.464 1.49e-12 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 15.38 on 48 degrees of freedom
+Multiple R-squared:  0.6511,    Adjusted R-squared:  0.6438 
+F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
+<p><br/></p>
 <div id="coeficients" class="section level3">
 <h3>Coeficients</h3>
 <p>These are the regression estimates and associated values. Note that the first line of coefficients represents the <em>Intercept</em>, where the regression line crosses the y-axis. subseqent lines represent slope of the regression line, denoting the change in the DV for every 1-unit increase of the IV.</p>
@@ -486,7 +507,7 @@ Heteroscedasticity  5.283 0.021530 Assumptions NOT satisfied!</code></pre>
 <p>We should run a diagnostic plot to assess the model.</p>
 <p><em>Notice that 35, 23, and 49 are marked as outliers</em></p>
 <pre class="r"><code>plot(carslm)</code></pre>
-<p><img src="ols_files/figure-html/unnamed-chunk-9-1.png" width="672" /><img src="ols_files/figure-html/unnamed-chunk-9-2.png" width="672" /><img src="ols_files/figure-html/unnamed-chunk-9-3.png" width="672" /><img src="ols_files/figure-html/unnamed-chunk-9-4.png" width="672" /></p>
+<p><img src="ols_files/figure-html/unnamed-chunk-10-1.png" width="672" /><img src="ols_files/figure-html/unnamed-chunk-10-2.png" width="672" /><img src="ols_files/figure-html/unnamed-chunk-10-3.png" width="672" /><img src="ols_files/figure-html/unnamed-chunk-10-4.png" width="672" /></p>
 <p>The Q-Q plot plots the quantiles of the first dataset (observed) against the quantiles of the second dataset (estimated), and helps us determine if the two samples have a common distribution. In the Q-Q plot below, we can see that there are some outliers in the observed dataset (23, 35, 49). We should remove outliers and rebuild the regression model.</p>
 <p>Removing the 3 outliers corrects our model, and all assumptions are accepted.</p>
 <pre class="r"><code>carslm2 &lt;- lm(dist ~ speed, data = cars[-c(23, 35, 49), ])
@@ -535,7 +556,7 @@ Heteroscedasticity 3.3332 0.06789 Assumptions acceptable.</code></pre>
 </tbody>
 </table>
 <pre class="r"><code>ggplot(data = cars) + geom_histogram(aes(x = resid(carslm)))  #Plot histogram of residual values.</code></pre>
-<p><img src="ols_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="ols_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
 
 

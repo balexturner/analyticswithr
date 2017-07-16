@@ -3,7 +3,7 @@ title: ""
 output: 
   html_document:
     toc: true
-    toc_depth: 2
+    toc_depth: 3
     toc_float: true
 ---
 
@@ -16,16 +16,19 @@ output:
 <br/>
 
 ##Download R
+
 R is a free software environment for statistical computing and graphics. See the [R project homepage](https://www.r-project.org) for more information. [Download r here](https://cran.r-project.org/mirrors.html).
 
 <br/>
 
 ##Download RStudio
+
 [RStudio](https://www.rstudio.com) is a free and open-source integrated development environment (IDE) for R. It provides a graphic interface and user-friendly environment for r programmers to write and test their code. [Download RStudio here](https://www.rstudio.com/products/rstudio/download3/). RStudio is not the only IDE for r, but it is the most widely used.
 
 <br/>
 
 ##Base R
+
 R has hundreds of native functions that are part of the base package. These are the functions which allow R to perform as a programming language, including basic arithmetic and various programming inputs/outputs. 
 
 For example, r can automatically recognize basic calculations.
@@ -97,9 +100,10 @@ The stringr package that we've installed above contains dozens of useful functio
 str_detect("Mary had a little lamb", "Mary")  #example
 ```
 
+<br/>
+<br/>
 
-
-#References
+##References
 
 R Core Team (2016). R: A language and environment for statistical computing. R Foundation
   for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.

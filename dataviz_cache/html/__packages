@@ -7,3 +7,6 @@ stringr
 xtable
 htmlTable
 ggplot2
+magrittr
+gvlma
+visreg

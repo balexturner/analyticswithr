@@ -108,6 +108,12 @@ visreg(carslm)  #Plot the regression model.
 
 ##Reading the Regression Output
 
+<br/>
+```{r, echo=TRUE}
+summary(carslm)
+```
+
+<br/>
 
 ###Coeficients
 These are the regression estimates and associated values. Note that the first line of coefficients represents the *Intercept*, where the regression line crosses the y-axis. subseqent lines represent slope of the regression line, denoting the change in the DV for every 1-unit increase of the IV.
