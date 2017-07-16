@@ -407,7 +407,7 @@ Hadley Wickham (2017). stringr: Simple, Consistent Wrappers for Common String Op
 <br/>
 <br/>
 
-#Comments
+#Leave Feedback
 
 <!-- begin wwww.htmlcommentbox.com -->
  <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Comment Form</a> is loading comments...</div>
