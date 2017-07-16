@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-1.1/highlight.js"></script>
@@ -161,6 +164,101 @@ $(document).ready(function () {
 
 
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
@@ -234,8 +332,14 @@ sex &lt;- c(&quot;Female&quot;, &quot;Female&quot;, &quot;Male&quot;, &quot;Male
 # Data Frame
 
 dataframe &lt;- data.frame(name, age, sex)</code></pre>
+<p><br/> <br/> The <strong>str()</strong> function will describe the dataframe, its variables, and the levels of each variable.</p>
+<pre><code>&#39;data.frame&#39;:   4 obs. of  3 variables:
+ $ name: Factor w/ 4 levels &quot;Alex&quot;,&quot;Kelvin&quot;,..: 3 4 2 1
+ $ age : Factor w/ 3 levels &quot;24&quot;,&quot;26&quot;,&quot;27&quot;: 1 1 3 2
+ $ sex : Factor w/ 2 levels &quot;Female&quot;,&quot;Male&quot;: 1 1 2 2</code></pre>
 <p><br/> <br/></p>
 <p>We can use the <strong>print()</strong> command to view the dataframe.</p>
+<pre class="r"><code>print(dataframe)</code></pre>
 <pre><code>     name age    sex
 1   Kenia  24 Female
 2 Sabrina  24 Female
@@ -243,21 +347,21 @@ dataframe &lt;- data.frame(name, age, sex)</code></pre>
 4    Alex  26   Male</code></pre>
 <p><br/> <br/></p>
 <p>We can print a <strong>single column</strong>.</p>
-<pre class="r"><code>dataframe[&quot;name&quot;]</code></pre>
-<pre><code>     name
-1   Kenia
-2 Sabrina
-3  Kelvin
-4    Alex</code></pre>
+<pre class="r"><code>dataframe[&quot;age&quot;]</code></pre>
+<pre><code>  age
+1  24
+2  24
+3  27
+4  26</code></pre>
 <p>We can identify the column by name(above), or index number(below).</p>
-<pre class="r"><code>dataframe[1]</code></pre>
-<pre><code>     name
-1   Kenia
-2 Sabrina
-3  Kelvin
-4    Alex</code></pre>
+<pre class="r"><code>dataframe[2]</code></pre>
+<pre><code>  age
+1  24
+2  24
+3  27
+4  26</code></pre>
 <p><br/> <br/></p>
-<p>We can print a <strong>single row</strong>.</p>
+<p>We can view a <strong>single row</strong>.</p>
 <pre class="r"><code>dataframe[3, ]</code></pre>
 <pre><code>    name age  sex
 3 Kelvin  27 Male</code></pre>
@@ -272,55 +376,292 @@ dataframe &lt;- data.frame(name, age, sex)</code></pre>
 <p><em>(You will need the file path for your data file)</em></p>
 <pre class="r"><code>mydata &lt;- read.csv(&quot;filepath&quot;)  #Read a .csv file
 mydata &lt;- read.delim(&quot;filepath&quot;)  #Read other table data formats</code></pre>
+<p><br/> <br/></p>
 </div>
 <div id="filter-data" class="section level1">
 <h1>Filter Data</h1>
-<p>Load the <strong>dplyr</strong> package.</p>
+<div id="before-we-begin" class="section level2">
+<h2>Before we Begin</h2>
+<p>Load the <strong>dplyr</strong> package. The dplyr package contains the <strong>filter()</strong> command that will be used in this tutorial.</p>
 <pre class="r"><code>install.packages(&quot;dplyr&quot;)  #Install the package if you haven&#39;t before.
 library(dplyr)  #Load the package</code></pre>
 <p><br/> <br/> Load the <strong>starwars</strong> dataframe.</p>
-<pre class="r"><code>starwarsdata &lt;- starwars
+<pre class="r"><code>data(starwars)
+print(starwars)</code></pre>
+<pre><code># A tibble: 87 x 13
+                 name height  mass    hair_color  skin_color eye_color
+                &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;         &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;
+ 1     Luke Skywalker    172    77         blond        fair      blue
+ 2              C-3PO    167    75          &lt;NA&gt;        gold    yellow
+ 3              R2-D2     96    32          &lt;NA&gt; white, blue       red
+ 4        Darth Vader    202   136          none       white    yellow
+ 5        Leia Organa    150    49         brown       light     brown
+ 6          Owen Lars    178   120   brown, grey       light      blue
+ 7 Beru Whitesun lars    165    75         brown       light      blue
+ 8              R5-D4     97    32          &lt;NA&gt;  white, red       red
+ 9  Biggs Darklighter    183    84         black       light     brown
+10     Obi-Wan Kenobi    182    77 auburn, white        fair blue-gray
+# ... with 77 more rows, and 7 more variables: birth_year &lt;dbl&gt;,
+#   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<p><br/></p>
+<p><strong>Wait</strong>: Before we begin filtering, you should understand how the Magrittr package allows us to use pipes (“%&gt;%”) to tie together multiple dplyr functions into a single executable command.</p>
+<p>Below, we can both (1)define a new dataframe, and (2)print the tablewith one single script of dplyr commands that are piped together with Magrittr “%&gt;%” piping. <em>Any commands piped together in this script will operate on the dataframe named at the top of the script, in the order in which the commands appear in text.</em></p>
+<pre class="r"><code>new_starwars &lt;- starwars %&gt;% 
+print()</code></pre>
+<pre><code># A tibble: 87 x 13
+                 name height  mass    hair_color  skin_color eye_color
+                &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;         &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;
+ 1     Luke Skywalker    172    77         blond        fair      blue
+ 2              C-3PO    167    75          &lt;NA&gt;        gold    yellow
+ 3              R2-D2     96    32          &lt;NA&gt; white, blue       red
+ 4        Darth Vader    202   136          none       white    yellow
+ 5        Leia Organa    150    49         brown       light     brown
+ 6          Owen Lars    178   120   brown, grey       light      blue
+ 7 Beru Whitesun lars    165    75         brown       light      blue
+ 8              R5-D4     97    32          &lt;NA&gt;  white, red       red
+ 9  Biggs Darklighter    183    84         black       light     brown
+10     Obi-Wan Kenobi    182    77 auburn, white        fair blue-gray
+# ... with 77 more rows, and 7 more variables: birth_year &lt;dbl&gt;,
+#   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<p><br/> <br/></p>
+</div>
+<div id="filtering-observations" class="section level2">
+<h2>Filtering Observations</h2>
+<p><br/> <br/></p>
+<div id="filter-numeric-values" class="section level3">
+<h3>Filter: Numeric Values</h3>
+<p>We can filter observations based on numeric values by using the various comparative operators in r. Here are a few:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Description</th>
+<th>Syntax</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Less than</td>
+<td>VariableName <strong>&lt;</strong> Value</td>
+</tr>
+<tr class="even">
+<td>Less than or Equal to</td>
+<td>VariableName <strong>&lt;=</strong> Value</td>
+</tr>
+<tr class="odd">
+<td>Greater than</td>
+<td>VariableName <strong>&gt;</strong> Value</td>
+</tr>
+<tr class="even">
+<td>Greater than or Equal to</td>
+<td>VariableName <strong>&gt;=</strong> Value</td>
+</tr>
+<tr class="odd">
+<td>Equal to</td>
+<td>VariableName <strong>==</strong> Value</td>
+</tr>
+<tr class="even">
+<td>Not Less than</td>
+<td><strong>!</strong>VariableName <strong>&lt;</strong> Value</td>
+</tr>
+<tr class="odd">
+<td>Not Less than or Equal to</td>
+<td><strong>!</strong>VariableName <strong>&lt;=</strong> Value</td>
+</tr>
+<tr class="even">
+<td>Not Greater than</td>
+<td><strong>!</strong>VariableName <strong>&gt;</strong> Value</td>
+</tr>
+<tr class="odd">
+<td>Not Greater than or Equal to</td>
+<td><strong>!</strong>VariableName <strong>&gt;=</strong> Value</td>
+</tr>
+<tr class="even">
+<td>Not Equal to</td>
+<td><strong>!</strong>VariableName <strong>=</strong> Value</td>
+</tr>
+</tbody>
+</table>
+<p><em>We always need to use two “=” signs (==) when making comparisons. The single “=” takes on different purposes in different contexts.</em></p>
+<p><br/> <br/></p>
+<p>Let’s filter “starwars” to only show characters who are more than 150cm tall.</p>
+<p><em>We want to keep the changes we make, so we will have to define a new object. When we define a new object with the same name as the previous object, we overwrite the previous object. </em></p>
+<pre class="r"><code>tall_charachters &lt;- starwars %&gt;% 
+filter(height &gt; 150) %&gt;% 
+print()</code></pre>
+<pre><code># A tibble: 69 x 13
+                 name height  mass    hair_color skin_color eye_color
+                &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;         &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;
+ 1     Luke Skywalker    172    77         blond       fair      blue
+ 2              C-3PO    167    75          &lt;NA&gt;       gold    yellow
+ 3        Darth Vader    202   136          none      white    yellow
+ 4          Owen Lars    178   120   brown, grey      light      blue
+ 5 Beru Whitesun lars    165    75         brown      light      blue
+ 6  Biggs Darklighter    183    84         black      light     brown
+ 7     Obi-Wan Kenobi    182    77 auburn, white       fair blue-gray
+ 8   Anakin Skywalker    188    84         blond       fair      blue
+ 9     Wilhuff Tarkin    180    NA  auburn, grey       fair      blue
+10          Chewbacca    228   112         brown    unknown      blue
+# ... with 59 more rows, and 7 more variables: birth_year &lt;dbl&gt;,
+#   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<p><br/> <br/></p>
+</div>
+<div id="filter-based-on-computations" class="section level3">
+<h3>Filter: Based on Computations</h3>
+<p>We can filter based on results of computations between multiple variables in R. Some of the mathematical operators available in R are:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Description</th>
+<th>Operator</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Addition</td>
+<td>+</td>
+</tr>
+<tr class="even">
+<td>Subtraction</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>Multiplication</td>
+<td>*</td>
+</tr>
+<tr class="even">
+<td>Division</td>
+<td>/</td>
+</tr>
+<tr class="odd">
+<td>Square Root</td>
+<td>sqrt(x)</td>
+</tr>
+<tr class="even">
+<td>Absolute Value</td>
+<td>abs(x)</td>
+</tr>
+<tr class="odd">
+<td>Exponentiation</td>
+<td>^</td>
+</tr>
+<tr class="even">
+<td>Natural Exponential Function</td>
+<td>exp(x)</td>
+</tr>
+<tr class="odd">
+<td>Natural Logarithm</td>
+<td>log(x)</td>
+</tr>
+<tr class="even">
+<td>Common Logarithm</td>
+<td>log10(x)</td>
+</tr>
+</tbody>
+</table>
+<p><br/> <br/></p>
+<p>Let’s filter “starwars” to only show characters whose height/weight ratio is greater than or equal to 3/1.</p>
+<pre class="r"><code>tall_and_skinny_characters &lt;- tall_charachters %&gt;% 
+filter(height/mass &gt;= 3) %&gt;% 
+print()</code></pre>
+<pre><code># A tibble: 9 x 13
+             name height  mass hair_color          skin_color eye_color
+            &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;      &lt;chr&gt;               &lt;chr&gt;     &lt;chr&gt;
+1     Ayla Secura    178  55.0       none                blue     hazel
+2      Adi Gallia    184  50.0       none                dark      blue
+3 Luminara Unduli    170  56.2      black              yellow      blue
+4   Barriss Offee    166  50.0      black              yellow      blue
+5      Zam Wesell    168  55.0     blonde fair, green, yellow    yellow
+6      Wat Tambor    193  48.0       none         green, grey   unknown
+7        Shaak Ti    178  57.0       none    red, blue, white     black
+8       Sly Moore    178  48.0       none                pale     white
+9   Padmé Amidala    165  45.0      brown               light     brown
+# ... with 7 more variables: birth_year &lt;dbl&gt;, gender &lt;chr&gt;,
+#   homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;, vehicles &lt;list&gt;,
+#   starships &lt;list&gt;</code></pre>
+<p><br/> <br/></p>
+</div>
+<div id="filter-strings" class="section level3">
+<h3>Filter: Strings</h3>
+<p>We can filter based on exact matches of string values.</p>
+<p>Let’s filter to only show human characters.</p>
+<pre class="r"><code>starwars %&gt;% 
+filter(species == &quot;Human&quot;) %&gt;% 
+print()</code></pre>
+<pre><code># A tibble: 35 x 13
+                 name height  mass    hair_color skin_color eye_color
+                &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;         &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;
+ 1     Luke Skywalker    172    77         blond       fair      blue
+ 2        Darth Vader    202   136          none      white    yellow
+ 3        Leia Organa    150    49         brown      light     brown
+ 4          Owen Lars    178   120   brown, grey      light      blue
+ 5 Beru Whitesun lars    165    75         brown      light      blue
+ 6  Biggs Darklighter    183    84         black      light     brown
+ 7     Obi-Wan Kenobi    182    77 auburn, white       fair blue-gray
+ 8   Anakin Skywalker    188    84         blond       fair      blue
+ 9     Wilhuff Tarkin    180    NA  auburn, grey       fair      blue
+10           Han Solo    180    80         brown       fair     brown
+# ... with 25 more rows, and 7 more variables: birth_year &lt;dbl&gt;,
+#   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<p><br/></p>
+<div id="string-matching" class="section level5">
+<h5>String Matching</h5>
+<p>The stringr() package provides a neat and simple experience for dealing with strings. <br/></p>
+<p>We can filter the data to only show rows containing “Skywalker” by using the str_detect() function from the stringr package.</p>
+<pre class="r"><code>library(stringr)
 
-print(starwarsdata)</code></pre>
-<pre><code># A tibble: 87 x 13
-                 name height  mass    hair_color  skin_color eye_color
-                &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;         &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;
- 1     Luke Skywalker    172    77         blond        fair      blue
- 2              C-3PO    167    75          &lt;NA&gt;        gold    yellow
- 3              R2-D2     96    32          &lt;NA&gt; white, blue       red
- 4        Darth Vader    202   136          none       white    yellow
- 5        Leia Organa    150    49         brown       light     brown
- 6          Owen Lars    178   120   brown, grey       light      blue
- 7 Beru Whitesun lars    165    75         brown       light      blue
- 8              R5-D4     97    32          &lt;NA&gt;  white, red       red
- 9  Biggs Darklighter    183    84         black       light     brown
-10     Obi-Wan Kenobi    182    77 auburn, white        fair blue-gray
-# ... with 77 more rows, and 7 more variables: birth_year &lt;dbl&gt;,
-#   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
-#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
-<p><br/> <br/> <strong>Wait</strong>: Before we start filtering, you should understand how the Magrittr package allows us to use pipes to tie together multiple dplyr functions into a single executable command.</p>
-<p>Below, we can both define the dataframe, and print the table as we did above with one single script of dplyr commands that are piped together with Magrittr “%&gt;%” piping.</p>
-<pre class="r"><code>starwarsdata&lt;- starwars%&gt;%   #Step 1: Define the Dataframe
-  print()  #Step 2: Print the table</code></pre>
-<pre><code># A tibble: 87 x 13
-                 name height  mass    hair_color  skin_color eye_color
-                &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;         &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;
- 1     Luke Skywalker    172    77         blond        fair      blue
- 2              C-3PO    167    75          &lt;NA&gt;        gold    yellow
- 3              R2-D2     96    32          &lt;NA&gt; white, blue       red
- 4        Darth Vader    202   136          none       white    yellow
- 5        Leia Organa    150    49         brown       light     brown
- 6          Owen Lars    178   120   brown, grey       light      blue
- 7 Beru Whitesun lars    165    75         brown       light      blue
- 8              R5-D4     97    32          &lt;NA&gt;  white, red       red
- 9  Biggs Darklighter    183    84         black       light     brown
-10     Obi-Wan Kenobi    182    77 auburn, white        fair blue-gray
-# ... with 77 more rows, and 7 more variables: birth_year &lt;dbl&gt;,
-#   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
-#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
-<p><br/> <br/> <strong>Filter Columns</strong><br />
-We will only keep the columns for name, eye color, species, and homeworld. <br/> <br/></p>
-<pre class="r"><code>starwarsdata %&gt;% subset(select = c(&quot;name&quot;, &quot;eye_color&quot;, &quot;species&quot;, &quot;homeworld&quot;))</code></pre>
+starwars %&gt;% 
+filter(str_detect(name, &quot;Skywalker&quot;))</code></pre>
+<pre><code># A tibble: 3 x 13
+              name height  mass hair_color skin_color eye_color birth_year
+             &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;      &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;
+1   Luke Skywalker    172    77      blond       fair      blue       19.0
+2 Anakin Skywalker    188    84      blond       fair      blue       41.9
+3   Shmi Skywalker    163    NA      black       fair     brown       72.0
+# ... with 6 more variables: gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;,
+#   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<p><br/></p>
+<p><em>See the stringr() package documentation for more functions and package details.</em></p>
+<p><br/> <br/></p>
+</div>
+</div>
+<div id="filter-not-equal-to" class="section level3">
+<h3>Filter: “Not Equal To”</h3>
+<p><br/></p>
+<p>We can also use negative statements to filter data by adding an “!” before the evaluation.</p>
+<p>Let’s filter for all rows where the species is <strong>not human</strong>.</p>
+<pre class="r"><code>starwars %&gt;% 
+filter(!species == &quot;Human&quot;) %&gt;% 
+print()</code></pre>
+<pre><code># A tibble: 47 x 13
+                    name height  mass hair_color       skin_color
+                   &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;      &lt;chr&gt;            &lt;chr&gt;
+ 1                 C-3PO    167    75       &lt;NA&gt;             gold
+ 2                 R2-D2     96    32       &lt;NA&gt;      white, blue
+ 3                 R5-D4     97    32       &lt;NA&gt;       white, red
+ 4             Chewbacca    228   112      brown          unknown
+ 5                Greedo    173    74       &lt;NA&gt;            green
+ 6 Jabba Desilijic Tiure    175  1358       &lt;NA&gt; green-tan, brown
+ 7                  Yoda     66    17      white            green
+ 8                 IG-88    200   140       none            metal
+ 9                 Bossk    190   113       none            green
+10                Ackbar    180    83       none     brown mottle
+# ... with 37 more rows, and 8 more variables: eye_color &lt;chr&gt;,
+#   birth_year &lt;dbl&gt;, gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;,
+#   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<p><br/> <br/></p>
+</div>
+</div>
+<div id="filtering-columns" class="section level2">
+<h2>Filtering Columns</h2>
+<p>So far, we have been filtering out rows or observations. We can also chose which columns we want to display in a dataframe by using a combination of the the subset() &amp; select() functions.</p>
+<p>Let’s only keep the columns for name, eye color, species, and homeworld.</p>
+<pre class="r"><code>starwars %&gt;% 
+subset(select = c(&quot;name&quot;, &quot;eye_color&quot;, &quot;species&quot;, &quot;homeworld&quot;)) %&gt;% 
+print()</code></pre>
 <pre><code># A tibble: 87 x 4
                  name eye_color species homeworld
                 &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;
@@ -335,97 +676,188 @@ We will only keep the columns for name, eye color, species, and homeworld. <br/>
  9  Biggs Darklighter     brown   Human  Tatooine
 10     Obi-Wan Kenobi blue-gray   Human   Stewjon
 # ... with 77 more rows</code></pre>
-<p><br/> <br/> <strong>Notice:</strong> If we call <em>starwarsdata</em>, the changes are not retained. We get all of the columns again.</p>
-<pre class="r"><code>print(starwarsdata)</code></pre>
-<pre><code># A tibble: 87 x 13
-                 name height  mass    hair_color  skin_color eye_color
-                &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;         &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;
- 1     Luke Skywalker    172    77         blond        fair      blue
- 2              C-3PO    167    75          &lt;NA&gt;        gold    yellow
- 3              R2-D2     96    32          &lt;NA&gt; white, blue       red
- 4        Darth Vader    202   136          none       white    yellow
- 5        Leia Organa    150    49         brown       light     brown
- 6          Owen Lars    178   120   brown, grey       light      blue
- 7 Beru Whitesun lars    165    75         brown       light      blue
- 8              R5-D4     97    32          &lt;NA&gt;  white, red       red
- 9  Biggs Darklighter    183    84         black       light     brown
-10     Obi-Wan Kenobi    182    77 auburn, white        fair blue-gray
-# ... with 77 more rows, and 7 more variables: birth_year &lt;dbl&gt;,
-#   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
-#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
-<p><br/> <br/> If we want to keep the changes, we need to define a new object. <em>We will define “starwars_subset”</em></p>
-<pre class="r"><code>starwars_subset &lt;- starwarsdata %&gt;% subset(select = c(&quot;name&quot;, &quot;eye_color&quot;, &quot;species&quot;, 
-    &quot;homeworld&quot;))
-
-print(starwars_subset)</code></pre>
-<pre><code># A tibble: 87 x 4
-                 name eye_color species homeworld
-                &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;
- 1     Luke Skywalker      blue   Human  Tatooine
- 2              C-3PO    yellow   Droid  Tatooine
- 3              R2-D2       red   Droid     Naboo
- 4        Darth Vader    yellow   Human  Tatooine
- 5        Leia Organa     brown   Human  Alderaan
- 6          Owen Lars      blue   Human  Tatooine
- 7 Beru Whitesun lars      blue   Human  Tatooine
- 8              R5-D4       red   Droid  Tatooine
- 9  Biggs Darklighter     brown   Human  Tatooine
-10     Obi-Wan Kenobi blue-gray   Human   Stewjon
-# ... with 77 more rows</code></pre>
-<p><br/> <br/> <strong>Filter Rows</strong> <br/> <br/> Let’s filter the star wars dataset to show rows representing <strong>Humans Only</strong>.</p>
-<pre class="r"><code>starwars_subset %&gt;% filter(species == &quot;Human&quot;)</code></pre>
-<pre><code># A tibble: 35 x 4
-                 name eye_color species homeworld
-                &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;
- 1     Luke Skywalker      blue   Human  Tatooine
- 2        Darth Vader    yellow   Human  Tatooine
- 3        Leia Organa     brown   Human  Alderaan
- 4          Owen Lars      blue   Human  Tatooine
- 5 Beru Whitesun lars      blue   Human  Tatooine
- 6  Biggs Darklighter     brown   Human  Tatooine
- 7     Obi-Wan Kenobi blue-gray   Human   Stewjon
- 8   Anakin Skywalker      blue   Human  Tatooine
- 9     Wilhuff Tarkin      blue   Human    Eriadu
-10           Han Solo     brown   Human  Corellia
-# ... with 25 more rows</code></pre>
-<p><br/> <br/> Let’s filter the star wars dataset to show rows representing <strong>Humans with Blue Eyes Only</strong>.</p>
-<pre class="r"><code>starwars_subset %&gt;% filter(species == &quot;Human&quot; &amp; eye_color == &quot;blue&quot;)</code></pre>
-<pre><code># A tibble: 12 x 4
-                 name eye_color species  homeworld
-                &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;
- 1     Luke Skywalker      blue   Human   Tatooine
- 2          Owen Lars      blue   Human   Tatooine
- 3 Beru Whitesun lars      blue   Human   Tatooine
- 4   Anakin Skywalker      blue   Human   Tatooine
- 5     Wilhuff Tarkin      blue   Human     Eriadu
- 6   Jek Tono Porkins      blue   Human Bestine IV
- 7              Lobot      blue   Human     Bespin
- 8         Mon Mothma      blue   Human  Chandrila
- 9       Qui-Gon Jinn      blue   Human       &lt;NA&gt;
-10      Finis Valorum      blue   Human  Coruscant
-11        Cliegg Lars      blue   Human   Tatooine
-12         Jocasta Nu      blue   Human  Coruscant</code></pre>
-<div id="to-be-continued" class="section level3">
-<h3>To be continued…</h3>
-<p><em>check back in one week for updates.</em></p>
-<p><br/> <br/> <strong>Filter Columns</strong> <br/> <br/></p>
+<p><br/> <br/></p>
 </div>
 </div>
 <div id="summarize-data" class="section level1">
 <h1>Summarize Data</h1>
+<p>We often need to produce summary information from our data. We can use the summary() function to produce some general summary stats.</p>
+<pre class="r"><code>summary(starwars)</code></pre>
+<pre><code>     name               height           mass          hair_color       
+ Length:87          Min.   : 66.0   Min.   :  15.00   Length:87         
+ Class :character   1st Qu.:167.0   1st Qu.:  55.60   Class :character  
+ Mode  :character   Median :180.0   Median :  79.00   Mode  :character  
+                    Mean   :174.4   Mean   :  97.31                     
+                    3rd Qu.:191.0   3rd Qu.:  84.50                     
+  skin_color         eye_color           birth_year        gender         
+ Length:87          Length:87          Min.   :  8.00   Length:87         
+ Class :character   Class :character   1st Qu.: 35.00   Class :character  
+ Mode  :character   Mode  :character   Median : 52.00   Mode  :character  
+                                       Mean   : 87.57                     
+                                       3rd Qu.: 72.00                     
+  homeworld           species         
+ Length:87          Length:87         
+ Class :character   Class :character  
+ Mode  :character   Mode  :character  
+                                      
+                                      
+ films.Length  films.Class  films.Mode
+ 5          -none-     character      
+ 6          -none-     character      
+ 7          -none-     character      
+ 4          -none-     character      
+ 5          -none-     character      
+ vehicles.Length  vehicles.Class  vehicles.Mode
+ 2          -none-     character               
+ 0          -none-     character               
+ 0          -none-     character               
+ 0          -none-     character               
+ 1          -none-     character               
+ starships.Length  starships.Class  starships.Mode
+ 2          -none-     character                  
+ 0          -none-     character                  
+ 0          -none-     character                  
+ 1          -none-     character                  
+ 0          -none-     character                  
+ [ reached getOption(&quot;max.print&quot;) -- omitted 82 rows ]</code></pre>
+<p>While this can show us number of observations, variables classes, and Min/Max/Median/Mean and quartile values for our numeric variables, sometimes we need specific summary values which are not auto-generated by such functions.</p>
+<p><br/> <br/></p>
+<div id="group_by-summarize" class="section level2">
+<h2>group_by &amp; summarize()</h2>
+<p>By combining the <strong>group_by() and summarize()</strong> functions from the dplyr package, we can easily create summary information from our raw data.</p>
+<p>Let’s use <strong>group_by() and summarize()</strong> to compute average height by species.</p>
+<pre class="r"><code>starwars %&gt;% 
+group_by(species) %&gt;% 
+summarize(avgheight = mean(height))</code></pre>
+<pre><code># A tibble: 38 x 2
+     species avgheight
+       &lt;chr&gt;     &lt;dbl&gt;
+ 1    Aleena   79.0000
+ 2  Besalisk  198.0000
+ 3    Cerean  198.0000
+ 4  Chagrian  196.0000
+ 5  Clawdite  168.0000
+ 6     Droid        NA
+ 7       Dug  112.0000
+ 8      Ewok   88.0000
+ 9 Geonosian  183.0000
+10    Gungan  208.6667
+# ... with 28 more rows</code></pre>
+<p><br/></p>
+<p>We can pass the n() argument to get a count of the rows that are collapsed into each summary row.</p>
+<p>Let’s compute the number of characters of each species that appear in this dataset.</p>
+<pre class="r"><code>starwars %&gt;% 
+group_by(species) %&gt;% 
+summarize(number_of_characters = n())</code></pre>
+<pre><code># A tibble: 38 x 2
+     species number_of_characters
+       &lt;chr&gt;                &lt;int&gt;
+ 1    Aleena                    1
+ 2  Besalisk                    1
+ 3    Cerean                    1
+ 4  Chagrian                    1
+ 5  Clawdite                    1
+ 6     Droid                    5
+ 7       Dug                    1
+ 8      Ewok                    1
+ 9 Geonosian                    1
+10    Gungan                    3
+# ... with 28 more rows</code></pre>
+<p><br/> <br/></p>
 </div>
-<div id="manipulate-data" class="section level1">
-<h1>Manipulate Data</h1>
 </div>
 <div id="create-new-variables" class="section level1">
 <h1>Create New Variables</h1>
+<p>We can create new variables in a dataframe by using the <strong>mutate()</strong> function from the dplyr package.</p>
+<pre class="r"><code># First, create a subset to work from.
+
+starwars_subset &lt;- starwars %&gt;% 
+subset(select = c(&quot;name&quot;, &quot;height&quot;, &quot;mass&quot;))
+
+# Create new variable
+
+starwars_subset %&gt;% 
+mutate(new_variable = &quot;hello&quot;)</code></pre>
+<pre><code># A tibble: 87 x 4
+                 name height  mass new_variable
+                &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;        &lt;chr&gt;
+ 1     Luke Skywalker    172    77        hello
+ 2              C-3PO    167    75        hello
+ 3              R2-D2     96    32        hello
+ 4        Darth Vader    202   136        hello
+ 5        Leia Organa    150    49        hello
+ 6          Owen Lars    178   120        hello
+ 7 Beru Whitesun lars    165    75        hello
+ 8              R5-D4     97    32        hello
+ 9  Biggs Darklighter    183    84        hello
+10     Obi-Wan Kenobi    182    77        hello
+# ... with 77 more rows</code></pre>
+<p><br/></p>
+<p>Having the same value in every single observation is usually not very helpful. New variables can be created computationally by performing mathematical operations on existing variables.</p>
+<pre class="r"><code>starwars_subset%&gt;%
+  
+    mutate(double_height = height*2,
+  
+                    HeightWeightRatio = height/mass)</code></pre>
+<pre><code># A tibble: 87 x 5
+                 name height  mass double_height HeightWeightRatio
+                &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;
+ 1     Luke Skywalker    172    77           344          2.233766
+ 2              C-3PO    167    75           334          2.226667
+ 3              R2-D2     96    32           192          3.000000
+ 4        Darth Vader    202   136           404          1.485294
+ 5        Leia Organa    150    49           300          3.061224
+ 6          Owen Lars    178   120           356          1.483333
+ 7 Beru Whitesun lars    165    75           330          2.200000
+ 8              R5-D4     97    32           194          3.031250
+ 9  Biggs Darklighter    183    84           366          2.178571
+10     Obi-Wan Kenobi    182    77           364          2.363636
+# ... with 77 more rows</code></pre>
+<p><br/> <br/></p>
+<div id="ifelse" class="section level2">
+<h2>ifelse()</h2>
+<p>It is often useful to use the <strong>ifelse()</strong> function to make logically determined value assignments to a new variable. <strong>ifelse()</strong> requires 3 parameters: ifelse(<em>evaluation</em>, <em>value if true</em>, <em>value if false</em>).</p>
+<p>Lets create a new variable using the <strong>ifelse()</strong> function to classify characters as tall or short.</p>
+<pre class="r"><code>starwars_subset %&gt;% 
+mutate(tallorshort = ifelse(height &gt;= 120, &quot;tall&quot;, &quot;short&quot;))</code></pre>
+<pre><code># A tibble: 87 x 4
+                 name height  mass tallorshort
+                &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;       &lt;chr&gt;
+ 1     Luke Skywalker    172    77        tall
+ 2              C-3PO    167    75        tall
+ 3              R2-D2     96    32       short
+ 4        Darth Vader    202   136        tall
+ 5        Leia Organa    150    49        tall
+ 6          Owen Lars    178   120        tall
+ 7 Beru Whitesun lars    165    75        tall
+ 8              R5-D4     97    32       short
+ 9  Biggs Darklighter    183    84        tall
+10     Obi-Wan Kenobi    182    77        tall
+# ... with 77 more rows</code></pre>
+<p><br/> <br/></p>
 </div>
-<div id="manipulate-data-1" class="section level1">
-<h1>Manipulate Data</h1>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p>Hadley Wickham, Romain Francois, Lionel Henry and Kirill Müller (NA). dplyr: A Grammar of Data Manipulation. <a href="http://dplyr.tidyverse.org" class="uri">http://dplyr.tidyverse.org</a>, <a href="https://github.com/tidyverse/dplyr" class="uri">https://github.com/tidyverse/dplyr</a>.</p>
+<p>Hadley Wickham (2017). stringr: Simple, Consistent Wrappers for Common String Operations. R package version 1.2.0. <a href="https://CRAN.R-project.org/package=stringr" class="uri">https://CRAN.R-project.org/package=stringr</a></p>
+<p><br/> <br/></p>
+</div>
+<div id="comments" class="section level1">
+<h1>Comments</h1>
+<!-- begin wwww.htmlcommentbox.com -->
+<div id="HCB_comment_box">
+<a href="http://www.htmlcommentbox.com">Comment Form</a> is loading comments…
+</div>
+<link rel="stylesheet" type="text/css" href="//www.htmlcommentbox.com/static/skins/bootstrap/twitter-bootstrap.css?v=0" />
+<script type="text/javascript" id="hcb"> /*<!--*/ if(!window.hcb_user){hcb_user={};} (function(){var s=document.createElement("script"), l=hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"), h="//www.htmlcommentbox.com";s.setAttribute("type","text/javascript");s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace("+","%2B")+"&opts=16862&num=10&ts=1500210843068");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})(); /*-->*/ </script>
+<!-- end www.htmlcommentbox.com -->
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 

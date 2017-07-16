@@ -1,0 +1,9 @@
+base
+knitr
+rmdformats
+dplyr
+bindrcpp
+stringr
+xtable
+htmlTable
+ggplot2

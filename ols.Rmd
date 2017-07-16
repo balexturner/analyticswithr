@@ -1,7 +1,10 @@
 ---
 title: ""
-output: html_document
-
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
 ---
 <br/>
 
@@ -24,8 +27,6 @@ opts_chunk$set(echo=FALSE,
                warning=FALSE)
 opts_knit$set(width=75)
 ```
-
-
 
 
 ##Linear Regression
@@ -142,7 +143,7 @@ This section describes the residual values - the **differences between the value
 
 <br/>
 
-##Assumptions required for a Linear Regression
+##Assumptions
 
 The following assumptions must be met in order to use a linear regression model for estimation.
 

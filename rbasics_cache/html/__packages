@@ -1,0 +1,12 @@
+base
+knitr
+rmdformats
+dplyr
+bindrcpp
+stringr
+xtable
+htmlTable
+ggplot2
+magrittr
+gvlma
+visreg

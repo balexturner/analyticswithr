@@ -1,6 +1,10 @@
 ---
 title: ""
-output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
 ---
 
 <br/>
@@ -93,6 +97,19 @@ The stringr package that we've installed above contains dozens of useful functio
 str_detect("Mary had a little lamb", "Mary")  #example
 ```
 
+
+
+#References
+
+R Core Team (2016). R: A language and environment for statistical computing. R Foundation
+  for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
+
+
+RStudio Team (2015). RStudio: Integrated Development for R. RStudio, Inc., Boston, MA URL http://www.rstudio.com/.
+
+
+Hadley Wickham (2017). stringr: Simple, Consistent Wrappers for Common String Operations. R
+  package version 1.2.0. https://CRAN.R-project.org/package=stringr
 
 
 
