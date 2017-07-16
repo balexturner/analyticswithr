@@ -187,6 +187,11 @@ starwars_subset%>%
 
 ```
 
+
+###To be continued...
+
+*check back in one week for updates.*
+
 <br/>
 <br/>
 **Filter Columns**
@@ -194,13 +199,13 @@ starwars_subset%>%
 <br/>
 
 #Summarize Data
-xyz
 
 #Manipulate Data
-zyx
 
-#Visualize Data
-xyz
+#Create New Variables
+
+#Manipulate Data
+
 
 
 
