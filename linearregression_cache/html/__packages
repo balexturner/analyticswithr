@@ -1,9 +1,0 @@
-base
-knitr
-rmdformats
-dplyr
-bindrcpp
-ggplot2
-magrittr
-gvlma
-visreg
