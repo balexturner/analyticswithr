@@ -48,7 +48,7 @@ H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New Yor
 <br/>
 <br/>
 
-#Questions & Feedback
+##Questions & Feedback
 
 Please feel free to leave feedback that could help improve this site. If you have questions, please leave them below as well and I will do my best to support you as soon as possible.
 
