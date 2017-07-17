@@ -36,7 +36,7 @@ opts_knit$set(width=75)
 <br/>
 <br/>
 <br/>
-I hope you'll find this site to be a useful introdutory r-programming and data analytics resource. The site is separted into the following four sections: **R Basics**, **Data Wrangling**, **Data Visualization**, **Data Analysis** . *Not all of the content is up yet, but it should be within the next week.*
+I hope you'll find this site to be a useful introductory r-programming and data analytics resource. The site is separted into the following four sections: **R Basics**, **Data Wrangling**, **Data Visualization**, **Data Analysis** . *Not all of the content is up yet, but it should be within the next week.*
 
 
 
