@@ -45,7 +45,7 @@ A **Data Frame** is a list of vectors (columns of data) of equal length.
 
 #Vectors
 
-name <- c("Kenia", "Sabrina", "Kelvin", "Alex")
+name <- c("Jane", "Jill", "Jim", "Joe")
 age <- c("24","24","27","26")
 sex <- c("Female","Female","Male","Male")
 
