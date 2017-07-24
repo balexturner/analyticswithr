@@ -23,7 +23,7 @@ We will review the following methods:
 
 * Producing summary tables using **dplyr & tidyr**
 * Producing frequency & proportion tables using **table()**
-* producing frequency, proportion, & chi-sq values using **CrossTable**
+* producing frequency, proportion, & chi-sq values using **CrossTable()**
 
 <hr width="90%">
 
