@@ -32,7 +32,7 @@ We will review the following methods:
 
 ##dplyr & tidyr
 
-The more things you can accomplish within the tidyverse of r packages, the better (IMO). Using dply to produce your summary stats enables you to continue the code seamlessly into the next task (filtering, plotting, etc...).
+The more things you can accomplish within the tidyverse of r packages, the better (IMO). Using dplyr to produce your summary stats enables you to continue the code seamlessly into the next task (filtering, plotting, etc...).
 
 
 The **group_by()**, **summarize()**, and **spread()** commands are a useful combination for producing aggregate or summary values of our data.
