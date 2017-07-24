@@ -1,0 +1,130 @@
+---
+title: ""
+output: 
+  html_document:
+    includes:
+       in_header: GA_Script.html
+    toc: true
+    toc_depth: 3
+    toc_float: true
+---
+
+<br/>
+
+![](/Users/Brett/Desktop/AWR/analyticswithr/Data Analysis.png)
+
+<hr width="90%">
+
+#t-tests
+
+t-tests are used to determine whether the differences between the means of two normally distributed groups are statistically significant.
+
+<br/>
+
+##Independent t-test
+
+Independent t-tests are used to assess the differences between the means of two separate, unrelated groups. Also known as **2-sample t-tests**, **independent sample t-tests**, and **student's t-tests**.
+
+###Example
+
+Consider the following 2 distributions. 
+
+* **Group A** (left) has a normal distribution, with a mean of -1
+
+* **Group B** (center) has a normal distribution, with a mean of +1
+
+* When we plot them together (right), the difference is visible
+```{r, echo=FALSE, fig.height=2, fig.width=7, message=FALSE, warning=FALSE}
+library(gridExtra)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(knitr)
+
+
+groupA <- c(rnorm(1500, mean = -1))  #Produce list of random values w/ mean of -1 & normal distribtion
+groupB <- c(rnorm(1500, mean = 1))  #Produce list of random values w/ mean of 1 & normal distribtion
+
+normal_hist_A <- data.frame(groupA)
+normal_hist_B <- data.frame(groupB)
+groupAB <- data.frame(groupA, groupB)%>%
+  gather(groupAB)
+
+
+
+A<- ggplot(normal_hist_A, aes(groupA, fill=groupA)) + geom_histogram() 
+B<- ggplot(normal_hist_B, aes(groupB, fill=groupB)) + geom_histogram() 
+AB<- ggplot(groupAB, aes(value, fill=groupAB)) + geom_histogram() +theme(legend.position="none")
+
+grid.arrange(A,B,AB, ncol=3)
+
+```
+
+```{r, echo=FALSE}
+#Example: This chunk not shown. t.test output only
+listA <- rnorm(1500, mean = -1)  #Produce list of random values w/ mean of -1 & normal distribtion
+listB <- rnorm(1500, mean = 1)  #Produce list of random values w/ mean of 1 & normal distribtion
+
+t.test(listA,listB)
+```
+
+* Large **t-value** and a Small **p-value <.01** =  we accept the hypothesis that the means of list A and list B show statistically significant differences at a 99% confidence interval.
+
+* **listA mean** is estimated at -.99 and **listB mean** is estimated at 1.03. 
+
+* The mean differences are listed as well showing the lowest & highest possible differences at 95% confidence.
+
+<br/>
+
+###Running Independent t-tests
+<br/>
+
+####If data are contained in 2 separate lists:
+
+```{r, echo=TRUE}
+listA <- rnorm(1500, mean = -1)  #Produce list of random values w/ mean of -1 & normal distribtion
+listB <- rnorm(1500, mean = 1)  #Produce list of random values w/ mean of 1 & normal distribtion
+```
+
+```{r, echo=FALSE}
+#This chunk not shown, only output.
+groupAB <- data.frame(listA, listB)
+kable(head(groupAB))
+```
+
+
+**t.test syntax:** t.test(variableA, variableB)
+```{r}
+t.test(listA,listB) #If data are contained in two separate lists
+```
+
+<br/>
+
+####If data are contained in 1 dataset, distinguished by a binary grouping variable:
+
+```{r}
+groupAB <- data.frame(listA, listB)%>%
+           gather(groupAB)
+
+kable(head(groupAB))
+```
+
+**t.test syntax:** t.test(continuous_var~binary_var, data=data)
+
+```{r}
+t.test(value~groupAB, data=groupAB) 
+```
+
+<br/>
+
+##Paired t-tests
+
+If two sets of observations are made on the same subjets, in a before-and-after or other similar scenario, you can used a paired t-test
+
+**t.test syntax:** t.test(continuous_var~binary_var, paried=TRUE, data=data)
+```{r}
+t.test(value~groupAB, paired=TRUE, data=groupAB) 
+```
+* Large **t-value** and a Small **p-value <.01** =  we accept the hypothesis that the means of listA and listB show statistically significant differences at a 99% confidence interval.
+
+* The **mean of the differences:** As the name implies, this shows the mean of the differences between groups. *When comparing experimental results on the same group of subjects, this might be considered something of an effect size*.

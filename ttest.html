@@ -331,188 +331,177 @@ div.tocify {
 
 <p><br/></p>
 <div class="figure">
-<img src="R%20Programming%20Basics.png" />
+<img src="Data%20Analysis.png" />
 
 </div>
 <hr width="90%">
+<div id="t-tests" class="section level1">
+<h1>t-tests</h1>
+<p>t-tests are used to determine whether the differences between the means of two normally distributed groups are statistically significant.</p>
 <p><br/></p>
-<div id="download-r" class="section level2">
-<h2>Download R</h2>
-<p>R is a free software environment for statistical computing and graphics. See the <a href="https://www.r-project.org">R project homepage</a> for more information. <a href="https://cran.r-project.org/mirrors.html">Download r here</a>.</p>
+<div id="independent-t-test" class="section level2">
+<h2>Independent t-test</h2>
+<p>Independent t-tests are used to assess the differences between the means of two separate, unrelated groups. Also known as <strong>2-sample t-tests</strong>, <strong>independent sample t-tests</strong>, and <strong>student’s t-tests</strong>.</p>
+<div id="example" class="section level3">
+<h3>Example</h3>
+<p>Consider the following 2 distributions.</p>
+<ul>
+<li><p><strong>Group A</strong> (left) has a normal distribution, with a mean of -1</p></li>
+<li><p><strong>Group B</strong> (center) has a normal distribution, with a mean of +1</p></li>
+<li><p>When we plot them together (right), the difference is visible <img src="ttest_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p></li>
+</ul>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  listA and listB
+## t = -54.672, df = 2996.5, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -2.094016 -1.949018
+## sample estimates:
+##  mean of x  mean of y 
+## -1.0328177  0.9886994</code></pre>
+<ul>
+<li><p>Large <strong>t-value</strong> and a Small <strong>p-value &lt;.01</strong> = we accept the hypothesis that the means of list A and list B show statistically significant differences at a 99% confidence interval.</p></li>
+<li><p><strong>listA mean</strong> is estimated at -.99 and <strong>listB mean</strong> is estimated at 1.03.</p></li>
+<li><p>The mean differences are listed as well showing the lowest &amp; highest possible differences at 95% confidence.</p></li>
+</ul>
 <p><br/></p>
 </div>
-<div id="download-rstudio" class="section level2">
-<h2>Download RStudio</h2>
-<p><a href="https://www.rstudio.com">RStudio</a> is a free and open-source integrated development environment (IDE) for R. It provides a graphic interface and user-friendly environment for r programmers to write and test their code. <a href="https://www.rstudio.com/products/rstudio/download3/">Download RStudio here</a>. RStudio is not the only IDE for r, but it is the most widely used.</p>
+<div id="running-independent-t-tests" class="section level3">
+<h3>Running Independent t-tests</h3>
 <p><br/></p>
-</div>
-<div id="base-r" class="section level2">
-<h2>Base R</h2>
-<p>R has hundreds of native functions that are part of the base package. These are the functions which allow R to perform as a programming language, including basic arithmetic and various programming inputs/outputs.</p>
-<p><strong>Here are some mathematical operators that are automatically recognized by r.</strong></p>
+<div id="if-data-are-contained-in-2-separate-lists" class="section level4">
+<h4>If data are contained in 2 separate lists:</h4>
+<pre class="r"><code>listA &lt;- rnorm(1500, mean = -1)  #Produce list of random values w/ mean of -1 &amp; normal distribtion
+listB &lt;- rnorm(1500, mean = 1)  #Produce list of random values w/ mean of 1 &amp; normal distribtion</code></pre>
 <table>
 <thead>
 <tr class="header">
-<th>Description</th>
-<th>Operator</th>
+<th align="right">listA</th>
+<th align="right">listB</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Addition</td>
-<td>+</td>
+<td align="right">-1.3545005</td>
+<td align="right">1.5403710</td>
 </tr>
 <tr class="even">
-<td>Subtraction</td>
-<td>-</td>
+<td align="right">-1.6375959</td>
+<td align="right">0.1420701</td>
 </tr>
 <tr class="odd">
-<td>Multiplication</td>
-<td>*</td>
+<td align="right">-0.2843273</td>
+<td align="right">0.0084206</td>
 </tr>
 <tr class="even">
-<td>Division</td>
-<td>/</td>
+<td align="right">0.0531385</td>
+<td align="right">0.1398901</td>
 </tr>
 <tr class="odd">
-<td>Square Root</td>
-<td>sqrt(x)</td>
+<td align="right">-3.1462450</td>
+<td align="right">1.6279171</td>
 </tr>
 <tr class="even">
-<td>Absolute Value</td>
-<td>abs(x)</td>
-</tr>
-<tr class="odd">
-<td>Exponentiation</td>
-<td>^</td>
-</tr>
-<tr class="even">
-<td>Natural Exponential Function</td>
-<td>exp(x)</td>
-</tr>
-<tr class="odd">
-<td>Natural Logarithm</td>
-<td>log(x)</td>
-</tr>
-<tr class="even">
-<td>Common Logarithm</td>
-<td>log10(x)</td>
+<td align="right">0.2457779</td>
+<td align="right">1.7787919</td>
 </tr>
 </tbody>
 </table>
-<p><strong>example</strong></p>
-<pre class="r"><code>4*4</code></pre>
-<pre><code>## [1] 16</code></pre>
-<p><strong>Here are some comparative operators that are automatically recognized by r.</strong></p>
-<table>
-<thead>
-<tr class="header">
-<th>Description</th>
-<th>Syntax</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Less than</td>
-<td>VariableName <strong>&lt;</strong> Value</td>
-</tr>
-<tr class="even">
-<td>Less than or Equal to</td>
-<td>VariableName <strong>&lt;=</strong> Value</td>
-</tr>
-<tr class="odd">
-<td>Greater than</td>
-<td>VariableName <strong>&gt;</strong> Value</td>
-</tr>
-<tr class="even">
-<td>Greater than or Equal to</td>
-<td>VariableName <strong>&gt;=</strong> Value</td>
-</tr>
-<tr class="odd">
-<td>Equal to</td>
-<td>VariableName <strong>==</strong> Value</td>
-</tr>
-<tr class="even">
-<td>Not Less than</td>
-<td><strong>!</strong>VariableName <strong>&lt;</strong> Value</td>
-</tr>
-<tr class="odd">
-<td>Not Less than or Equal to</td>
-<td><strong>!</strong>VariableName <strong>&lt;=</strong> Value</td>
-</tr>
-<tr class="even">
-<td>Not Greater than</td>
-<td><strong>!</strong>VariableName <strong>&gt;</strong> Value</td>
-</tr>
-<tr class="odd">
-<td>Not Greater than or Equal to</td>
-<td><strong>!</strong>VariableName <strong>&gt;=</strong> Value</td>
-</tr>
-<tr class="even">
-<td>Not Equal to</td>
-<td><strong>!</strong>VariableName <strong>=</strong> Value</td>
-</tr>
-</tbody>
-</table>
-<p><strong>example</strong></p>
-<pre class="r"><code>4&gt;3</code></pre>
-<pre><code>## [1] TRUE</code></pre>
-<div id="these-do-not-even-scratch-the-surface-of-what-commands-and-functions-are-native-to-r-as-part-of-the-base-package.." class="section level5">
-<h5>These do not even scratch the surface of what <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html">commands and functions are native to r as part of the base package.</a>.</h5>
-<p><br/> <br/></p>
-</div>
-</div>
-<div id="packages" class="section level2">
-<h2>Packages</h2>
-<p>Because r is an open source platform, users and developers from all over the world are able to contribute to r by creating packages that can be utilized by other r users. A <strong>Package</strong> is a suite of pre-defined commands, data, and code that serve as toolkits for simplifying various programming tasks.</p>
-<p>If you want to produce beautiful visualizations, scrape tweets from twitter, manipulate data quickly and efficiently, perform statistical analysis without having to write out entire complex algorithms, or do just about anything in r, then you will likely find yourself becoming familiar with various packages very soon after starting to use r.</p>
-<p><br/></p>
-<div id="installing-packages" class="section level5">
-<h5>Installing packages</h5>
-<p>In order to use a package, you will need to install it. A package is installed as follows:</p>
-<pre class="r"><code>install.packages(&quot;stringr&quot;)</code></pre>
-<p><em>This only ever needs to be done once per package, unless you are installing an updated version of a package after a new release.</em></p>
+<p><strong>t.test syntax:</strong> t.test(variableA, variableB)</p>
+<pre class="r"><code>t.test(listA,listB) #If data are contained in two separate lists</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  listA and listB
+## t = -53.562, df = 2996.4, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -2.037818 -1.893889
+## sample estimates:
+##  mean of x  mean of y 
+## -0.9579611  1.0078923</code></pre>
 <p><br/></p>
 </div>
-<div id="loading-packages-for-use" class="section level5">
-<h5>Loading packages for use</h5>
-<p>Each time R is restarted, you will need to load the packages that you intend to use in the current session. A packages is loaded as follows:</p>
-<pre class="r"><code>library(stringr)</code></pre>
-<p><br/></p>
-</div>
-<div id="package-help" class="section level5">
-<h5>Package Help</h5>
-<p>If you type a “?” before the name of an installed package, you will pull up the help page for the given package.</p>
-<pre class="r"><code>?stringr</code></pre>
-<p><br/></p>
-</div>
-<div id="using-a-package." class="section level5">
-<h5>Using a package.</h5>
-<p>The stringr package that we’ve installed above contains dozens of useful functions for dealing with text strings. For Example, the <strong>str_detect()</strong> function from stringr gives us a true or false value based on whether or not a specified string pattern appears in a body of text.</p>
-<pre class="r"><code>#str_detect(string, pattern)  This is the syntax for the str_detect function
+<div id="if-data-are-contained-in-1-dataset-distinguished-by-a-binary-grouping-variable" class="section level4">
+<h4>If data are contained in 1 dataset, distinguished by a binary grouping variable:</h4>
+<pre class="r"><code>groupAB &lt;- data.frame(listA, listB)%&gt;%
+           gather(groupAB)
 
-str_detect(&quot;Mary had a little lamb&quot;, &quot;Mary&quot;)  #example</code></pre>
-<pre><code>## [1] TRUE</code></pre>
-<p><br/> <br/></p>
+kable(head(groupAB))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">groupAB</th>
+<th align="right">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">listA</td>
+<td align="right">-1.3545005</td>
+</tr>
+<tr class="even">
+<td align="left">listA</td>
+<td align="right">-1.6375959</td>
+</tr>
+<tr class="odd">
+<td align="left">listA</td>
+<td align="right">-0.2843273</td>
+</tr>
+<tr class="even">
+<td align="left">listA</td>
+<td align="right">0.0531385</td>
+</tr>
+<tr class="odd">
+<td align="left">listA</td>
+<td align="right">-3.1462450</td>
+</tr>
+<tr class="even">
+<td align="left">listA</td>
+<td align="right">0.2457779</td>
+</tr>
+</tbody>
+</table>
+<p><strong>t.test syntax:</strong> t.test(continuous_var~binary_var, data=data)</p>
+<pre class="r"><code>t.test(value~groupAB, data=groupAB) </code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  value by groupAB
+## t = -53.562, df = 2996.4, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -2.037818 -1.893889
+## sample estimates:
+## mean in group listA mean in group listB 
+##          -0.9579611           1.0078923</code></pre>
+<p><br/></p>
 </div>
 </div>
-<div id="references" class="section level2">
-<h2>References</h2>
-<p>R Core Team (2016). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
-<p>RStudio Team (2015). RStudio: Integrated Development for R. RStudio, Inc., Boston, MA URL <a href="http://www.rstudio.com/" class="uri">http://www.rstudio.com/</a>.</p>
-<p>Hadley Wickham (2017). stringr: Simple, Consistent Wrappers for Common String Operations. R package version 1.2.0. <a href="https://CRAN.R-project.org/package=stringr" class="uri">https://CRAN.R-project.org/package=stringr</a></p>
-<p><br/> <br/></p>
 </div>
-<div id="questions-feedback" class="section level2">
-<h2>Questions &amp; Feedback</h2>
-<p>Please feel free to leave feedback that could help improve this site. If you have questions, please leave them below as well and I will do my best to support you as soon as possible.</p>
-<!-- begin wwww.htmlcommentbox.com -->
-<div id="HCB_comment_box">
-<a href="http://www.htmlcommentbox.com">Comment Box</a> is loading comments…
+<div id="paired-t-tests" class="section level2">
+<h2>Paired t-tests</h2>
+<p>If two sets of observations are made on the same subjets, in a before-and-after or other similar scenario, you can used a paired t-test</p>
+<p><strong>t.test syntax:</strong> t.test(continuous_var~binary_var, paried=TRUE, data=data)</p>
+<pre class="r"><code>t.test(value~groupAB, paired=TRUE, data=groupAB) </code></pre>
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  value by groupAB
+## t = -54.266, df = 1499, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -2.036913 -1.894794
+## sample estimates:
+## mean of the differences 
+##               -1.965853</code></pre>
+<ul>
+<li><p>Large <strong>t-value</strong> and a Small <strong>p-value &lt;.01</strong> = we accept the hypothesis that the means of listA and listB show statistically significant differences at a 99% confidence interval.</p></li>
+<li><p>The <strong>mean of the differences:</strong> As the name implies, this shows the mean of the differences between groups. <em>When comparing experimental results on the same group of subjects, this might be considered something of an effect size</em>.</p></li>
+</ul>
 </div>
-<link rel="stylesheet" type="text/css" href="//www.htmlcommentbox.com/static/skins/bootstrap/twitter-bootstrap.css?v=0" />
-<script type="text/javascript" id="hcb"> /*<!--*/ if(!window.hcb_user){hcb_user={};} (function(){var s=document.createElement("script"), l=hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"), h="//www.htmlcommentbox.com";s.setAttribute("type","text/javascript");s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace("+","%2B")+"&mod=%241%24wq1rdBcg%244H85ttEMCGYTG2GQHqvK7."+"&opts=16862&num=10&ts=1500291878957");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})(); /*-->*/ </script>
-<!-- end www.htmlcommentbox.com -->
 </div>
 
 

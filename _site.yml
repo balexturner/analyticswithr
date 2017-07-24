@@ -19,5 +19,7 @@ navbar:
       menu:
         - text: "Contingency Tables"
           href: contingencytables.html
+        - text: "t-tests"
+          href: ttest.html
         - text: "Linear Regression"
           href: ols.html
