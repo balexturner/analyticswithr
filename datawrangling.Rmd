@@ -191,7 +191,7 @@ Let's filter "starwars" to only show characters who  are more than 150cm tall.
 
 *We want to keep the changes we make, so we will have to define a new object. If we define a new object with the same name as the previous object, we overwrite the previous object. *
 ```{r, eval=TRUE, include=TRUE, echo=TRUE}
-tall_charachters <- starwars%>%
+tall_characters <- starwars%>%
   
   filter(height > 150)%>%
   
@@ -222,7 +222,7 @@ Common Logarithm             | log10(x)
 
 Let's filter "starwars" to only show characters whose height/weight ratio is greater than or equal to 3/1.
 ```{r, eval=TRUE, include=TRUE, echo=TRUE}
-tall_and_skinny_characters <- tall_charachters%>%
+tall_and_skinny_characters <- tall_characters%>%
   
   filter(height/mass >= 3)%>%
   

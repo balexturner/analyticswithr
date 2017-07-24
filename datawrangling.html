@@ -496,8 +496,8 @@ print()</code></pre>
 <p><em>We always need to use two “=” signs (==) when making comparisons. The single “=” takes on different purposes in different contexts.</em></p>
 <p><br/> <br/></p>
 <p>Let’s filter “starwars” to only show characters who are more than 150cm tall.</p>
-<p><em>We want to keep the changes we make, so we will have to define a new object. When we define a new object with the same name as the previous object, we overwrite the previous object. </em></p>
-<pre class="r"><code>tall_charachters &lt;- starwars %&gt;% 
+<p><em>We want to keep the changes we make, so we will have to define a new object. If we define a new object with the same name as the previous object, we overwrite the previous object. </em></p>
+<pre class="r"><code>tall_characters &lt;- starwars %&gt;% 
 filter(height &gt; 150) %&gt;% 
 print()</code></pre>
 <pre><code># A tibble: 69 x 13
@@ -573,7 +573,7 @@ print()</code></pre>
 </table>
 <p><br/> <br/></p>
 <p>Let’s filter “starwars” to only show characters whose height/weight ratio is greater than or equal to 3/1.</p>
-<pre class="r"><code>tall_and_skinny_characters &lt;- tall_charachters %&gt;% 
+<pre class="r"><code>tall_and_skinny_characters &lt;- tall_characters %&gt;% 
 filter(height/mass &gt;= 3) %&gt;% 
 print()</code></pre>
 <pre><code># A tibble: 9 x 13
