@@ -5,7 +5,7 @@ output:
     includes:
        in_header: GA_Script.html
     toc: true
-    toc_depth: 2
+    toc_depth: 3
     toc_float: true
 ---
 
@@ -20,7 +20,7 @@ output:
 
 
 
-The [ggplot2 package ](https://cran.r-project.org/web/packages/ggplot2/ggplot2.pdf) is the probably the most widely used package for producing elegant visualizations in r. There are extensive resources available online from the creators of ggplot2. [R for Data Science](http://r4ds.had.co.nz/index.html) is a thorough, easy-to-digest text for those becoming aquainted with data visualizations in r. 
+The [ggplot2 package ](https://cran.r-project.org/web/packages/ggplot2/ggplot2.pdf) is the probably the most widely used package for producing elegant visualizations in r. There are extensive resources available online from the creators of ggplot2.
 
 <br/>
 
@@ -28,19 +28,324 @@ The [ggplot2 package ](https://cran.r-project.org/web/packages/ggplot2/ggplot2.p
 
 <br/>
 
-###Install ggplot2()
-```{r, echo=TRUE, eval=FALSE}
-install.packages("ggplot2")
-```
+##Basics
 
 <br/>
 
-###Load the ggplot2() package
-```{r, echo=TRUE}
+####Install & load ggplot2()
+```{r, echo=TRUE, eval=FALSE}
+install.packages("ggplot2")
 library(ggplot2)
 ```
 
+```{r, echo=FALSE, eval=TRUE}
+library(ggplot2)
+library(knitr) 
+```
+
 <br/>
+
+####Practice data
+
+The **mtcars** dataset is part of the base R package, and is the daataset that we will use to explore ggplot2.
+```{r, echo=FALSE}
+kable(head(mtcars))
+```
+
+<br/>
+
+####Sample plot
+
+Use the following code to make a scatterplot of horsepower(hp) x miles per gallon(mpg).
+
+```{r, echo=TRUE, fig.height=3, fig.width=4}
+ggplot(data=mtcars,mapping = aes(x=hp, y=mpg))+
+  geom_point()
+```
+
+####Basic commands & necessary arguments.
+
+* We initiate a plot with the **ggplot()** command.
+* Then, we include a **geom** command to define the geometric objects that we will use to visualize the data. 
+* These two commands are joined together by a "**+**"
+
+<br/>
+
+There are two major arguments which must be defined within each ggplot & geom command, otherwise they will not produce any output. 
+
+* **data=**
+
+    + This is where you will define the data that is to be referenced by the plot(s).
+
+
+* **mappings=**
+
+    + This is where you will define the visual properties, or **aesthetic mappings**, of the plot(s).
+
+
+<br/>
+
+####Placement of the **data=** and **mapping=** arguments
+
+1. You can place both arguments within the top-level ggplot() command. This will tell ggplot to apply this data & aesthetic mapping to all geoms that follow.
+
+*Notice that both the point geom, and the line geom are illustrating the same thing (hp x mpg).*
+```{r, echo=TRUE, fig.height=3, fig.width=4}
+ggplot(data=mtcars,mapping = aes(x=hp, y=mpg))+
+  geom_point()+
+  geom_line()
+```
+<br/>
+
+2. You can place the arguments within each geom() command. This will tell ggplot to apply this data & aesthetic mapping **only to this geom**.
+
+*Notice below that the geom_line is not plotted, because there is no data & no aesthetic mapping defined*
+```{r, echo=TRUE, fig.height=3, fig.width=4}
+ggplot()+
+  geom_point(data=mtcars,mapping = aes(x=hp, y=mpg))+
+  geom_line()
+```
+
+
+3. You can pass the data= argument at the ggplot() level, and the aesthetic mapping argument at the geom level. *This results in all geoms using the same data, but each geom having uniquely defined aesthetic mappings.*
+
+*Notice below that **geom_point()** shows horsepower by miles per gallon, while **geom_line()** shows horsepower by quarter mile time. *
+```{r, eval=FALSE, echo=TRUE, fig.height=3, fig.width=4}
+ggplot(data=mtcars)+
+  geom_point(mapping = aes(x=hp, y=mpg))+
+  geom_line(mapping = aes(x=hp, y=qsec))
+```
+
+```{r, EVAL=TRUE, echo=FALSE, fig.height=3, fig.width=4}
+#This chunk isnt shown, but the output is. I needed to adjust the y label, but didnt want to get into that just yet.
+ggplot(data=mtcars)+
+  geom_point(mapping = aes(x=hp, y=mpg))+
+  geom_line(mapping = aes(x=hp, y=qsec))+
+   ylab("mpg(point) | qsec(line)")
+```
+
+##Aesthetics
+
+Aesthetics "**aes()**" describe the **visual properties related to the x and y values**. Some commonly used aesthetic properties are:
+
+* x-axis value (required)
+
+* y-axis value (required)
+
+* color(outline)
+
+* fill
+
+* alpha (transparency)
+
+* size
+
+* shape
+
+<br/>
+
+####Data-defined vs. Manually-defined Aesthetics
+
+Any **mapping arguments inside of the aes() command are tied to the data**. Mapping arguments outside of the aes() command pertain to the entire geom, or ggplot object.
+
+<br/>
+
+**Example(Left):** Cars with Manual transmission are colored blue. Size indicates number of cylinders.
+```{r, echo=TRUE, eval=FALSE}
+ggplot(data=mtcars)+
+  geom_point(aes(x=hp, y=mpg, color=am,size=cyl))
+```
+
+**Example(Right):** Size indicates number of cylinders, however all points are blue since color is not tied to values in the data. *Again, this is achieved by putting the color argument **outside of the aes() command***.
+
+```{r, echo=TRUE, eval=FALSE}
+ggplot(data=mtcars)+
+  geom_point(aes(x=hp, y=mpg,size=cyl),color="blue")
+```
+
+```{r, eval=TRUE, echo=FALSE, fig.height=3.5, fig.width=7}
+#This chunk is not shown. Consolidating the two plot examples into one row of plots.
+
+transblue <- ggplot(data=mtcars)+
+  geom_point(aes(x=hp, y=mpg, color=am,size=cyl))
+
+allblue <- ggplot(data=mtcars)+
+  geom_point(aes(x=hp, y=mpg,size=cyl),color="blue")
+
+library(gridExtra)
+grid.arrange(transblue, allblue, ncol=2)
+```
+
+<br/>
+
+####Contiuous vs. Categorical values
+
+Notice that we have a color scale legend for the **am** variable. That is because it is being treated like a continuous variable. We can convert it to a factor with the **as.factor()**  command in order to have it treated categorically.
+
+**Example(Left):** "**am**" treated as a continuous variable
+```{r, echo=TRUE, eval=FALSE}
+ggplot(data=mtcars)+
+  geom_point(aes(x=hp, y=mpg, color=am,size=cyl))
+```
+
+**Example(Right):** "**am**" converted to factor and treated as a categorical variable.
+```{r, eval=FALSE, echo=TRUE}
+ggplot(data=mtcars)+
+  geom_point(aes(x=hp, y=mpg, color=as.factor(am),size=cyl))
+```
+
+```{r, eval=TRUE, echo=FALSE, fig.height=3.5, fig.width=8}
+#This chunk is not shown, the output is. Consolidating the two plot examples into one row of plots.
+
+continuous <- ggplot(data=mtcars)+
+  geom_point(aes(x=hp, y=mpg, color=am,size=cyl))
+
+categorical <- ggplot(data=mtcars)+
+  geom_point(aes(x=hp, y=mpg, color=as.factor(am),size=cyl))
+
+grid.arrange(continuous, categorical, ncol=2)
+```
+
+<br/>
+
+**Note**: repeating the "as.factor()" command can make for bulky code very quickly. If we will be consistently treating "cyl" and "am" as factors, we can define a new dataframe and re-classify these variables the way we want them.
+
+```{r, eval=TRUE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
+library(dplyr)
+newmtcars <- mtcars%>%
+  mutate(cyl = as.factor(cyl),
+         am = as.factor(am))
+
+ggplot(data=newmtcars)+
+  geom_point(aes(x=hp, y=mpg, color=am,size=cyl, shape=am))
+```
+
+###Color & Fill
+
+* **color** refers to the outline of a geometric object
+* **fill*** refers to the color that covers the surface area of an object.
+
+**Example(Left):** **color**
+```{r, eval=FALSE, echo=TRUE}
+ggplot(data=newmtcars)+
+  geom_bar(aes(x=am, color=am))
+```
+
+**Example(Right):** "**fill**"
+```{r, eval=FALSE, echo=TRUE}
+ggplot(data=newmtcars)+
+  geom_bar(aes(x=am, fill=am))
+```
+
+    
+
+```{r, eval=TRUE, echo=FALSE, fig.height=3, fig.width=8, message=FALSE, warning=FALSE}
+color <- ggplot(data=newmtcars)+
+  geom_bar(aes(x=am, color=am))
+
+fill <- ggplot(data=newmtcars)+
+  geom_bar(aes(x=am, fill=am))
+
+grid.arrange(color, fill, ncol=2)
+```
+
+
+When color/fill is defined **inside of the aes() command**, the color/fill assignments will correspond to the data. (**left example**)
+```{r, eval=FALSE, echo=TRUE}
+ggplot(data=newmtcars)+
+  geom_bar(aes(x=am, fill=am))
+```
+
+
+When color/fill is defined **outside fo the aes() command**, the color/fill assignment applies to the entire plot & is manually-defined. (**right example**)
+```{r, eval=FALSE, echo=TRUE}
+ggplot(data=newmtcars)+
+  geom_bar(aes(x=am), fill="aquamarine1")
+```
+
+```{r, eval=TRUE, echo=FALSE, fig.height=3, fig.width=8, message=FALSE, warning=FALSE}
+variablefill <- ggplot(data=newmtcars)+
+  geom_bar(aes(x=am, fill=am))
+
+manualfill <- ggplot(data=newmtcars)+
+  geom_bar(aes(x=am), fill="aquamarine1")
+
+grid.arrange(variablefill, manualfill, ncol=2)
+```
+
+[Here is a great reference for colors that are recognized by name in r.](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
+
+###Shape
+###Size
+
+##Geoms
+
+I will start using the starwars dataset which is packed in dplyr for some of these plots.
+```{r, echo=TRUE}
+head(starwars)
+```
+
+###geom_point
+
+```{r, eval=TRUE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
+ggplot(mtcars)+
+  geom_point(aes(x=hp, y=mpg))
+```
+
+###geom_bar
+```{r, eval=TRUE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
+ggplot(starwars)+
+  geom_bar(aes(x=gender))
+```
+
+###geom_histogram
+```{r, eval=TRUE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
+ggplot(mtcars)+
+  geom_histogram(aes(x=hp))
+```
+
+
+###geom_line & geom_smooth
+```{r, eval=TRUE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
+ggplot(mtcars)+
+  geom_line(aes(x=hp, y=mpg))
+```
+
+```{r, eval=TRUE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
+ggplot(mtcars)+
+  geom_smooth(aes(x=hp, y=mpg))
+```
+
+###geom_boxplot
+```{r, eval=TRUE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
+ggplot(mtcars)+
+  geom_boxplot(aes(x=am, y=mpg, group=am))
+```
+
+###geom_text
+
+##Theme Elements
+```{r, eval=FALSE, echo=TRUE}
+theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
+  axis.title.x.top, axis.title.y, axis.title.y.right, axis.text, axis.text.x,
+  axis.text.x.top, axis.text.y, axis.text.y.right, axis.ticks, axis.ticks.x,
+  axis.ticks.y, axis.ticks.length, axis.line, axis.line.x, axis.line.y,
+  legend.background, legend.margin, legend.spacing, legend.spacing.x,
+  legend.spacing.y, legend.key, legend.key.size, legend.key.height,
+  legend.key.width, legend.text, legend.text.align, legend.title,
+  legend.title.align, legend.position, legend.direction, legend.justification,
+  legend.box, legend.box.just, legend.box.margin, legend.box.background,
+  legend.box.spacing, panel.background, panel.border, panel.spacing,
+  panel.spacing.x, panel.spacing.y, panel.grid, panel.grid.major,
+  panel.grid.minor, panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
+  panel.grid.minor.y, panel.ontop, plot.background, plot.title, plot.subtitle,
+  plot.caption, plot.margin, strip.background, strip.placement, strip.text,
+  strip.text.x, strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap, ...,
+  complete = FALSE, validate = TRUE)
+
+```
+
+
 
 ##References
 
@@ -61,5 +366,10 @@ Please feel free to leave feedback that could help improve this site. If you hav
  <script type="text/javascript" id="hcb"> /*<!--*/ if(!window.hcb_user){hcb_user={};} (function(){var s=document.createElement("script"), l=hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"), h="//www.htmlcommentbox.com";s.setAttribute("type","text/javascript");s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace("+","%2B")+"&mod=%241%24wq1rdBcg%244H85ttEMCGYTG2GQHqvK7."+"&opts=16862&num=10&ts=1500291878957");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})(); /*-->*/ </script>
 <!-- end www.htmlcommentbox.com -->
 
+
+
+```{r}
+
+```
 
 

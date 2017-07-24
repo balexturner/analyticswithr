@@ -2,11 +2,11 @@
 title: ""
 output: 
   html_document:
+    includes:
+       in_header: GA_Script.html
     toc: true
     toc_depth: 3
     toc_float: true
-    includes:
-       in_header: GA_Script.html
 ---
 
 <br/>
@@ -189,7 +189,7 @@ Not Equal to                 | **!**VariableName **=** Value
 
 Let's filter "starwars" to only show characters who  are more than 150cm tall.
 
-*We want to keep the changes we make, so we will have to define a new object. When we define a new object with the same name as the previous object, we overwrite the previous object. *
+*We want to keep the changes we make, so we will have to define a new object. If we define a new object with the same name as the previous object, we overwrite the previous object. *
 ```{r, eval=TRUE, include=TRUE, echo=TRUE}
 tall_charachters <- starwars%>%
   

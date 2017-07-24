@@ -1,5 +1,9 @@
 name: "Analytics with R"
 output_dir: "."
+output: 
+  html_document:
+    includes:
+       in_header: GA_Script.html
 navbar:
   title: "Analytics with R"
   left:

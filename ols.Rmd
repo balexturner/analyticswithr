@@ -2,8 +2,6 @@
 title: ""
 output: 
   html_document:
-    includes:
-       in_header: GA_Script.html
     toc: true
     toc_depth: 2
     toc_float: true

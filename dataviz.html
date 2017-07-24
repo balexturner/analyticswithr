@@ -184,7 +184,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1,h2",
+      selectors: "h1,h2,h3",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
@@ -330,21 +330,332 @@ div.tocify {
 </div>
 <hr width="90%">
 <p><br/></p>
-<p>The <a href="https://cran.r-project.org/web/packages/ggplot2/ggplot2.pdf">ggplot2 package</a> is the probably the most widely used package for producing elegant visualizations in r. There are extensive resources available online from the creators of ggplot2. <a href="http://r4ds.had.co.nz/index.html">R for Data Science</a> is a thorough, easy-to-digest text for those becoming aquainted with data visualizations in r.</p>
+<p>The <a href="https://cran.r-project.org/web/packages/ggplot2/ggplot2.pdf">ggplot2 package</a> is the probably the most widely used package for producing elegant visualizations in r. There are extensive resources available online from the creators of ggplot2.</p>
 <p><br/></p>
 <div id="visualizing-data-with-ggplot2" class="section level2">
 <h2>Visualizing Data with ggplot2</h2>
 <p><br/></p>
-<div id="install-ggplot2" class="section level3">
-<h3>Install ggplot2()</h3>
-<pre class="r"><code>install.packages(&quot;ggplot2&quot;)</code></pre>
+</div>
+<div id="basics" class="section level2">
+<h2>Basics</h2>
+<p><br/></p>
+<div id="install-load-ggplot2" class="section level4">
+<h4>Install &amp; load ggplot2()</h4>
+<pre class="r"><code>install.packages(&quot;ggplot2&quot;)
+library(ggplot2)</code></pre>
 <p><br/></p>
 </div>
-<div id="load-the-ggplot2-package" class="section level3">
-<h3>Load the ggplot2() package</h3>
-<pre class="r"><code>library(ggplot2)</code></pre>
+<div id="practice-data" class="section level4">
+<h4>Practice data</h4>
+<p>The <strong>mtcars</strong> dataset is part of the base R package, and is the daataset that we will use to explore ggplot2.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+<th align="right">qsec</th>
+<th align="right">vs</th>
+<th align="right">am</th>
+<th align="right">gear</th>
+<th align="right">carb</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+<td align="right">16.46</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td>Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td>Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+<td align="right">18.61</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td>Hornet 4 Drive</td>
+<td align="right">21.4</td>
+<td align="right">6</td>
+<td align="right">258</td>
+<td align="right">110</td>
+<td align="right">3.08</td>
+<td align="right">3.215</td>
+<td align="right">19.44</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td>Hornet Sportabout</td>
+<td align="right">18.7</td>
+<td align="right">8</td>
+<td align="right">360</td>
+<td align="right">175</td>
+<td align="right">3.15</td>
+<td align="right">3.440</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td>Valiant</td>
+<td align="right">18.1</td>
+<td align="right">6</td>
+<td align="right">225</td>
+<td align="right">105</td>
+<td align="right">2.76</td>
+<td align="right">3.460</td>
+<td align="right">20.22</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
 <p><br/></p>
 </div>
+<div id="sample-plot" class="section level4">
+<h4>Sample plot</h4>
+<p>Use the following code to make a scatterplot of horsepower(hp) x miles per gallon(mpg).</p>
+<pre class="r"><code>ggplot(data=mtcars,mapping = aes(x=hp, y=mpg))+
+  geom_point()</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-4-1.png" width="384" /></p>
+</div>
+<div id="basic-commands-necessary-arguments." class="section level4">
+<h4>Basic commands &amp; necessary arguments.</h4>
+<ul>
+<li>We initiate a plot with the <strong>ggplot()</strong> command.</li>
+<li>Then, we include a <strong>geom</strong> command to define the geometric objects that we will use to visualize the data.</li>
+<li>These two commands are joined together by a “<strong>+</strong>”</li>
+</ul>
+<p><br/></p>
+<p>There are two major arguments which must be defined within each ggplot &amp; geom command, otherwise they will not produce any output.</p>
+<ul>
+<li><p><strong>data=</strong></p>
+<ul>
+<li>This is where you will define the data that is to be referenced by the plot(s).</li>
+</ul></li>
+<li><p><strong>mappings=</strong></p>
+<ul>
+<li>This is where you will define the visual properties, or <strong>aesthetic mappings</strong>, of the plot(s).</li>
+</ul></li>
+</ul>
+<p><br/></p>
+</div>
+<div id="placement-of-the-data-and-mapping-arguments" class="section level4">
+<h4>Placement of the <strong>data=</strong> and <strong>mapping=</strong> arguments</h4>
+<ol style="list-style-type: decimal">
+<li>You can place both arguments within the top-level ggplot() command. This will tell ggplot to apply this data &amp; aesthetic mapping to all geoms that follow.</li>
+</ol>
+<p><em>Notice that both the point geom, and the line geom are illustrating the same thing (hp x mpg).</em></p>
+<pre class="r"><code>ggplot(data=mtcars,mapping = aes(x=hp, y=mpg))+
+  geom_point()+
+  geom_line()</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-5-1.png" width="384" /> <br/></p>
+<ol start="2" style="list-style-type: decimal">
+<li>You can place the arguments within each geom() command. This will tell ggplot to apply this data &amp; aesthetic mapping <strong>only to this geom</strong>.</li>
+</ol>
+<p><em>Notice below that the geom_line is not plotted, because there is no data &amp; no aesthetic mapping defined</em></p>
+<pre class="r"><code>ggplot()+
+  geom_point(data=mtcars,mapping = aes(x=hp, y=mpg))+
+  geom_line()</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-6-1.png" width="384" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>You can pass the data= argument at the ggplot() level, and the aesthetic mapping argument at the geom level. <em>This results in all geoms using the same data, but each geom having uniquely defined aesthetic mappings.</em></li>
+</ol>
+<p><em>Notice below that <strong>geom_point()</strong> shows horsepower by miles per gallon, while <strong>geom_line()</strong> shows horsepower by quarter mile time. </em></p>
+<pre class="r"><code>ggplot(data=mtcars)+
+  geom_point(mapping = aes(x=hp, y=mpg))+
+  geom_line(mapping = aes(x=hp, y=qsec))</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-8-1.png" width="384" /></p>
+</div>
+</div>
+<div id="aesthetics" class="section level2">
+<h2>Aesthetics</h2>
+<p>Aesthetics “<strong>aes()</strong>” describe the <strong>visual properties related to the x and y values</strong>. Some commonly used aesthetic properties are:</p>
+<ul>
+<li><p>x-axis value (required)</p></li>
+<li><p>y-axis value (required)</p></li>
+<li><p>color(outline)</p></li>
+<li><p>fill</p></li>
+<li><p>alpha (transparency)</p></li>
+<li><p>size</p></li>
+<li><p>shape</p></li>
+</ul>
+<p><br/></p>
+<div id="data-defined-vs.manually-defined-aesthetics" class="section level4">
+<h4>Data-defined vs. Manually-defined Aesthetics</h4>
+<p>Any <strong>mapping arguments inside of the aes() command are tied to the data</strong>. Mapping arguments outside of the aes() command pertain to the entire geom, or ggplot object.</p>
+<p><br/></p>
+<p><strong>Example(Left):</strong> Cars with Manual transmission are colored blue. Size indicates number of cylinders.</p>
+<pre class="r"><code>ggplot(data=mtcars)+
+  geom_point(aes(x=hp, y=mpg, color=am,size=cyl))</code></pre>
+<p><strong>Example(Right):</strong> Size indicates number of cylinders, however all points are blue since color is not tied to values in the data. <em>Again, this is achieved by putting the color argument <strong>outside of the aes() command</strong></em>.</p>
+<pre class="r"><code>ggplot(data=mtcars)+
+  geom_point(aes(x=hp, y=mpg,size=cyl),color=&quot;blue&quot;)</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><br/></p>
+</div>
+<div id="contiuous-vs.categorical-values" class="section level4">
+<h4>Contiuous vs. Categorical values</h4>
+<p>Notice that we have a color scale legend for the <strong>am</strong> variable. That is because it is being treated like a continuous variable. We can convert it to a factor with the <strong>as.factor()</strong> command in order to have it treated categorically.</p>
+<p><strong>Example(Left):</strong> “<strong>am</strong>” treated as a continuous variable</p>
+<pre class="r"><code>ggplot(data=mtcars)+
+  geom_point(aes(x=hp, y=mpg, color=am,size=cyl))</code></pre>
+<p><strong>Example(Right):</strong> “<strong>am</strong>” converted to factor and treated as a categorical variable.</p>
+<pre class="r"><code>ggplot(data=mtcars)+
+  geom_point(aes(x=hp, y=mpg, color=as.factor(am),size=cyl))</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-14-1.png" width="768" /></p>
+<p><br/></p>
+<p><strong>Note</strong>: repeating the “as.factor()” command can make for bulky code very quickly. If we will be consistently treating “cyl” and “am” as factors, we can define a new dataframe and re-classify these variables the way we want them.</p>
+<pre class="r"><code>library(dplyr)
+newmtcars &lt;- mtcars%&gt;%
+  mutate(cyl = as.factor(cyl),
+         am = as.factor(am))
+
+ggplot(data=newmtcars)+
+  geom_point(aes(x=hp, y=mpg, color=am,size=cyl, shape=am))</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-15-1.png" width="384" /></p>
+</div>
+<div id="color-fill" class="section level3">
+<h3>Color &amp; Fill</h3>
+<ul>
+<li><strong>color</strong> refers to the outline of a geometric object</li>
+<li><strong>fill</strong>* refers to the color that covers the surface area of an object.</li>
+</ul>
+<p><strong>Example(Left):</strong> <strong>color</strong></p>
+<pre class="r"><code>ggplot(data=newmtcars)+
+  geom_bar(aes(x=am, color=am))</code></pre>
+<p><strong>Example(Right):</strong> “<strong>fill</strong>”</p>
+<pre class="r"><code>ggplot(data=newmtcars)+
+  geom_bar(aes(x=am, fill=am))</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-18-1.png" width="768" /></p>
+<p>When color/fill is defined <strong>inside of the aes() command</strong>, the color/fill assignments will correspond to the data. (<strong>left example</strong>)</p>
+<pre class="r"><code>ggplot(data=newmtcars)+
+  geom_bar(aes(x=am, fill=am))</code></pre>
+<p>When color/fill is defined <strong>outside fo the aes() command</strong>, the color/fill assignment applies to the entire plot &amp; is manually-defined. (<strong>right example</strong>)</p>
+<pre class="r"><code>ggplot(data=newmtcars)+
+  geom_bar(aes(x=am), fill=&quot;aquamarine1&quot;)</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-21-1.png" width="768" /></p>
+<p><a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf">Here is a great reference for colors that are recognized by name in r.</a></p>
+</div>
+<div id="shape" class="section level3">
+<h3>Shape</h3>
+</div>
+<div id="size" class="section level3">
+<h3>Size</h3>
+</div>
+</div>
+<div id="geoms" class="section level2">
+<h2>Geoms</h2>
+<p>I will start using the starwars dataset which is packed in dplyr for some of these plots.</p>
+<pre class="r"><code>head(starwars)</code></pre>
+<pre><code>## # A tibble: 6 x 13
+##             name height  mass  hair_color  skin_color eye_color birth_year
+##            &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;       &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;
+## 1 Luke Skywalker    172    77       blond        fair      blue       19.0
+## 2          C-3PO    167    75        &lt;NA&gt;        gold    yellow      112.0
+## 3          R2-D2     96    32        &lt;NA&gt; white, blue       red       33.0
+## 4    Darth Vader    202   136        none       white    yellow       41.9
+## 5    Leia Organa    150    49       brown       light     brown       19.0
+## 6      Owen Lars    178   120 brown, grey       light      blue       52.0
+## # ... with 6 more variables: gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;,
+## #   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<div id="geom_point" class="section level3">
+<h3>geom_point</h3>
+<pre class="r"><code>ggplot(mtcars)+
+  geom_point(aes(x=hp, y=mpg))</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-23-1.png" width="384" /></p>
+</div>
+<div id="geom_bar" class="section level3">
+<h3>geom_bar</h3>
+<pre class="r"><code>ggplot(starwars)+
+  geom_bar(aes(x=gender))</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-24-1.png" width="384" /></p>
+</div>
+<div id="geom_histogram" class="section level3">
+<h3>geom_histogram</h3>
+<pre class="r"><code>ggplot(mtcars)+
+  geom_histogram(aes(x=hp))</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-25-1.png" width="384" /></p>
+</div>
+<div id="geom_line-geom_smooth" class="section level3">
+<h3>geom_line &amp; geom_smooth</h3>
+<pre class="r"><code>ggplot(mtcars)+
+  geom_line(aes(x=hp, y=mpg))</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-26-1.png" width="384" /></p>
+<pre class="r"><code>ggplot(mtcars)+
+  geom_smooth(aes(x=hp, y=mpg))</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-27-1.png" width="384" /></p>
+</div>
+<div id="geom_boxplot" class="section level3">
+<h3>geom_boxplot</h3>
+<pre class="r"><code>ggplot(mtcars)+
+  geom_boxplot(aes(x=am, y=mpg, group=am))</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-28-1.png" width="384" /></p>
+</div>
+<div id="geom_text" class="section level3">
+<h3>geom_text</h3>
+</div>
+</div>
+<div id="theme-elements" class="section level2">
+<h2>Theme Elements</h2>
+<pre class="r"><code>theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
+  axis.title.x.top, axis.title.y, axis.title.y.right, axis.text, axis.text.x,
+  axis.text.x.top, axis.text.y, axis.text.y.right, axis.ticks, axis.ticks.x,
+  axis.ticks.y, axis.ticks.length, axis.line, axis.line.x, axis.line.y,
+  legend.background, legend.margin, legend.spacing, legend.spacing.x,
+  legend.spacing.y, legend.key, legend.key.size, legend.key.height,
+  legend.key.width, legend.text, legend.text.align, legend.title,
+  legend.title.align, legend.position, legend.direction, legend.justification,
+  legend.box, legend.box.just, legend.box.margin, legend.box.background,
+  legend.box.spacing, panel.background, panel.border, panel.spacing,
+  panel.spacing.x, panel.spacing.y, panel.grid, panel.grid.major,
+  panel.grid.minor, panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
+  panel.grid.minor.y, panel.ontop, plot.background, plot.title, plot.subtitle,
+  plot.caption, plot.margin, strip.background, strip.placement, strip.text,
+  strip.text.x, strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap, ...,
+  complete = FALSE, validate = TRUE)</code></pre>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
