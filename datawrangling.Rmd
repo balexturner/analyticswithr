@@ -328,6 +328,30 @@ starwars%>%
   summarize(avgheight = mean(height))
 ```
 
+```{r, echo=FALSE, include=FALSE, eval=FALSE}
+library(dplyr)
+library(ggplot2)
+
+mpg
+
+#table() is a quick way to pull together fow/column frequencies and proportions for categorical variables
+mpg_table<- table(mpg$class, mpg$cyl)
+
+#Frequencies
+ftable(mpg_table)
+margin.table(mpg_table, 1)  #variable A frequencies
+margin.table(mpg_table, 2)  #variable B frequencies
+
+#Proportions
+prop.table(mpg_table)     #proportion of entire table
+prop.table(mpg_table, 1)  #proportion of entire row
+prop.table(mpg_table, 2)  #proportion of entire column
+
+#CrossTable computes all of these different statistics at once
+library(gmodels)
+CrossTable(mpg$class, mpg$cyl)
+```
+
 <br/>
 
 We can pass the n() argument to get a count of the rows that are collapsed into each summary row.

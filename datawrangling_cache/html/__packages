@@ -10,3 +10,6 @@ visreg
 stringr
 xtable
 htmlTable
+gmodels
+tidyr
+gridExtra

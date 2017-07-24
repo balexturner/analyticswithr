@@ -1,0 +1,209 @@
+---
+title: ""
+output: 
+  html_document:
+    includes:
+       in_header: GA_Script.html
+    toc: true
+    toc_depth: 3
+    toc_float: true
+---
+
+<br/>
+
+![](/Users/Brett/Desktop/AWR/analyticswithr/Data Analysis.png)
+
+<hr width="90%">
+
+#Contingency Tables
+
+There are many options for producing contingency tables and summary tables in R. 
+
+We will review the following methods:
+
+* Producing summary tables using **dplyr & tidyr**
+* Producing frequency & proportion tables using **table()**
+* producing frequency, proportion, & chi-sq values using **CrossTable**
+
+<hr width="90%">
+
+<br/>
+
+
+##dplyr & tidyr
+
+The more things you can accomplish within the tidyverse of r packages, the better (IMO). Using dply to produce your summary stats enables you to continue the code seamlessly into the next task (filtering, plotting, etc...).
+
+
+The **group_by()**, **summarize()**, and **spread()** commands are a useful combination for producing aggregate or summary values of our data.
+
+<br/>
+
+####First, let's load dplyr, tidyr, and ggplot2(for the sample data).
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(knitr) #for printing html-friendly tables.
+```
+
+<br/>
+
+####We will use the **mpg** dataset from ggplot2 for these exercises.
+
+```{r, echo=FALSE}
+kable(head(mpg))
+```
+
+
+<br/>
+
+Here, we can get the total number of cars with each class & cyl combination using **group_by()**, **summarize()**, and **spread()**.
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+mpg%>%
+  group_by(class, cyl)%>%
+  summarize(n=n())%>%
+  kable()
+```
+
+<br/>
+
+###dplyr & tidyr: Crosstabs
+To turn our summary data into a crosstab or contingency table, we need variable A (**class**) to be listed by row, and variable B (**cyl**) to be listed by column. 
+
+We can achieve this by including the **spread()** command, to create columns for each **cyl** value, with **n** as the crosstab response value.
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+mpg%>%
+  group_by(class, cyl)%>%
+  summarise(n=n())%>%
+  spread(cyl, n)%>%
+  kable()
+```
+
+
+<br/>
+
+####Summary statistics other than frequency.
+One advantage of dplyr is that we can determine what kind of summary statistic we want to see very easily by adjusting our **summarize()** input. 
+
+Here instead of displaying frequencies, we can get the **average number of city miles by class & cyl**
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+mpg%>%
+  group_by(class, cyl)%>%
+  summarise(mean_cty=mean(cty))%>%
+  spread(cyl, mean_cty)%>%
+  kable()
+```
+
+Or **max number of city miles by class & cyl**
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+mpg%>%
+  group_by(class, cyl)%>%
+  summarise(max_cty=max(cty))%>%
+  spread(cyl, max_cty)%>%
+  kable()
+```
+
+<br/>
+
+###dplyr & tidyr: Proportions
+
+We can find **proportions** by creating a new, calculated variable dividing row frequency by table frequency.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+mpg%>%
+  group_by(class)%>%
+  summarize(n=n())%>%
+  mutate(prop=n/sum(n))%>%   # our new proportion variable
+  kable()
+```
+
+We can create a **contingency table of proportion values** by applying the same spread command as before. Vary the group_by() and spread() arguents to produce proportions of different variables.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+mpg%>%
+  group_by(class, cyl)%>%
+  summarize(n=n())%>%
+  mutate(prop=n/sum(n))%>%
+  subset(select=c("class","cyl","prop"))%>%   #drop the frequency value
+  spread(class, prop)%>%
+  kable()
+```
+
+<hr width="90%">
+
+<br/>
+
+##table()
+table() is a quick way to pull together row/column frequencies and proportions for categorical variables
+
+Using the basic **table()** command, we can get a contingency table of **vehicle class by number of cylinders**.
+```{r, echo=TRUE, include=TRUE, eval=TRUE}
+table(mpg$class, mpg$cyl)
+```
+
+
+
+###Table, Column, and Row Frequencies
+
+The table frequency can also be called by using the ftable() command. command.
+```{r, echo=TRUE, include=TRUE, eval=TRUE}
+mpg_table<- table(mpg$class, mpg$cyl) #define object w/table parameters for simple calling
+ftable(mpg_table)
+```
+
+
+For **row frequencies**, we use the **margin.table()** command, with the **1** argument.
+```{r, echo=TRUE, include=TRUE, eval=TRUE}
+margin.table(mpg_table, 1)  
+```
+
+For **column frequencies**, we use the **margin.table()** command, with the **2** argument.
+```{r, echo=TRUE, include=TRUE, eval=TRUE}
+margin.table(mpg_table, 2)  
+```
+
+
+###Table, Column, and Row Proportions
+We can get the proportion values for our variable combinations as well.
+
+For **proportion of the entire table**, we use the **prop.table()** command.
+```{r, echo=TRUE, include=TRUE, eval=TRUE}
+prop.table(mpg_table)     #proportion of entire table
+```
+
+For **row proportions**, we use the **prop.table()** command, with the **1** argument following the table name.
+```{r, echo=TRUE, include=TRUE, eval=TRUE}
+prop.table(mpg_table, 1)  #proportion of entire row
+```
+
+
+For **column proportions**, we use the **prop.table()** command, with the **2** argument following the table name.
+```{r, echo=TRUE, include=TRUE, eval=TRUE}
+prop.table(mpg_table, 2)  #proportion of entire column
+```
+
+<br/>
+
+##gmodels::CrossTable()
+
+The **CrossTable()** command from the gmodels package produces frequencies, and table, row, & column proportions with a single command. The values are not as quickly drawn into tables of their own, or further manipulated as they are with the dyplr/tidyr tables, but this is a handy command nonetheless.
+
+####Install & Load the gmodels package
+
+```{r, echo=TRUE, eval=FALSE}
+install.packages("gmodels")
+library(gmodels)
+```
+
+```{r, echo=FALSE, include=TRUE, eval=TRUE}
+library(gmodels)
+```
+
+
+####Run the CrossTable() command, with your two variables as inputs.
+```{r, echo=TRUE, include=TRUE, eval=TRUE}
+CrossTable(mpg$class, mpg$cyl)
+```
+

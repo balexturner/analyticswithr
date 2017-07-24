@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-102668977-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Analytics with R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="rbasics.html">R Basics</a>
+</li>
+<li>
+  <a href="datawrangling.html">Data Wrangling</a>
+</li>
+<li>
+  <a href="dataviz.html">Data Visualization</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="ols.html">Linear Regression</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p><br/></p>
+<div class="figure">
+<img src="Data%20Analysis.png" />
+
+</div>
+<hr width="90%">
+<div id="contingency-tables" class="section level1">
+<h1>Contingency Tables</h1>
+<p>There are many options for producing contingency tables and summary tables in R.</p>
+<p>We will review the following methods:</p>
+<ul>
+<li>Producing summary tables using <strong>dplyr &amp; tidyr</strong></li>
+<li>Producing frequency &amp; proportion tables using <strong>table()</strong></li>
+<li>producing frequency, proportion, &amp; chi-sq values using <strong>CrossTable</strong></li>
+</ul>
+<hr width="90%">
+<p><br/></p>
+<div id="dplyr-tidyr" class="section level2">
+<h2>dplyr &amp; tidyr</h2>
+<p>The more things you can accomplish within the tidyverse of r packages, the better (IMO). Using dply to produce your summary stats enables you to continue the code seamlessly into the next task (filtering, plotting, etc…).</p>
+<p>The <strong>group_by()</strong>, <strong>summarize()</strong>, and <strong>spread()</strong> commands are a useful combination for producing aggregate or summary values of our data.</p>
+<p><br/></p>
+<div id="first-lets-load-dplyr-tidyr-and-ggplot2for-the-sample-data." class="section level4">
+<h4>First, let’s load dplyr, tidyr, and ggplot2(for the sample data).</h4>
+<pre class="r"><code>library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(knitr) #for printing html-friendly tables.</code></pre>
+<p><br/></p>
+</div>
+<div id="we-will-use-the-mpg-dataset-from-ggplot2-for-these-exercises." class="section level4">
+<h4>We will use the <strong>mpg</strong> dataset from ggplot2 for these exercises.</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">manufacturer</th>
+<th align="left">model</th>
+<th align="right">displ</th>
+<th align="right">year</th>
+<th align="right">cyl</th>
+<th align="left">trans</th>
+<th align="left">drv</th>
+<th align="right">cty</th>
+<th align="right">hwy</th>
+<th align="left">fl</th>
+<th align="left">class</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">audi</td>
+<td align="left">a4</td>
+<td align="right">1.8</td>
+<td align="right">1999</td>
+<td align="right">4</td>
+<td align="left">auto(l5)</td>
+<td align="left">f</td>
+<td align="right">18</td>
+<td align="right">29</td>
+<td align="left">p</td>
+<td align="left">compact</td>
+</tr>
+<tr class="even">
+<td align="left">audi</td>
+<td align="left">a4</td>
+<td align="right">1.8</td>
+<td align="right">1999</td>
+<td align="right">4</td>
+<td align="left">manual(m5)</td>
+<td align="left">f</td>
+<td align="right">21</td>
+<td align="right">29</td>
+<td align="left">p</td>
+<td align="left">compact</td>
+</tr>
+<tr class="odd">
+<td align="left">audi</td>
+<td align="left">a4</td>
+<td align="right">2.0</td>
+<td align="right">2008</td>
+<td align="right">4</td>
+<td align="left">manual(m6)</td>
+<td align="left">f</td>
+<td align="right">20</td>
+<td align="right">31</td>
+<td align="left">p</td>
+<td align="left">compact</td>
+</tr>
+<tr class="even">
+<td align="left">audi</td>
+<td align="left">a4</td>
+<td align="right">2.0</td>
+<td align="right">2008</td>
+<td align="right">4</td>
+<td align="left">auto(av)</td>
+<td align="left">f</td>
+<td align="right">21</td>
+<td align="right">30</td>
+<td align="left">p</td>
+<td align="left">compact</td>
+</tr>
+<tr class="odd">
+<td align="left">audi</td>
+<td align="left">a4</td>
+<td align="right">2.8</td>
+<td align="right">1999</td>
+<td align="right">6</td>
+<td align="left">auto(l5)</td>
+<td align="left">f</td>
+<td align="right">16</td>
+<td align="right">26</td>
+<td align="left">p</td>
+<td align="left">compact</td>
+</tr>
+<tr class="even">
+<td align="left">audi</td>
+<td align="left">a4</td>
+<td align="right">2.8</td>
+<td align="right">1999</td>
+<td align="right">6</td>
+<td align="left">manual(m5)</td>
+<td align="left">f</td>
+<td align="right">18</td>
+<td align="right">26</td>
+<td align="left">p</td>
+<td align="left">compact</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>Here, we can get the total number of cars with each class &amp; cyl combination using <strong>group_by()</strong>, <strong>summarize()</strong>, and <strong>spread()</strong>.</p>
+<pre class="r"><code>mpg%&gt;%
+  group_by(class, cyl)%&gt;%
+  summarize(n=n())%&gt;%
+  kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">class</th>
+<th align="right">cyl</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2seater</td>
+<td align="right">8</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">compact</td>
+<td align="right">4</td>
+<td align="right">32</td>
+</tr>
+<tr class="odd">
+<td align="left">compact</td>
+<td align="right">5</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">compact</td>
+<td align="right">6</td>
+<td align="right">13</td>
+</tr>
+<tr class="odd">
+<td align="left">midsize</td>
+<td align="right">4</td>
+<td align="right">16</td>
+</tr>
+<tr class="even">
+<td align="left">midsize</td>
+<td align="right">6</td>
+<td align="right">23</td>
+</tr>
+<tr class="odd">
+<td align="left">midsize</td>
+<td align="right">8</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">minivan</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">minivan</td>
+<td align="right">6</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">pickup</td>
+<td align="right">4</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">pickup</td>
+<td align="right">6</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">pickup</td>
+<td align="right">8</td>
+<td align="right">20</td>
+</tr>
+<tr class="odd">
+<td align="left">subcompact</td>
+<td align="right">4</td>
+<td align="right">21</td>
+</tr>
+<tr class="even">
+<td align="left">subcompact</td>
+<td align="right">5</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">subcompact</td>
+<td align="right">6</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">subcompact</td>
+<td align="right">8</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">suv</td>
+<td align="right">4</td>
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="left">suv</td>
+<td align="right">6</td>
+<td align="right">16</td>
+</tr>
+<tr class="odd">
+<td align="left">suv</td>
+<td align="right">8</td>
+<td align="right">38</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+</div>
+<div id="dplyr-tidyr-crosstabs" class="section level3">
+<h3>dplyr &amp; tidyr: Crosstabs</h3>
+<p>To turn our summary data into a crosstab or contingency table, we need variable A (<strong>class</strong>) to be listed by row, and variable B (<strong>cyl</strong>) to be listed by column.</p>
+<p>We can achieve this by including the <strong>spread()</strong> command, to create columns for each <strong>cyl</strong> value, with <strong>n</strong> as the crosstab response value.</p>
+<pre class="r"><code>mpg%&gt;%
+  group_by(class, cyl)%&gt;%
+  summarise(n=n())%&gt;%
+  spread(cyl, n)%&gt;%
+  kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">class</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">8</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2seater</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">compact</td>
+<td align="right">32</td>
+<td align="right">2</td>
+<td align="right">13</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">midsize</td>
+<td align="right">16</td>
+<td align="right">NA</td>
+<td align="right">23</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">minivan</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">10</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">pickup</td>
+<td align="right">3</td>
+<td align="right">NA</td>
+<td align="right">10</td>
+<td align="right">20</td>
+</tr>
+<tr class="even">
+<td align="left">subcompact</td>
+<td align="right">21</td>
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">suv</td>
+<td align="right">8</td>
+<td align="right">NA</td>
+<td align="right">16</td>
+<td align="right">38</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<div id="summary-statistics-other-than-frequency." class="section level4">
+<h4>Summary statistics other than frequency.</h4>
+<p>One advantage of dplyr is that we can determine what kind of summary statistic we want to see very easily by adjusting our <strong>summarize()</strong> input.</p>
+<p>Here instead of displaying frequencies, we can get the <strong>average number of city miles by class &amp; cyl</strong></p>
+<pre class="r"><code>mpg%&gt;%
+  group_by(class, cyl)%&gt;%
+  summarise(mean_cty=mean(cty))%&gt;%
+  spread(cyl, mean_cty)%&gt;%
+  kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">class</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">8</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2seater</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">15.40000</td>
+</tr>
+<tr class="even">
+<td align="left">compact</td>
+<td align="right">21.37500</td>
+<td align="right">21</td>
+<td align="right">16.92308</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">midsize</td>
+<td align="right">20.50000</td>
+<td align="right">NA</td>
+<td align="right">17.78261</td>
+<td align="right">16.00000</td>
+</tr>
+<tr class="even">
+<td align="left">minivan</td>
+<td align="right">18.00000</td>
+<td align="right">NA</td>
+<td align="right">15.60000</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">pickup</td>
+<td align="right">16.00000</td>
+<td align="right">NA</td>
+<td align="right">14.50000</td>
+<td align="right">11.80000</td>
+</tr>
+<tr class="even">
+<td align="left">subcompact</td>
+<td align="right">22.85714</td>
+<td align="right">20</td>
+<td align="right">17.00000</td>
+<td align="right">14.80000</td>
+</tr>
+<tr class="odd">
+<td align="left">suv</td>
+<td align="right">18.00000</td>
+<td align="right">NA</td>
+<td align="right">14.50000</td>
+<td align="right">12.13158</td>
+</tr>
+</tbody>
+</table>
+<p>Or <strong>max number of city miles by class &amp; cyl</strong></p>
+<pre class="r"><code>mpg%&gt;%
+  group_by(class, cyl)%&gt;%
+  summarise(max_cty=max(cty))%&gt;%
+  spread(cyl, max_cty)%&gt;%
+  kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">class</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">8</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2seater</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">16</td>
+</tr>
+<tr class="even">
+<td align="left">compact</td>
+<td align="right">33</td>
+<td align="right">21</td>
+<td align="right">18</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">midsize</td>
+<td align="right">23</td>
+<td align="right">NA</td>
+<td align="right">19</td>
+<td align="right">16</td>
+</tr>
+<tr class="even">
+<td align="left">minivan</td>
+<td align="right">18</td>
+<td align="right">NA</td>
+<td align="right">17</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">pickup</td>
+<td align="right">17</td>
+<td align="right">NA</td>
+<td align="right">16</td>
+<td align="right">14</td>
+</tr>
+<tr class="even">
+<td align="left">subcompact</td>
+<td align="right">35</td>
+<td align="right">20</td>
+<td align="right">18</td>
+<td align="right">15</td>
+</tr>
+<tr class="odd">
+<td align="left">suv</td>
+<td align="right">20</td>
+<td align="right">NA</td>
+<td align="right">17</td>
+<td align="right">14</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+</div>
+</div>
+<div id="dplyr-tidyr-proportions" class="section level3">
+<h3>dplyr &amp; tidyr: Proportions</h3>
+<p>We can find <strong>proportions</strong> by creating a new, calculated variable dividing row frequency by table frequency.</p>
+<pre class="r"><code>mpg%&gt;%
+  group_by(class)%&gt;%
+  summarize(n=n())%&gt;%
+  mutate(prop=n/sum(n))%&gt;%   # our new proportion variable
+  kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">class</th>
+<th align="right">n</th>
+<th align="right">prop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2seater</td>
+<td align="right">5</td>
+<td align="right">0.0213675</td>
+</tr>
+<tr class="even">
+<td align="left">compact</td>
+<td align="right">47</td>
+<td align="right">0.2008547</td>
+</tr>
+<tr class="odd">
+<td align="left">midsize</td>
+<td align="right">41</td>
+<td align="right">0.1752137</td>
+</tr>
+<tr class="even">
+<td align="left">minivan</td>
+<td align="right">11</td>
+<td align="right">0.0470085</td>
+</tr>
+<tr class="odd">
+<td align="left">pickup</td>
+<td align="right">33</td>
+<td align="right">0.1410256</td>
+</tr>
+<tr class="even">
+<td align="left">subcompact</td>
+<td align="right">35</td>
+<td align="right">0.1495726</td>
+</tr>
+<tr class="odd">
+<td align="left">suv</td>
+<td align="right">62</td>
+<td align="right">0.2649573</td>
+</tr>
+</tbody>
+</table>
+<p>We can create a <strong>contingency table of proportion values</strong> by applying the same spread command as before. Vary the group_by() and spread() arguents to produce proportions of different variables.</p>
+<pre class="r"><code>mpg%&gt;%
+  group_by(class, cyl)%&gt;%
+  summarize(n=n())%&gt;%
+  mutate(prop=n/sum(n))%&gt;%
+  subset(select=c(&quot;class&quot;,&quot;cyl&quot;,&quot;prop&quot;))%&gt;%   #drop the frequency value
+  spread(class, prop)%&gt;%
+  kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">cyl</th>
+<th align="right">2seater</th>
+<th align="right">compact</th>
+<th align="right">midsize</th>
+<th align="right">minivan</th>
+<th align="right">pickup</th>
+<th align="right">subcompact</th>
+<th align="right">suv</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">4</td>
+<td align="right">NA</td>
+<td align="right">0.6808511</td>
+<td align="right">0.3902439</td>
+<td align="right">0.0909091</td>
+<td align="right">0.0909091</td>
+<td align="right">0.6000000</td>
+<td align="right">0.1290323</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="right">NA</td>
+<td align="right">0.0425532</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.0571429</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">6</td>
+<td align="right">NA</td>
+<td align="right">0.2765957</td>
+<td align="right">0.5609756</td>
+<td align="right">0.9090909</td>
+<td align="right">0.3030303</td>
+<td align="right">0.2000000</td>
+<td align="right">0.2580645</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">0.0487805</td>
+<td align="right">NA</td>
+<td align="right">0.6060606</td>
+<td align="right">0.1428571</td>
+<td align="right">0.6129032</td>
+</tr>
+</tbody>
+</table>
+<hr width="90%">
+<p><br/></p>
+</div>
+</div>
+<div id="table" class="section level2">
+<h2>table()</h2>
+<p>table() is a quick way to pull together row/column frequencies and proportions for categorical variables</p>
+<p>Using the basic <strong>table()</strong> command, we can get a contingency table of <strong>vehicle class by number of cylinders</strong>.</p>
+<pre class="r"><code>table(mpg$class, mpg$cyl)</code></pre>
+<pre><code>##             
+##               4  5  6  8
+##   2seater     0  0  0  5
+##   compact    32  2 13  0
+##   midsize    16  0 23  2
+##   minivan     1  0 10  0
+##   pickup      3  0 10 20
+##   subcompact 21  2  7  5
+##   suv         8  0 16 38</code></pre>
+<div id="table-column-and-row-frequencies" class="section level3">
+<h3>Table, Column, and Row Frequencies</h3>
+<p>The table frequency can also be called by using the ftable() command. command.</p>
+<pre class="r"><code>mpg_table&lt;- table(mpg$class, mpg$cyl) #define object w/table parameters for simple calling
+ftable(mpg_table)</code></pre>
+<pre><code>##              4  5  6  8
+##                        
+## 2seater      0  0  0  5
+## compact     32  2 13  0
+## midsize     16  0 23  2
+## minivan      1  0 10  0
+## pickup       3  0 10 20
+## subcompact  21  2  7  5
+## suv          8  0 16 38</code></pre>
+<p>For <strong>row frequencies</strong>, we use the <strong>margin.table()</strong> command, with the <strong>1</strong> argument.</p>
+<pre class="r"><code>margin.table(mpg_table, 1)  </code></pre>
+<pre><code>## 
+##    2seater    compact    midsize    minivan     pickup subcompact 
+##          5         47         41         11         33         35 
+##        suv 
+##         62</code></pre>
+<p>For <strong>column frequencies</strong>, we use the <strong>margin.table()</strong> command, with the <strong>2</strong> argument.</p>
+<pre class="r"><code>margin.table(mpg_table, 2)  </code></pre>
+<pre><code>## 
+##  4  5  6  8 
+## 81  4 79 70</code></pre>
+</div>
+<div id="table-column-and-row-proportions" class="section level3">
+<h3>Table, Column, and Row Proportions</h3>
+<p>We can get the proportion values for our variable combinations as well.</p>
+<p>For <strong>proportion of the entire table</strong>, we use the <strong>prop.table()</strong> command.</p>
+<pre class="r"><code>prop.table(mpg_table)     #proportion of entire table</code></pre>
+<pre><code>##             
+##                        4           5           6           8
+##   2seater    0.000000000 0.000000000 0.000000000 0.021367521
+##   compact    0.136752137 0.008547009 0.055555556 0.000000000
+##   midsize    0.068376068 0.000000000 0.098290598 0.008547009
+##   minivan    0.004273504 0.000000000 0.042735043 0.000000000
+##   pickup     0.012820513 0.000000000 0.042735043 0.085470085
+##   subcompact 0.089743590 0.008547009 0.029914530 0.021367521
+##   suv        0.034188034 0.000000000 0.068376068 0.162393162</code></pre>
+<p>For <strong>row proportions</strong>, we use the <strong>prop.table()</strong> command, with the <strong>1</strong> argument following the table name.</p>
+<pre class="r"><code>prop.table(mpg_table, 1)  #proportion of entire row</code></pre>
+<pre><code>##             
+##                       4          5          6          8
+##   2seater    0.00000000 0.00000000 0.00000000 1.00000000
+##   compact    0.68085106 0.04255319 0.27659574 0.00000000
+##   midsize    0.39024390 0.00000000 0.56097561 0.04878049
+##   minivan    0.09090909 0.00000000 0.90909091 0.00000000
+##   pickup     0.09090909 0.00000000 0.30303030 0.60606061
+##   subcompact 0.60000000 0.05714286 0.20000000 0.14285714
+##   suv        0.12903226 0.00000000 0.25806452 0.61290323</code></pre>
+<p>For <strong>column proportions</strong>, we use the <strong>prop.table()</strong> command, with the <strong>2</strong> argument following the table name.</p>
+<pre class="r"><code>prop.table(mpg_table, 2)  #proportion of entire column</code></pre>
+<pre><code>##             
+##                       4          5          6          8
+##   2seater    0.00000000 0.00000000 0.00000000 0.07142857
+##   compact    0.39506173 0.50000000 0.16455696 0.00000000
+##   midsize    0.19753086 0.00000000 0.29113924 0.02857143
+##   minivan    0.01234568 0.00000000 0.12658228 0.00000000
+##   pickup     0.03703704 0.00000000 0.12658228 0.28571429
+##   subcompact 0.25925926 0.50000000 0.08860759 0.07142857
+##   suv        0.09876543 0.00000000 0.20253165 0.54285714</code></pre>
+<p><br/></p>
+</div>
+</div>
+<div id="gmodelscrosstable" class="section level2">
+<h2>gmodels::CrossTable()</h2>
+<p>The <strong>CrossTable()</strong> command from the gmodels package produces frequencies, and table, row, &amp; column proportions with a single command. The values are not as quickly drawn into tables of their own, or further manipulated as they are with the dyplr/tidyr tables, but this is a handy command nonetheless.</p>
+<div id="install-load-the-gmodels-package" class="section level4">
+<h4>Install &amp; Load the gmodels package</h4>
+<pre class="r"><code>install.packages(&quot;gmodels&quot;)
+library(gmodels)</code></pre>
+</div>
+<div id="run-the-crosstable-command-with-your-two-variables-as-inputs." class="section level4">
+<h4>Run the CrossTable() command, with your two variables as inputs.</h4>
+<pre class="r"><code>CrossTable(mpg$class, mpg$cyl)</code></pre>
+<pre><code>## 
+##  
+##    Cell Contents
+## |-------------------------|
+## |                       N |
+## | Chi-square contribution |
+## |           N / Row Total |
+## |           N / Col Total |
+## |         N / Table Total |
+## |-------------------------|
+## 
+##  
+## Total Observations in Table:  234 
+## 
+##  
+##              | mpg$cyl 
+##    mpg$class |         4 |         5 |         6 |         8 | Row Total | 
+## -------------|-----------|-----------|-----------|-----------|-----------|
+##      2seater |         0 |         0 |         0 |         5 |         5 | 
+##              |     1.731 |     0.085 |     1.688 |     8.210 |           | 
+##              |     0.000 |     0.000 |     0.000 |     1.000 |     0.021 | 
+##              |     0.000 |     0.000 |     0.000 |     0.071 |           | 
+##              |     0.000 |     0.000 |     0.000 |     0.021 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|
+##      compact |        32 |         2 |        13 |         0 |        47 | 
+##              |    15.210 |     1.782 |     0.518 |    14.060 |           | 
+##              |     0.681 |     0.043 |     0.277 |     0.000 |     0.201 | 
+##              |     0.395 |     0.500 |     0.165 |     0.000 |           | 
+##              |     0.137 |     0.009 |     0.056 |     0.000 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|
+##      midsize |        16 |         0 |        23 |         2 |        41 | 
+##              |     0.230 |     0.701 |     6.059 |     8.591 |           | 
+##              |     0.390 |     0.000 |     0.561 |     0.049 |     0.175 | 
+##              |     0.198 |     0.000 |     0.291 |     0.029 |           | 
+##              |     0.068 |     0.000 |     0.098 |     0.009 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|
+##      minivan |         1 |         0 |        10 |         0 |        11 | 
+##              |     2.070 |     0.188 |    10.641 |     3.291 |           | 
+##              |     0.091 |     0.000 |     0.909 |     0.000 |     0.047 | 
+##              |     0.012 |     0.000 |     0.127 |     0.000 |           | 
+##              |     0.004 |     0.000 |     0.043 |     0.000 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|
+##       pickup |         3 |         0 |        10 |        20 |        33 | 
+##              |     6.211 |     0.564 |     0.117 |    10.391 |           | 
+##              |     0.091 |     0.000 |     0.303 |     0.606 |     0.141 | 
+##              |     0.037 |     0.000 |     0.127 |     0.286 |           | 
+##              |     0.013 |     0.000 |     0.043 |     0.085 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|
+##   subcompact |        21 |         2 |         7 |         5 |        35 | 
+##              |     6.515 |     3.284 |     1.963 |     2.858 |           | 
+##              |     0.600 |     0.057 |     0.200 |     0.143 |     0.150 | 
+##              |     0.259 |     0.500 |     0.089 |     0.071 |           | 
+##              |     0.090 |     0.009 |     0.030 |     0.021 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|
+##          suv |         8 |         0 |        16 |        38 |        62 | 
+##              |     8.444 |     1.060 |     1.162 |    20.403 |           | 
+##              |     0.129 |     0.000 |     0.258 |     0.613 |     0.265 | 
+##              |     0.099 |     0.000 |     0.203 |     0.543 |           | 
+##              |     0.034 |     0.000 |     0.068 |     0.162 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|
+## Column Total |        81 |         4 |        79 |        70 |       234 | 
+##              |     0.346 |     0.017 |     0.338 |     0.299 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|
+## 
+## </code></pre>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

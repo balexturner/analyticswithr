@@ -533,6 +533,11 @@ library(ggplot2)</code></pre>
 <p><strong>Example(Right):</strong> Size indicates number of cylinders, however all points are blue since color is not tied to values in the data. <em>Again, this is achieved by putting the color argument <strong>outside of the aes() command</strong></em>.</p>
 <pre class="r"><code>ggplot(data=mtcars)+
   geom_point(aes(x=hp, y=mpg,size=cyl),color=&quot;blue&quot;)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;gridExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     combine</code></pre>
 <p><img src="dataviz_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p><br/></p>
 </div>
@@ -621,6 +626,7 @@ ggplot(data=newmtcars)+
 </div>
 <div id="geom_line-geom_smooth" class="section level3">
 <h3>geom_line &amp; geom_smooth</h3>
+<p><br/></p>
 <p>Example (<strong>Left</strong>): geom_line</p>
 <pre class="r"><code>ggplot(mtcars)+
   geom_line(aes(x=hp, y=mpg))</code></pre>
