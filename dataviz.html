@@ -621,18 +621,20 @@ ggplot(data=newmtcars)+
 </div>
 <div id="geom_line-geom_smooth" class="section level3">
 <h3>geom_line &amp; geom_smooth</h3>
+<p>Example (<strong>Left</strong>): geom_line</p>
 <pre class="r"><code>ggplot(mtcars)+
   geom_line(aes(x=hp, y=mpg))</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-26-1.png" width="384" /></p>
+<p>Example (<strong>Right</strong>): geom_smooth</p>
 <pre class="r"><code>ggplot(mtcars)+
   geom_smooth(aes(x=hp, y=mpg))</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-27-1.png" width="384" /></p>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 </div>
 <div id="geom_boxplot" class="section level3">
 <h3>geom_boxplot</h3>
 <pre class="r"><code>ggplot(mtcars)+
   geom_boxplot(aes(x=am, y=mpg, group=am))</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-28-1.png" width="384" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-29-1.png" width="384" /></p>
 </div>
 <div id="geom_text" class="section level3">
 <h3>geom_text</h3>

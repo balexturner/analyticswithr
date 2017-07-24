@@ -306,15 +306,32 @@ ggplot(mtcars)+
 
 
 ###geom_line & geom_smooth
-```{r, eval=TRUE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
+
+Example (**Left**): geom_line
+```{r, eval=FALSE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
 ggplot(mtcars)+
   geom_line(aes(x=hp, y=mpg))
 ```
 
-```{r, eval=TRUE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
+Example (**Right**): geom_smooth
+```{r, eval=FALSE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
 ggplot(mtcars)+
   geom_smooth(aes(x=hp, y=mpg))
 ```
+
+```{r, eval=TRUE, echo=FALSE, fig.height=3.5, fig.width=7}
+#This chunk is not shown. Consolidating the two plot examples into one row of plots.
+
+line <- ggplot(mtcars)+
+  geom_line(aes(x=hp, y=mpg))
+
+smooth <- ggplot(mtcars)+
+  geom_smooth(aes(x=hp, y=mpg))
+
+library(gridExtra)
+grid.arrange(line, smooth, ncol=2)
+```
+
 
 ###geom_boxplot
 ```{r, eval=TRUE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
