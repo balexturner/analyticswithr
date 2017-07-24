@@ -34,31 +34,53 @@ R is a free software environment for statistical computing and graphics. See the
 
 R has hundreds of native functions that are part of the base package. These are the functions which allow R to perform as a programming language, including basic arithmetic and various programming inputs/outputs. 
 
-For example, r can automatically recognize basic calculations.
+**Here are some mathematical operators that are automatically recognized by r.**
 
-#####Addition
+Description                  | Operator
+---------------------------- | ------------------------
+Addition                     | +
+Subtraction                  | -
+Multiplication               | *
+Division                     | /
+Square Root                  | sqrt(x)
+Absolute Value               | abs(x)
+Exponentiation               | ^
+Natural Exponential Function | exp(x)
+Natural Logarithm            | log(x)
+Common Logarithm             | log10(x)
+
+
+**example**
 ```{r, echo=TRUE}
-3+3
+4*4
 ```
 
-#####Multiplication
+**Here are some comparative operators that are automatically recognized by r.**
+
+
+Description                  | Syntax
+---------------------------- | ------------------------
+Less than                    | VariableName **<** Value
+Less than or Equal to        | VariableName **<=** Value
+Greater than                 | VariableName **>** Value
+Greater than or Equal to     | VariableName **>=** Value
+Equal to                     | VariableName **==** Value
+Not Less than                | **!**VariableName **<** Value
+Not Less than or Equal to    | **!**VariableName **<=** Value
+Not Greater than             | **!**VariableName **>** Value
+Not Greater than or Equal to | **!**VariableName **>=** Value
+Not Equal to                 | **!**VariableName **=** Value
+
+**example**
 ```{r, echo=TRUE}
-3*3
+4>3
 ```
 
-#####Exponentiation
-```{r, echo=TRUE}
-3^3
-```
 
-#####Logarithms
-```{r, echo=TRUE}
-log(3)
-```
+#####These do not even scratch the surface of what [commands and functions are native to r as part of the base package.](https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html).
 
-#####[and much more](https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html).
-
-<br/><br/>
+<br/>
+<br/>
 
 ##Packages
 
