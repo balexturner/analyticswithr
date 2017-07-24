@@ -17,5 +17,7 @@ navbar:
       href: dataviz.html
     - text: "Data Analysis"
       menu:
+        - text: "Contingency Tables"
+          href: contingencytables.html
         - text: "Linear Regression"
           href: ols.html
