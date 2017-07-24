@@ -306,6 +306,7 @@ ggplot(mtcars)+
 
 
 ###geom_line & geom_smooth
+<br/>
 
 Example (**Left**): geom_line
 ```{r, eval=FALSE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
