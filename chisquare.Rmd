@@ -1,0 +1,59 @@
+---
+title: ""
+output: 
+  html_document:
+    includes:
+       in_header: GA_Script.html
+    toc: true
+    toc_depth: 3
+    toc_float: true
+---
+
+<br/>
+
+![](/Users/Brett/Desktop/AWR/analyticswithr/Data Analysis.png)
+
+<hr width="90%">
+
+#Chi-Square Test for Independence
+
+The Chi-Square Test for Independence is used to test whether or not two categorical variables are independent of eachother. 
+
+## Assumptions
+
+* 2 Categorical Variables
+
+* Random Sample
+
+* Each category contains >= 5 observations.
+
+##Example
+
+The table below shows number of male and female titanic passengers. 
+
+* **Row 1** shows survivors
+
+* **Row 2** shows non-survivors
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(tidyr)
+library(knitr)
+
+titanic_survival<- data.frame(Titanic)%>%
+  group_by(Sex, Survived)%>%
+  summarize(freq=sum(Freq))%>%
+  spread(Sex, freq)%>%
+  subset(select=c("Male","Female"))
+  
+kable(titanic_survival)
+```
+
+We can use a chi-squared test for independence to determine  whether or not survival and sex are independent from eachother.
+
+```{r, echo=TRUE}
+chisq.test(titanic_survival)
+```
+
+A p-value <.01 tells us that we can conclude that sex and survival are not independent from eachother with 99% confidence.
+

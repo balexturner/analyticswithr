@@ -147,7 +147,7 @@ table(mpg$class, mpg$cyl)
 
 ###Table, Column, and Row Frequencies
 
-The table frequency can also be called by using the ftable() command. command.
+The table frequency can also be called by using the **ftable()** command.
 ```{r, echo=TRUE, include=TRUE, eval=TRUE}
 mpg_table<- table(mpg$class, mpg$cyl) #define object w/table parameters for simple calling
 ftable(mpg_table)

@@ -338,172 +338,61 @@ div.tocify {
 
 </div>
 <hr width="90%">
-<div id="t-tests" class="section level1">
-<h1>t-tests</h1>
-<p>t-tests are used to determine whether the differences between the means of two normally distributed groups are statistically significant.</p>
-<p><br/></p>
-<div id="independent-t-test" class="section level2">
-<h2>Independent t-test</h2>
-<p>Independent t-tests are used to assess the differences between the means of two separate, unrelated groups. Also known as <strong>2-sample t-tests</strong>, <strong>independent sample t-tests</strong>, and <strong>student’s t-tests</strong>.</p>
-<div id="example" class="section level3">
-<h3>Example</h3>
-<p>Consider the following 2 distributions.</p>
+<div id="chi-square-test-for-independence" class="section level1">
+<h1>Chi-Square Test for Independence</h1>
+<p>The Chi-Square Test for Independence is used to test whether or not two categorical variables are independent of eachother.</p>
+<div id="assumptions" class="section level2">
+<h2>Assumptions</h2>
 <ul>
-<li><p><strong>Group A</strong> (left) has a normal distribution, with a mean of -1</p></li>
-<li><p><strong>Group B</strong> (center) has a normal distribution, with a mean of +1</p></li>
-<li><p>When we plot them together (right), the difference is visible <img src="ttest_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p></li>
+<li><p>2 Categorical Variables</p></li>
+<li><p>Random Sample</p></li>
+<li><p>Each category contains &gt;= 5 observations.</p></li>
 </ul>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  listA and listB
-## t = -54.672, df = 2996.5, p-value &lt; 2.2e-16
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -2.094016 -1.949018
-## sample estimates:
-##  mean of x  mean of y 
-## -1.0328177  0.9886994</code></pre>
+</div>
+<div id="example" class="section level2">
+<h2>Example</h2>
+<p>The table below shows number of male and female titanic passengers.</p>
 <ul>
-<li><p>Large <strong>t-value</strong> and a Small <strong>p-value &lt;.01</strong> = we accept the hypothesis that the means of list A and list B show statistically significant differences at a 99% confidence interval.</p></li>
-<li><p><strong>listA mean</strong> is estimated at approxiately -1 and <strong>listB mean</strong> is estimated at approximately 1.</p></li>
-<li><p>The mean differences are listed as well showing the lowest &amp; highest possible differences at 95% confidence.</p></li>
+<li><p><strong>Row 1</strong> shows survivors</p></li>
+<li><p><strong>Row 2</strong> shows non-survivors</p></li>
 </ul>
-<p><br/></p>
-</div>
-<div id="running-independent-t-tests" class="section level3">
-<h3>Running Independent t-tests</h3>
-<p><br/></p>
-<div id="if-data-are-contained-in-2-separate-lists" class="section level4">
-<h4>If data are contained in 2 separate lists:</h4>
-<pre class="r"><code>listA &lt;- rnorm(1500, mean = -1)  #Produce list of random values w/ mean of -1 &amp; normal distribtion
-listB &lt;- rnorm(1500, mean = 1)  #Produce list of random values w/ mean of 1 &amp; normal distribtion</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="right">listA</th>
-<th align="right">listB</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">-1.3545005</td>
-<td align="right">1.5403710</td>
-</tr>
-<tr class="even">
-<td align="right">-1.6375959</td>
-<td align="right">0.1420701</td>
-</tr>
-<tr class="odd">
-<td align="right">-0.2843273</td>
-<td align="right">0.0084206</td>
-</tr>
-<tr class="even">
-<td align="right">0.0531385</td>
-<td align="right">0.1398901</td>
-</tr>
-<tr class="odd">
-<td align="right">-3.1462450</td>
-<td align="right">1.6279171</td>
-</tr>
-<tr class="even">
-<td align="right">0.2457779</td>
-<td align="right">1.7787919</td>
-</tr>
-</tbody>
-</table>
-<p><strong>t.test syntax:</strong> t.test(variableA, variableB)</p>
-<pre class="r"><code>t.test(listA,listB) #If data are contained in two separate lists</code></pre>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  listA and listB
-## t = -53.562, df = 2996.4, p-value &lt; 2.2e-16
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -2.037818 -1.893889
-## sample estimates:
-##  mean of x  mean of y 
-## -0.9579611  1.0078923</code></pre>
-<p><br/></p>
-</div>
-<div id="if-data-are-contained-in-1-dataset-distinguished-by-a-binary-grouping-variable" class="section level4">
-<h4>If data are contained in 1 dataset, distinguished by a binary grouping variable:</h4>
-<pre class="r"><code>groupAB &lt;- data.frame(listA, listB)%&gt;%
-           gather(groupAB)
+<pre class="r"><code>library(dplyr)
+library(tidyr)
+library(knitr)
 
-kable(head(groupAB))</code></pre>
+titanic_survival&lt;- data.frame(Titanic)%&gt;%
+  group_by(Sex, Survived)%&gt;%
+  summarize(freq=sum(Freq))%&gt;%
+  spread(Sex, freq)%&gt;%
+  subset(select=c(&quot;Male&quot;,&quot;Female&quot;))
+  
+kable(titanic_survival)</code></pre>
 <table>
 <thead>
 <tr class="header">
-<th align="left">groupAB</th>
-<th align="right">value</th>
+<th align="right">Male</th>
+<th align="right">Female</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">listA</td>
-<td align="right">-1.3545005</td>
+<td align="right">1364</td>
+<td align="right">126</td>
 </tr>
 <tr class="even">
-<td align="left">listA</td>
-<td align="right">-1.6375959</td>
-</tr>
-<tr class="odd">
-<td align="left">listA</td>
-<td align="right">-0.2843273</td>
-</tr>
-<tr class="even">
-<td align="left">listA</td>
-<td align="right">0.0531385</td>
-</tr>
-<tr class="odd">
-<td align="left">listA</td>
-<td align="right">-3.1462450</td>
-</tr>
-<tr class="even">
-<td align="left">listA</td>
-<td align="right">0.2457779</td>
+<td align="right">367</td>
+<td align="right">344</td>
 </tr>
 </tbody>
 </table>
-<p><strong>t.test syntax:</strong> t.test(continuous_var~binary_var, data=data)</p>
-<pre class="r"><code>t.test(value~groupAB, data=groupAB) </code></pre>
+<p>We can use a chi-squared test for independence to determine whether or not survival and sex are independent from eachother.</p>
+<pre class="r"><code>chisq.test(titanic_survival)</code></pre>
 <pre><code>## 
-##  Welch Two Sample t-test
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
 ## 
-## data:  value by groupAB
-## t = -53.562, df = 2996.4, p-value &lt; 2.2e-16
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -2.037818 -1.893889
-## sample estimates:
-## mean in group listA mean in group listB 
-##          -0.9579611           1.0078923</code></pre>
-<p><br/></p>
-</div>
-</div>
-</div>
-<div id="paired-t-tests" class="section level2">
-<h2>Paired t-tests</h2>
-<p>If two sets of observations are made on the same subjets, in a before-and-after or other similar scenario, you can used a paired t-test</p>
-<p><strong>t.test syntax:</strong> t.test(continuous_var~binary_var, paried=TRUE, data=data)</p>
-<pre class="r"><code>t.test(value~groupAB, paired=TRUE, data=groupAB) </code></pre>
-<pre><code>## 
-##  Paired t-test
-## 
-## data:  value by groupAB
-## t = -54.266, df = 1499, p-value &lt; 2.2e-16
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -2.036913 -1.894794
-## sample estimates:
-## mean of the differences 
-##               -1.965853</code></pre>
-<ul>
-<li><p>Large <strong>t-value</strong> and a Small <strong>p-value &lt;.01</strong> = we accept the hypothesis that the means of listA and listB show statistically significant differences at a 99% confidence interval.</p></li>
-<li><p>The <strong>mean of the differences:</strong> As the name implies, this shows the mean of the differences between groups. <em>When comparing experimental results on the same group of subjects, this might be considered something of an effect size</em>.</p></li>
-</ul>
+## data:  titanic_survival
+## X-squared = 454.5, df = 1, p-value &lt; 2.2e-16</code></pre>
+<p>A p-value &lt;.01 tells us that we can conclude that sex and survival are not independent from eachother with 99% confidence.</p>
 </div>
 </div>
 

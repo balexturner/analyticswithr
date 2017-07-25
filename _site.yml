@@ -19,6 +19,8 @@ navbar:
       menu:
         - text: "Contingency Tables"
           href: contingencytables.html
+        - text: "Chi Square Test for Independence"
+          href: chisquare.html
         - text: "t-tests"
           href: ttest.html
         - text: "Linear Regression"

@@ -70,7 +70,7 @@ t.test(listA,listB)
 
 * Large **t-value** and a Small **p-value <.01** =  we accept the hypothesis that the means of list A and list B show statistically significant differences at a 99% confidence interval.
 
-* **listA mean** is estimated at -.99 and **listB mean** is estimated at 1.03. 
+* **listA mean** is estimated at approxiately -1 and **listB mean** is estimated at approximately 1. 
 
 * The mean differences are listed as well showing the lowest & highest possible differences at 95% confidence.
 
