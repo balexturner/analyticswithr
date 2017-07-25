@@ -353,8 +353,8 @@ div.tocify {
 <h2>Example</h2>
 <p>The table below shows number of male and female titanic passengers.</p>
 <ul>
-<li><p><strong>Row 1</strong> shows survivors</p></li>
-<li><p><strong>Row 2</strong> shows non-survivors</p></li>
+<li><p><strong>Row 1</strong> shows non-survivors</p></li>
+<li><p><strong>Row 2</strong> shows survivors</p></li>
 </ul>
 <pre class="r"><code>library(dplyr)
 library(tidyr)
@@ -365,7 +365,7 @@ titanic_survival&lt;- data.frame(Titanic)%&gt;%
   summarize(freq=sum(Freq))%&gt;%
   spread(Sex, freq)%&gt;%
   subset(select=c(&quot;Male&quot;,&quot;Female&quot;))
-  
+
 kable(titanic_survival)</code></pre>
 <table>
 <thead>

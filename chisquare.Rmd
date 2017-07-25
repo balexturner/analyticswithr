@@ -31,9 +31,9 @@ The Chi-Square Test for Independence is used to test whether or not two categori
 
 The table below shows number of male and female titanic passengers. 
 
-* **Row 1** shows survivors
+* **Row 1** shows non-survivors
 
-* **Row 2** shows non-survivors
+* **Row 2** shows survivors
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 library(dplyr)
@@ -45,7 +45,7 @@ titanic_survival<- data.frame(Titanic)%>%
   summarize(freq=sum(Freq))%>%
   spread(Sex, freq)%>%
   subset(select=c("Male","Female"))
-  
+
 kable(titanic_survival)
 ```
 
