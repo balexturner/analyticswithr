@@ -225,7 +225,7 @@ ggplot(data=newmtcars)+
 * **color** refers to the outline of a geometric object
 * **fill*** refers to the color that covers the surface area of an object.
 
-**Example(Left):** **color**
+**Example(Left):** "**color**"
 ```{r, eval=FALSE, echo=TRUE}
 ggplot(data=newmtcars)+
   geom_bar(aes(x=am, color=am))
@@ -249,15 +249,18 @@ fill <- ggplot(data=newmtcars)+
 grid.arrange(color, fill, ncol=2)
 ```
 
+<br/>
 
-When color/fill is defined **inside of the aes() command**, the color/fill assignments will correspond to the data. (**left example**)
+**aes(x=x,y=y, color=color)** vs. **aes(x=x,y=y),color=color**
+
+**Example(Left)**: When color/fill is defined **inside of the aes() command**, the color/fill assignments will correspond to the data.
 ```{r, eval=FALSE, echo=TRUE}
 ggplot(data=newmtcars)+
   geom_bar(aes(x=am, fill=am))
 ```
 
 
-When color/fill is defined **outside fo the aes() command**, the color/fill assignment applies to the entire plot & is manually-defined. (**right example**)
+**Example(Right):** When color/fill is defined **outside fo the aes() command**, the color/fill assignment applies to the entire plot & is manually-defined.
 ```{r, eval=FALSE, echo=TRUE}
 ggplot(data=newmtcars)+
   geom_bar(aes(x=am), fill="aquamarine1")
@@ -276,59 +279,72 @@ grid.arrange(variablefill, manualfill, ncol=2)
 [Here is a great reference for colors that are recognized by name in r.](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
 
 <br/>
+<br/>
 
 ###Position
 
 There are arguments that can be added to ggplot() to adjust the position of your geoms.
 
+* position="jitter"
+
+* position="fill"
+
+* position="dodge"
+
+* position="stack"
+
+* position="identity"
+
+<br/>
 <br/>
 
 ####Position = "jitter"
 
-The "jitter" position adds some random noise to each point, which is especially useful when there might be many points overlapping eachother which would be otherwise hidden.
+The "jitter" position adds some random noise to each point, which is especially useful when there might be many points overlapping eachother which would be otherwise hidden. This is not advised when the points need to be observed with precision.
 
 **Example(Left)**: # of cylinders by # of city miles without the "jitter" positioning.
 ```{r, echo=TRUE, eval=FALSE}
-nojitter<- ggplot()+
-  geom_point(data=mpg, aes(x=cyl, y=cty))
+ggplot()+
+  geom_point(data=mtcars, aes(x=cyl, y=mpg))
 ```
 
 **Example(Right)**: # of cylinders by # of city miles with "jitter" positioning. *Notice how many points are now visible.*
 ```{r, echo=TRUE, eval=FALSE}
-jitter<- ggplot()+
-  geom_point(data=mpg, aes(x=cyl, y=cty),position="jitter")
+ggplot()+
+  geom_point(data=mtcars, aes(x=cyl, y=mpg),position="jitter")
 
 ```
 
 ```{r, echo=FALSE, fig.height=3, fig.width=8, message=FALSE, warning=FALSE}
 
 nojitter<- ggplot()+
-  geom_point(data=mpg, aes(x=cyl, y=cty),size=3)
+  geom_point(data=mtcars, aes(x=cyl, y=mpg),size=3)
 
 jitter<- ggplot()+
-  geom_point(data=mpg, aes(x=cyl, y=cty),size=3,position="jitter")
+  geom_point(data=mtcars, aes(x=cyl, y=mpg),size=3,position="jitter")
 
 
 grid.arrange(nojitter, jitter, ncol=2)
 ```
 
-
+<br/>
 <br/>
 
 ####Position="fill"
+
 
 The **fill** position tells ggplot to fill the full plot area, useful for illustrating proportions.
 
 
 **Example(Left)**: Vehicle **count** by # of cylinders, with color to dinstinguish by transmission type.
 ```{r, echo=TRUE, eval=FALSE}
-nofill<- ggplot(mtcars)+ 
+ggplot(mtcars)+ 
   geom_bar(aes(x= factor(cyl), fill = factor(am)))
 ```
 
 **Example(Right)**: Proportion of vehicles with manual vs automatic transmissions by # of cylinders. *Proportion is much more easily distinguished here.*
 ```{r, echo=TRUE, eval=FALSE}
-fill<- ggplot(mtcars)+ 
+ggplot(mtcars)+ 
   geom_bar(aes(x= factor(cyl), fill = factor(am)), position = "fill")
 
 ```
@@ -344,22 +360,129 @@ fill<- ggplot(mtcars)+
 grid.arrange(nofill, fill, ncol=2)
 ```
 
+<br/>
+<br/>
 
-###Shape
+####Position="dodge"
 
-```{r}
-ggplot()+
-  geom_point(data=mpg, aes(x=cyl, y=cty, shape=drv, color=drv),size=3,position="jitter")
+The "**dodge**" position shifts objects horizontally to make sure that they are not overlapping.
+
+
+**Example(Left)**: Without the "dodge" argument, geom_bar takes on the it's default position="stack".
+```{r, echo=TRUE, eval=FALSE}
+ggplot(mtcars, aes(factor(cyl), fill = as.factor(am))) +
+  geom_bar()
 ```
+
+**Example(Right)**: With "dodge" argument, counts for each transmission type appear side by side on the x-axis according to their number of cylinders.
+
+```{r, echo=TRUE, eval=FALSE}
+ggplot(mtcars, aes(factor(cyl), fill = as.factor(am))) +
+  geom_bar(position = "dodge")
+```
+
+```{r, echo=FALSE, fig.height=3, fig.width=8, message=FALSE, warning=FALSE}
+
+nododge <- ggplot(mtcars) +
+  geom_bar(aes(as.factor(cyl), fill = as.factor(am)))
+
+dodge <- ggplot(mtcars) +
+  geom_bar(aes(as.factor(cyl), fill = as.factor(am)),position = "dodge")
+
+
+grid.arrange(nododge, dodge, ncol=2)
+```
+
+####Position="stack"
+
+####Position="identity"
+
+<br/>
+<br/>
 
 ###Size
 
+You can manually or dynamically assign size values to your points.
+
+**Example(Left):**Size manually assigned (**outside of the aes() command**).
+```{r, echo=TRUE, eval=FALSE}
+ggplot()+
+  geom_point(data=mtcars, aes(x=cyl, y=mpg, color=cyl),size=5, position="jitter")
+```
+
+**Example(Right):**Size dynamically assigned (**inside of the aes() command**).
+```{r, echo=TRUE, eval=FALSE}
+ggplot()+
+  geom_point(data=mtcars, aes(x=cyl, y=mpg, color=cyl, size=cyl),position="jitter")
+```
+
+
+```{r, echo=FALSE, fig.height=3, fig.width=8, message=FALSE, warning=FALSE}
+
+manualsize <- ggplot()+
+  geom_point(data=mtcars, aes(x=cyl, y=mpg, color=cyl),size=5, position="jitter")
+
+dynamicsize <- ggplot()+
+  geom_point(data=mtcars, aes(x=cyl, y=mpg, color=cyl, size=cyl),position="jitter")
+
+
+grid.arrange(manualsize, dynamicsize, ncol=2)
+```
+
+<br/>
+<br/>
+
+###Shape
+
+Your points can take on various shapes which can, again, be assigned manually or dynamically.
+
+
+**Example(Left):**Shape manually assigned (**outside of the aes() command**).
+```{r, echo=TRUE, eval=FALSE}
+ggplot(mtcars)+
+  geom_point(aes(x=cyl, y=mpg),shape=3, position="jitter")
+```
+
+**Example(Right):**Shape dynamically assigned (**inside of the aes() command**).
+```{r, echo=TRUE, eval=FALSE}
+ggplot(data=mtcars)+
+  geom_point(aes(x=cyl, y=mpg, shape=factor(cyl)), position="jitter")
+```
+
+
+```{r, echo=FALSE, fig.height=3, fig.width=8, message=FALSE, warning=FALSE}
+
+manualshape <- ggplot(data=mtcars)+
+  geom_point(aes(x=cyl, y=mpg),shape=3,size=4, position="jitter")
+
+dynamicshape <- ggplot(data=mtcars)+
+  geom_point(aes(x=cyl, y=mpg, shape=factor(cyl)),size=4, position="jitter")
+
+
+grid.arrange(manualshape, dynamicshape, ncol=2)
+```
+
+The numeric assignments of each primary shape for manual selection are as follows.
+
+```{r, eval=TRUE, echo=FALSE, fig.height=2, fig.width=7, message=FALSE, warning=FALSE}
+onetosix <- data.frame(nums=c("1","2","3","4","5","6"))
+
+ggplot(onetosix) +
+  geom_point( mapping=aes(x=nums, y=0.5, shape=nums, color=nums), size=10)+
+  xlab("Shapes by Number")+
+  ylab("")+
+  theme(legend.position="none")
+```
+
+
+<br/>
+<br/>
+
+
+
 ##Geoms
 
-I will start using the starwars dataset which is packed in dplyr for some of these plots.
-```{r, echo=TRUE}
-head(starwars)
-```
+
 
 ###geom_point
 
