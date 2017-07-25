@@ -275,7 +275,83 @@ grid.arrange(variablefill, manualfill, ncol=2)
 
 [Here is a great reference for colors that are recognized by name in r.](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
 
+<br/>
+
+###Position
+
+There are arguments that can be added to ggplot() to adjust the position of your geoms.
+
+<br/>
+
+####Position = "jitter"
+
+The "jitter" position adds some random noise to each point, which is especially useful when there might be many points overlapping eachother which would be otherwise hidden.
+
+**Example(Left)**: # of cylinders by # of city miles without the "jitter" positioning.
+```{r, echo=TRUE, eval=FALSE}
+nojitter<- ggplot()+
+  geom_point(data=mpg, aes(x=cyl, y=cty))
+```
+
+**Example(Right)**: # of cylinders by # of city miles with "jitter" positioning. *Notice how many points are now visible.*
+```{r, echo=TRUE, eval=FALSE}
+jitter<- ggplot()+
+  geom_point(data=mpg, aes(x=cyl, y=cty),position="jitter")
+
+```
+
+```{r, echo=FALSE, fig.height=3, fig.width=8, message=FALSE, warning=FALSE}
+
+nojitter<- ggplot()+
+  geom_point(data=mpg, aes(x=cyl, y=cty),size=3)
+
+jitter<- ggplot()+
+  geom_point(data=mpg, aes(x=cyl, y=cty),size=3,position="jitter")
+
+
+grid.arrange(nojitter, jitter, ncol=2)
+```
+
+
+<br/>
+
+####Position="fill"
+
+The **fill** position tells ggplot to fill the full plot area, useful for illustrating proportions.
+
+
+**Example(Left)**: Vehicle **count** by # of cylinders, with color to dinstinguish by transmission type.
+```{r, echo=TRUE, eval=FALSE}
+nofill<- ggplot(mtcars)+ 
+  geom_bar(aes(x= factor(cyl), fill = factor(am)))
+```
+
+**Example(Right)**: Proportion of vehicles with manual vs automatic transmissions by # of cylinders. *Proportion is much more easily distinguished here.*
+```{r, echo=TRUE, eval=FALSE}
+fill<- ggplot(mtcars)+ 
+  geom_bar(aes(x= factor(cyl), fill = factor(am)), position = "fill")
+
+```
+
+```{r, echo=FALSE, fig.height=3, fig.width=8, message=FALSE, warning=FALSE}
+
+nofill<- ggplot(mtcars)+ 
+  geom_bar(aes(x= factor(cyl), fill = factor(am)))
+
+fill<- ggplot(mtcars)+ 
+  geom_bar(aes(x= factor(cyl), fill = factor(am)), position = "fill")
+
+grid.arrange(nofill, fill, ncol=2)
+```
+
+
 ###Shape
+
+```{r}
+ggplot()+
+  geom_point(data=mpg, aes(x=cyl, y=cty, shape=drv, color=drv),size=3,position="jitter")
+```
+
 ###Size
 
 ##Geoms

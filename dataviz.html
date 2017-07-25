@@ -587,9 +587,41 @@ ggplot(data=newmtcars)+
   geom_bar(aes(x=am), fill=&quot;aquamarine1&quot;)</code></pre>
 <p><img src="dataviz_files/figure-html/unnamed-chunk-21-1.png" width="768" /></p>
 <p><a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf">Here is a great reference for colors that are recognized by name in r.</a></p>
+<p><br/></p>
+</div>
+<div id="position" class="section level3">
+<h3>Position</h3>
+<p>There are arguments that can be added to ggplot() to adjust the position of your geoms.</p>
+<p><br/></p>
+<div id="position-jitter" class="section level4">
+<h4>Position = “jitter”</h4>
+<p>The “jitter” position adds some random noise to each point, which is especially useful when there might be many points overlapping eachother which would be otherwise hidden.</p>
+<p><strong>Example(Left)</strong>: # of cylinders by # of city miles without the “jitter” positioning.</p>
+<pre class="r"><code>nojitter&lt;- ggplot()+
+  geom_point(data=mpg, aes(x=cyl, y=cty))</code></pre>
+<p><strong>Example(Right)</strong>: # of cylinders by # of city miles with “jitter” positioning. <em>Notice how many points are now visible.</em></p>
+<pre class="r"><code>jitter&lt;- ggplot()+
+  geom_point(data=mpg, aes(x=cyl, y=cty),position=&quot;jitter&quot;)</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-24-1.png" width="768" /></p>
+<p><br/></p>
+</div>
+<div id="positionfill" class="section level4">
+<h4>Position=“fill”</h4>
+<p>The <strong>fill</strong> position tells ggplot to fill the full plot area, useful for illustrating proportions.</p>
+<p><strong>Example(Left)</strong>: Vehicle <strong>count</strong> by # of cylinders, with color to dinstinguish by transmission type.</p>
+<pre class="r"><code>nofill&lt;- ggplot(mtcars)+ 
+  geom_bar(aes(x= factor(cyl), fill = factor(am)))</code></pre>
+<p><strong>Example(Right)</strong>: Proportion of vehicles with manual vs automatic transmissions by # of cylinders. <em>Proportion is much more easily distinguished here.</em></p>
+<pre class="r"><code>fill&lt;- ggplot(mtcars)+ 
+  geom_bar(aes(x= factor(cyl), fill = factor(am)), position = &quot;fill&quot;)</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-27-1.png" width="768" /></p>
+</div>
 </div>
 <div id="shape" class="section level3">
 <h3>Shape</h3>
+<pre class="r"><code>ggplot()+
+  geom_point(data=mpg, aes(x=cyl, y=cty, shape=drv, color=drv),size=3,position=&quot;jitter&quot;)</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 </div>
 <div id="size" class="section level3">
 <h3>Size</h3>
@@ -614,19 +646,19 @@ ggplot(data=newmtcars)+
 <h3>geom_point</h3>
 <pre class="r"><code>ggplot(mtcars)+
   geom_point(aes(x=hp, y=mpg))</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-23-1.png" width="384" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-30-1.png" width="384" /></p>
 </div>
 <div id="geom_bar" class="section level3">
 <h3>geom_bar</h3>
 <pre class="r"><code>ggplot(starwars)+
   geom_bar(aes(x=gender))</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-24-1.png" width="384" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-31-1.png" width="384" /></p>
 </div>
 <div id="geom_histogram" class="section level3">
 <h3>geom_histogram</h3>
 <pre class="r"><code>ggplot(mtcars)+
   geom_histogram(aes(x=hp))</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-25-1.png" width="384" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-32-1.png" width="384" /></p>
 </div>
 <div id="geom_line-geom_smooth" class="section level3">
 <h3>geom_line &amp; geom_smooth</h3>
@@ -638,13 +670,13 @@ ggplot(data=newmtcars)+
 <pre class="r"><code>ggplot(mtcars)+
   geom_smooth(aes(x=hp, y=mpg))</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 </div>
 <div id="geom_boxplot" class="section level3">
 <h3>geom_boxplot</h3>
 <pre class="r"><code>ggplot(mtcars)+
   geom_boxplot(aes(x=am, y=mpg, group=am))</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-29-1.png" width="384" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-36-1.png" width="384" /></p>
 </div>
 <div id="geom_text" class="section level3">
 <h3>geom_text</h3>
