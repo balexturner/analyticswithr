@@ -462,7 +462,7 @@ library(knitr) #for printing html-friendly tables.</code></pre>
 </tbody>
 </table>
 <p><br/></p>
-<p>Here, we can get the total number of cars with each class &amp; cyl combination using <strong>group_by()</strong>, <strong>summarize()</strong>, and <strong>spread()</strong>.</p>
+<p>Here, we can get the total number of cars with each class &amp; cyl combination using <strong>group_by()</strong> and <strong>summarize()</strong>.</p>
 <pre class="r"><code>mpg%&gt;%
   group_by(class, cyl)%&gt;%
   summarize(n=n())%&gt;%

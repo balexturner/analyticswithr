@@ -58,7 +58,7 @@ kable(head(mpg))
 
 <br/>
 
-Here, we can get the total number of cars with each class & cyl combination using **group_by()**, **summarize()**, and **spread()**.
+Here, we can get the total number of cars with each class & cyl combination using **group_by()** and **summarize()**.
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 mpg%>%
   group_by(class, cyl)%>%
