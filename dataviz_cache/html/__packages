@@ -10,3 +10,8 @@ ggplot2
 magrittr
 gvlma
 visreg
+tidyr
+gmodels
+gridExtra
+ggthemes
+maps

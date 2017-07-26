@@ -359,11 +359,11 @@ dataframe &lt;- data.frame(name, age, sex)</code></pre>
 <p><br/> <br/></p>
 <p>We can use the <strong>print()</strong> command to view the dataframe.</p>
 <pre class="r"><code>print(dataframe)</code></pre>
-<pre><code>     name age    sex
-1   Kenia  24 Female
-2 Sabrina  24 Female
-3  Kelvin  27   Male
-4    Alex  26   Male</code></pre>
+<pre><code>  name age    sex
+1 Jane  24 Female
+2 Jill  24 Female
+3  Jim  27   Male
+4  Joe  26   Male</code></pre>
 <p><br/> <br/></p>
 <p>We can print a <strong>single column</strong>.</p>
 <pre class="r"><code>dataframe[&quot;age&quot;]</code></pre>
@@ -399,6 +399,7 @@ mydata &lt;- read.delim(&quot;filepath&quot;)  #Read other table data formats</c
 </div>
 <div id="filter-data" class="section level1">
 <h1>Filter Data</h1>
+<p><br/></p>
 <div id="before-we-begin" class="section level2">
 <h2>Before we Begin</h2>
 <p>Load the <strong>dplyr</strong> package. The dplyr package contains the <strong>filter()</strong> command that will be used in this tutorial.</p>
@@ -424,7 +425,7 @@ print(starwars)</code></pre>
 #   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
 #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 <p><br/></p>
-<p><strong>Wait</strong>: Before we begin filtering, you should understand how the Magrittr package allows us to use pipes (“%&gt;%”) to tie together multiple dplyr functions into a single executable command.</p>
+<p><strong>Wait</strong>: Before we begin filtering, you should understand how the Magrittr package allows us to use pipes (“%&gt;%”) to tie together multiple dplyr functions into a single executable string of commands.</p>
 <p>Below, we can both (1)define a new dataframe, and (2)print the tablewith one single script of dplyr commands that are piped together with Magrittr “%&gt;%” piping. <em>Any commands piped together in this script will operate on the dataframe named at the top of the script, in the order in which the commands appear in text.</em></p>
 <pre class="r"><code>new_starwars &lt;- starwars %&gt;% 
 print()</code></pre>

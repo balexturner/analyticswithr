@@ -71,7 +71,6 @@ We can use the **print()** command to view the dataframe.
 
 ```{r, echo=TRUE, eval=TRUE, include=TRUE}
 print(dataframe)
-
 ```
 
 <br/>
@@ -122,6 +121,8 @@ mydata <- read.delim("filepath")   #Read other table data formats
 
 #Filter Data
 
+<br/>
+
 ##Before we Begin
 
 Load the **dplyr** package. The dplyr package contains the **filter()** command that will be used in this tutorial.
@@ -147,7 +148,7 @@ print(starwars)
 
 <br/>
 
-**Wait**: Before we begin filtering, you should understand how the Magrittr package allows us to use pipes ("%>%") to tie together multiple dplyr functions into a single executable command.
+**Wait**: Before we begin filtering, you should understand how the Magrittr package allows us to use pipes ("%>%") to tie together multiple dplyr functions into a single executable string of commands.
 
 
 Below, we can both (1)define a new dataframe, and (2)print the tablewith one single script of dplyr commands that are piped together with Magrittr "%>%" piping. *Any commands piped together in this script will operate on the dataframe named at the top of the script, in the order in which the commands appear in text.*
