@@ -491,7 +491,7 @@ ggplot(onetosix) +
 
 Geoms refer to the geometric objects that will represent your data in a plot. Below are some of the geoms available in ggplot2.
 
-```{r, echo=FALSE, fig.height=12, fig.width=8, message=FALSE, warning=FALSE}
+```{r, include=TRUE, echo=FALSE, fig.height=12, fig.width=8, message=FALSE, warning=FALSE}
 library(ggthemes)
 geom_point <- ggplot(cars)+
                 geom_point(aes(x=speed,y=dist, color=dist))+
