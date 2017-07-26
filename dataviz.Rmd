@@ -492,23 +492,23 @@ ggplot(onetosix) +
 Geoms refer to the geometric objects that will represent your data in a plot. Below are some of the geoms available in ggplot2.
 
 
-```{r, include=FALSE, echo=FALSE, fig.height=12, fig.width=8, message=FALSE, warning=FALSE}
+```{r, include=TRUE, echo=FALSE, fig.height=12, fig.width=8, message=FALSE, warning=FALSE}
 library(ggthemes)
-geom_point <- ggplot(cars)+
+point_example <- ggplot(cars)+
                 geom_point(aes(x=speed,y=dist, color=dist))+
                         labs(title="geom_point", x="", y="")+
                         theme_light()+
                         theme(legend.position="none")
 
 
-geom_col <- ggplot(mtcars)+
+col_example <- ggplot(mtcars)+
                 geom_col(aes(x=factor(cyl), y=mean(mpg), fill=factor(cyl)))+
                         labs(title="geom_bar / geom_col", x="", y="")+
                         theme_light()+
                         theme(legend.position="none")
 
 
-geom_boxplot <- ggplot(mtcars)+
+boxplot_example <- ggplot(mtcars)+
   geom_boxplot(aes(x=cyl, y=mpg, group=factor(cyl)))+
                         labs(title="geom_boxplot", x="", y="")+
                         theme_light()+
@@ -516,13 +516,13 @@ geom_boxplot <- ggplot(mtcars)+
 
 groupA <- c(rnorm(1500, mean = -1))
 normal_hist_A <- data.frame(groupA)
-geom_histogram<- ggplot(normal_hist_A) + 
+histogram_example<- ggplot(normal_hist_A) + 
                   geom_histogram(aes(groupA), fill="lightblue") +
                         labs(title="geom_histogram", x="", y="")+
                         theme_light()+
                         theme(legend.position="none")
 
-geom_area<- ggplot(normal_hist_A) + 
+area_example<- ggplot(normal_hist_A) + 
                   geom_area(aes(x=groupA),stat = "bin", fill="orange") +
                         labs(title="geom_area", x="", y="")+
                         theme_light()+
@@ -530,19 +530,19 @@ geom_area<- ggplot(normal_hist_A) +
 
 
 
-geom_line <- ggplot(cars)+
+line_example <- ggplot(cars)+
                 geom_line(aes(x=speed,y=dist, color=dist))+
                         labs(title="geom_line", x="", y="")+
                         theme_light()+
                         theme(legend.position="none")
 
-geom_smooth <- ggplot(cars)+
+smooth_example <- ggplot(cars)+
                 geom_smooth(aes(x=speed,y=dist, color=dist))+
                         labs(title="geom_smooth", x="", y="")+
                         theme_light()+
                         theme(legend.position="none")
 
-geom_jitter <- ggplot(mpg)+
+jitter_example <- ggplot(mpg)+
                 geom_jitter(aes(x=factor(cyl),y=cty, color=factor(cyl)))+
                         labs(title="geom_jitter", x="", y="")+
                         theme_light()+
@@ -554,7 +554,7 @@ geom_jitter <- ggplot(mpg)+
 statemap <- map_data("state")
          
          
-geom_map<- ggplot() + 
+map_example<- ggplot() + 
     geom_polygon(data = statemap, aes(x = long, y = lat, fill =group, group = group),color = "grey")+
     coord_fixed(1.3)+
     labs(title="geom_map / geom_polygon", x="", y="")+
@@ -567,7 +567,7 @@ geom_map<- ggplot() +
                         theme(legend.position="none")
 
 
-grid.arrange(geom_point, geom_jitter,geom_col, geom_boxplot, geom_line,geom_smooth, geom_histogram, geom_area, geom_map,ncol=2)
+grid.arrange(point_example, jitter_example,col_example, boxplot_example, line_example,smooth_example, histogram_example, area_example, map_example,ncol=2)
 ```
 
 
