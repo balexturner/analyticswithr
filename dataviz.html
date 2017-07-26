@@ -612,6 +612,10 @@ ggplot(data=newmtcars)+
 <pre class="r"><code>ggplot()+
   geom_point(data=mtcars, aes(x=cyl, y=mpg),position=&quot;jitter&quot;)</code></pre>
 <p><img src="dataviz_files/figure-html/unnamed-chunk-24-1.png" width="768" /></p>
+<p>You can define how much noise is applied to each point by using the <strong>position=position_jitter()</strong> command in place of the default <strong>position=“jitter”</strong> argument.</p>
+<pre class="r"><code>ggplot(data=mtcars)+
+  geom_point(aes(x=cyl, y=mpg),position=position_jitter(w = 0.1, h = 0.1))</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-25-1.png" width="384" /></p>
 <p><br/> <br/></p>
 </div>
 <div id="positionfill" class="section level4">
@@ -623,7 +627,7 @@ ggplot(data=newmtcars)+
 <p><strong>Example(Right)</strong>: Proportion of vehicles with manual vs automatic transmissions by # of cylinders. <em>Proportion is much more easily distinguished here.</em></p>
 <pre class="r"><code>ggplot(mtcars)+ 
   geom_bar(aes(x= factor(cyl), fill = factor(am)), position = &quot;fill&quot;)</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-27-1.png" width="768" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-28-1.png" width="768" /></p>
 <p><br/> <br/></p>
 </div>
 <div id="positiondodge" class="section level4">
@@ -635,7 +639,7 @@ ggplot(data=newmtcars)+
 <p><strong>Example(Right)</strong>: With “dodge” argument, counts for each transmission type appear side by side on the x-axis according to their number of cylinders.</p>
 <pre class="r"><code>ggplot(mtcars, aes(factor(cyl), fill = as.factor(am))) +
   geom_bar(position = &quot;dodge&quot;)</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-30-1.png" width="768" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-31-1.png" width="768" /></p>
 </div>
 <div id="positionstack" class="section level4">
 <h4>Position=“stack”</h4>
@@ -654,7 +658,7 @@ ggplot(data=newmtcars)+
 <p><strong>Example(Right):</strong>Size dynamically assigned (<strong>inside of the aes() command</strong>).</p>
 <pre class="r"><code>ggplot()+
   geom_point(data=mtcars, aes(x=cyl, y=mpg, color=cyl, size=cyl),position=&quot;jitter&quot;)</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-33-1.png" width="768" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-34-1.png" width="768" /></p>
 <p><br/> <br/></p>
 </div>
 <div id="shape" class="section level3">
@@ -666,35 +670,44 @@ ggplot(data=newmtcars)+
 <p><strong>Example(Right):</strong>Shape dynamically assigned (<strong>inside of the aes() command</strong>).</p>
 <pre class="r"><code>ggplot(data=mtcars)+
   geom_point(aes(x=cyl, y=mpg, shape=factor(cyl)), position=&quot;jitter&quot;)</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-36-1.png" width="768" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-37-1.png" width="768" /></p>
 <p>The numeric assignments of each primary shape for manual selection are as follows.</p>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <p><br/> <br/></p>
 </div>
 </div>
 <div id="geoms" class="section level2">
 <h2>Geoms</h2>
+<p>Geoms refer to the geometric objects that will represent your data in a plot. Below are some of the geoms available in ggplot2.</p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-39-1.png" width="768" /></p>
+<p><br/> <br/></p>
 <div id="geom_point" class="section level3">
 <h3>geom_point</h3>
 <pre class="r"><code>ggplot(mtcars)+
   geom_point(aes(x=hp, y=mpg))</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-38-1.png" width="384" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-40-1.png" width="384" /></p>
+<p><br/> <br/></p>
 </div>
-<div id="geom_bar" class="section level3">
-<h3>geom_bar</h3>
+<div id="geom_bar-geom_col" class="section level3">
+<h3>geom_bar &amp; geom_col</h3>
+<p><strong>Example(Left):</strong>geom_bar uses stat=“count” as its default, plotting the frequencies of each x-axis value.</p>
 <pre class="r"><code>ggplot(starwars)+
   geom_bar(aes(x=gender))</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-39-1.png" width="384" /></p>
+<p><strong>Example(Right):</strong>geom_col uses stat=“identity” as its default, plotting the summed y-values for each x-value.</p>
+<pre class="r"><code>ggplot(starwars)+
+  geom_col(aes(x=gender, y=height, fill=gender))</code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-43-1.png" width="768" /></p>
+<p><br/> <br/></p>
 </div>
 <div id="geom_histogram" class="section level3">
 <h3>geom_histogram</h3>
 <pre class="r"><code>ggplot(mtcars)+
   geom_histogram(aes(x=hp))</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-40-1.png" width="384" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-44-1.png" width="384" /></p>
+<p><br/> <br/></p>
 </div>
 <div id="geom_line-geom_smooth" class="section level3">
 <h3>geom_line &amp; geom_smooth</h3>
-<p><br/></p>
 <p>Example (<strong>Left</strong>): geom_line</p>
 <pre class="r"><code>ggplot(mtcars)+
   geom_line(aes(x=hp, y=mpg))</code></pre>
@@ -702,13 +715,14 @@ ggplot(data=newmtcars)+
 <pre class="r"><code>ggplot(mtcars)+
   geom_smooth(aes(x=hp, y=mpg))</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p><br/> <br/></p>
 </div>
 <div id="geom_boxplot" class="section level3">
 <h3>geom_boxplot</h3>
 <pre class="r"><code>ggplot(mtcars)+
   geom_boxplot(aes(x=am, y=mpg, group=am))</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-44-1.png" width="384" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-48-1.png" width="384" /></p>
 </div>
 <div id="geom_text" class="section level3">
 <h3>geom_text</h3>

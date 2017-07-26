@@ -327,6 +327,13 @@ jitter<- ggplot()+
 grid.arrange(nojitter, jitter, ncol=2)
 ```
 
+You can define how much noise is applied to each point by using the **position=position_jitter()** command in place of the default **position="jitter"** argument.
+
+```{r, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
+ggplot(data=mtcars)+
+  geom_point(aes(x=cyl, y=mpg),position=position_jitter(w = 0.1, h = 0.1))
+```
+
 <br/>
 <br/>
 
@@ -482,7 +489,89 @@ ggplot(onetosix) +
 
 ##Geoms
 
+Geoms refer to the geometric objects that will represent your data in a plot. Below are some of the geoms available in ggplot2.
 
+```{r, echo=FALSE, fig.height=12, fig.width=8, message=FALSE, warning=FALSE}
+library(ggthemes)
+geom_point <- ggplot(cars)+
+                geom_point(aes(x=speed,y=dist, color=dist))+
+                        labs(title="geom_point", x="", y="")+
+                        theme_light()+
+                        theme(legend.position="none")
+
+
+geom_col <- ggplot(mtcars)+
+                geom_col(aes(x=factor(cyl), y=mean(mpg), fill=factor(cyl)))+
+                        labs(title="geom_bar / geom_col", x="", y="")+
+                        theme_light()+
+                        theme(legend.position="none")
+
+
+geom_boxplot <- ggplot(mtcars)+
+  geom_boxplot(aes(x=cyl, y=mpg, group=factor(cyl)))+
+                        labs(title="geom_boxplot", x="", y="")+
+                        theme_light()+
+                        theme(legend.position="none")
+
+groupA <- c(rnorm(1500, mean = -1))
+normal_hist_A <- data.frame(groupA)
+geom_histogram<- ggplot(normal_hist_A) + 
+                  geom_histogram(aes(groupA), fill="lightblue") +
+                        labs(title="geom_histogram", x="", y="")+
+                        theme_light()+
+                        theme(legend.position="none")
+
+geom_area<- ggplot(normal_hist_A) + 
+                  geom_area(aes(x=groupA),stat = "bin", fill="orange") +
+                        labs(title="geom_area", x="", y="")+
+                        theme_light()+
+                        theme(legend.position="none")
+
+
+
+geom_line <- ggplot(cars)+
+                geom_line(aes(x=speed,y=dist, color=dist))+
+                        labs(title="geom_line", x="", y="")+
+                        theme_light()+
+                        theme(legend.position="none")
+
+geom_smooth <- ggplot(cars)+
+                geom_smooth(aes(x=speed,y=dist, color=dist))+
+                        labs(title="geom_smooth", x="", y="")+
+                        theme_light()+
+                        theme(legend.position="none")
+
+geom_jitter <- ggplot(mpg)+
+                geom_jitter(aes(x=factor(cyl),y=cty, color=factor(cyl)))+
+                        labs(title="geom_jitter", x="", y="")+
+                        theme_light()+
+                        theme(legend.position="none")
+
+
+
+####Map
+statemap <- map_data("state")
+         
+         
+geom_map<- ggplot() + 
+    geom_polygon(data = statemap, aes(x = long, y = lat, fill =group, group = group),color = "grey")+
+    coord_fixed(1.3)+
+    labs(title="geom_map / geom_polygon", x="", y="")+
+   theme(axis.text=element_blank(),
+         axis.title=element_blank(),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          panel.border = element_blank(),
+          panel.grid = element_blank())+theme_light()+
+                        theme(legend.position="none")
+
+
+grid.arrange(geom_point, geom_jitter,geom_col, geom_boxplot, geom_line,geom_smooth, geom_histogram, geom_area, geom_map,ncol=2)
+```
+
+
+<br/>
+<br/>
 
 ###geom_point
 
@@ -491,11 +580,37 @@ ggplot(mtcars)+
   geom_point(aes(x=hp, y=mpg))
 ```
 
-###geom_bar
-```{r, eval=TRUE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
+<br/>
+<br/>
+
+###geom_bar & geom_col
+
+**Example(Left):**geom_bar uses stat="count" as its default, plotting the frequencies of each x-axis value.
+```{r, eval=FALSE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
 ggplot(starwars)+
   geom_bar(aes(x=gender))
 ```
+
+**Example(Right):**geom_col uses stat="identity" as its default, plotting the summed y-values for each x-value. 
+```{r, eval=FALSE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
+ggplot(starwars)+
+  geom_col(aes(x=gender, y=height, fill=gender))
+```
+
+```{r, echo=FALSE, fig.height=3, fig.width=8, message=FALSE, warning=FALSE}
+
+bar <- ggplot(starwars)+
+  geom_bar(aes(x=gender))
+
+col <- ggplot(starwars)+
+  geom_col(aes(x=gender, y=height, fill=gender))+theme(legend.position="none")
+
+
+grid.arrange(bar, col, ncol=2)
+```
+
+<br/>
+<br/>
 
 ###geom_histogram
 ```{r, eval=TRUE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
@@ -504,8 +619,11 @@ ggplot(mtcars)+
 ```
 
 
-###geom_line & geom_smooth
 <br/>
+<br/>
+
+###geom_line & geom_smooth
+
 
 Example (**Left**): geom_line
 ```{r, eval=FALSE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
@@ -532,6 +650,8 @@ library(gridExtra)
 grid.arrange(line, smooth, ncol=2)
 ```
 
+<br/>
+<br/>
 
 ###geom_boxplot
 ```{r, eval=TRUE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
