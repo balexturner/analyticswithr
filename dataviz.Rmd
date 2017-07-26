@@ -597,6 +597,7 @@ ggplot(starwars)+
   geom_col(aes(x=gender, y=height, fill=gender))
 ```
 
+
 ```{r, echo=FALSE, fig.height=3, fig.width=8, message=FALSE, warning=FALSE}
 
 bar <- ggplot(starwars)+
