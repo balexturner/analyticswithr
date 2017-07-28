@@ -57,6 +57,8 @@ sex <- c("Female","Female","Male","Male")
 dataframe <- data.frame(name, age, sex)
 ```
 
+***c=()** is the concatonate command, which holds together multiple values in a common vector*
+
 <br/>
 <br/>
 The **str()** function will describe the dataframe, its variables, and the levels of each variable.
@@ -148,10 +150,12 @@ print(starwars)
 
 <br/>
 
-**Wait**: Before we begin filtering, you should understand how the Magrittr package allows us to use pipes ("%>%") to tie together multiple dplyr functions into a single executable string of commands.
+####About Magrittr 
+
+**Wait**: Before we begin filtering, you should understand how the **Magrittr** package allows us to use pipes ("**%>%**") to tie together multiple dplyr functions into a single executable string of commands.
 
 
-Below, we can both (1)define a new dataframe, and (2)print the tablewith one single script of dplyr commands that are piped together with Magrittr "%>%" piping. *Any commands piped together in this script will operate on the dataframe named at the top of the script, in the order in which the commands appear in text.*
+Below, we can both (1)define a new dataframe, and (2)print the tablewith one single script of dplyr commands that are piped together with Magrittr "**%>%**" piping. *Any commands piped together in this script will operate on the dataframe named at the top of the script, in the order in which the commands appear in text.*
 
 
 ```{r, eval=TRUE, include=TRUE, echo=TRUE}
@@ -288,7 +292,7 @@ starwars%>%
 
 ## Filtering Columns
 
-So far, we have been filtering out rows or observations. We can also chose which columns we want to display in a dataframe by using a combination of the the subset() & select() functions.
+So far, we have been filtering out rows or observations. We can also chose which columns we want to display in a dataframe by using a combination of the the *subset()* & *select()* functions.
 
 Let's only keep the columns for name, eye color, species, and homeworld.
 ```{r, eval=TRUE, include=TRUE, echo=TRUE}
@@ -298,6 +302,8 @@ starwars%>%
   
   print()
 ```
+
+
 
 <br/>
 <br/>

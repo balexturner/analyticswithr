@@ -41,4 +41,4 @@ opts_knit$set(width=75)
 <br/>
 <br/>
 <br/>
-I hope you'll find this site to be a useful introductory r-programming and data analytics resource. The site is separted into the following four sections: **R Basics**, **Data Wrangling**, **Data Visualization**, **Data Analysis** . *Not all of the content is up yet, check back soon for updates!*
+I hope you'll find this site to be a useful introductory r-programming and data analytics resource. This site takes a tidyverse-centric approach to r-programming, meaning that most of the techniques are instructed using tidyverse packages such as dplyr, tidyr, stringr, and ggplot2. The site is separated into the following four sections: **R Basics**, **Data Wrangling**, **Data Visualization**, **Data Analysis** . *Not all of the content is up yet, check back soon for updates!*

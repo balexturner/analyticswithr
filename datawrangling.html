@@ -351,6 +351,7 @@ sex &lt;- c(&quot;Female&quot;, &quot;Female&quot;, &quot;Male&quot;, &quot;Male
 # Data Frame
 
 dataframe &lt;- data.frame(name, age, sex)</code></pre>
+<p><em><strong>c=()</strong> is the concatonate command, which holds together multiple values in a common vector</em></p>
 <p><br/> <br/> The <strong>str()</strong> function will describe the dataframe, its variables, and the levels of each variable.</p>
 <pre><code>&#39;data.frame&#39;:   4 obs. of  3 variables:
  $ name: Factor w/ 4 levels &quot;Alex&quot;,&quot;Kelvin&quot;,..: 3 4 2 1
@@ -425,8 +426,10 @@ print(starwars)</code></pre>
 #   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
 #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 <p><br/></p>
-<p><strong>Wait</strong>: Before we begin filtering, you should understand how the Magrittr package allows us to use pipes (“%&gt;%”) to tie together multiple dplyr functions into a single executable string of commands.</p>
-<p>Below, we can both (1)define a new dataframe, and (2)print the tablewith one single script of dplyr commands that are piped together with Magrittr “%&gt;%” piping. <em>Any commands piped together in this script will operate on the dataframe named at the top of the script, in the order in which the commands appear in text.</em></p>
+<div id="about-magrittr" class="section level4">
+<h4>About Magrittr</h4>
+<p><strong>Wait</strong>: Before we begin filtering, you should understand how the <strong>Magrittr</strong> package allows us to use pipes (“<strong>%&gt;%</strong>”) to tie together multiple dplyr functions into a single executable string of commands.</p>
+<p>Below, we can both (1)define a new dataframe, and (2)print the tablewith one single script of dplyr commands that are piped together with Magrittr “<strong>%&gt;%</strong>” piping. <em>Any commands piped together in this script will operate on the dataframe named at the top of the script, in the order in which the commands appear in text.</em></p>
 <pre class="r"><code>new_starwars &lt;- starwars %&gt;% 
 print()</code></pre>
 <pre><code># A tibble: 87 x 13
@@ -446,6 +449,7 @@ print()</code></pre>
 #   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
 #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 <p><br/> <br/></p>
+</div>
 </div>
 <div id="filtering-observations" class="section level2">
 <h2>Filtering Observations</h2>
@@ -677,7 +681,7 @@ print()</code></pre>
 </div>
 <div id="filtering-columns" class="section level2">
 <h2>Filtering Columns</h2>
-<p>So far, we have been filtering out rows or observations. We can also chose which columns we want to display in a dataframe by using a combination of the the subset() &amp; select() functions.</p>
+<p>So far, we have been filtering out rows or observations. We can also chose which columns we want to display in a dataframe by using a combination of the the <em>subset()</em> &amp; <em>select()</em> functions.</p>
 <p>Let’s only keep the columns for name, eye color, species, and homeworld.</p>
 <pre class="r"><code>starwars %&gt;% 
 subset(select = c(&quot;name&quot;, &quot;eye_color&quot;, &quot;species&quot;, &quot;homeworld&quot;)) %&gt;% 

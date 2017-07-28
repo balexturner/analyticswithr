@@ -542,6 +542,11 @@ library(ggplot2)</code></pre>
 <p><strong>Example(Right):</strong> Size indicates number of cylinders, however all points are blue since color is not tied to values in the data. <em>Again, this is achieved by putting the color argument <strong>outside of the aes() command</strong></em>.</p>
 <pre class="r"><code>ggplot(data=mtcars)+
   geom_point(aes(x=hp, y=mpg,size=cyl),color=&quot;blue&quot;)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;gridExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     combine</code></pre>
 <p><img src="dataviz_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p><br/></p>
 </div>
@@ -708,12 +713,13 @@ ggplot(data=newmtcars)+
 </div>
 <div id="geom_line-geom_smooth" class="section level3">
 <h3>geom_line &amp; geom_smooth</h3>
-<p>Example (<strong>Left</strong>): geom_line</p>
+<p>Example (<strong>Left</strong>): <strong>geom_line</strong> produces a simple line graph which follows x and y values exactly.</p>
 <pre class="r"><code>ggplot(mtcars)+
   geom_line(aes(x=hp, y=mpg))</code></pre>
-<p>Example (<strong>Right</strong>): geom_smooth</p>
+<p>Example (<strong>Right</strong>): <strong>geom_smooth</strong> produces a line graph which is smoothed out according to a <strong>method=</strong> argument.</p>
 <pre class="r"><code>ggplot(mtcars)+
   geom_smooth(aes(x=hp, y=mpg))</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
 <p><img src="dataviz_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 <p><br/> <br/></p>
 </div>

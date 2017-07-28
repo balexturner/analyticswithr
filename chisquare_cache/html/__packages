@@ -5,3 +5,13 @@ dplyr
 bindrcpp
 stringr
 tidyr
+ggplot2
+gmodels
+xtable
+htmlTable
+magrittr
+gvlma
+visreg
+gridExtra
+ggthemes
+maps

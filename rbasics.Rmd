@@ -32,7 +32,7 @@ R is a free software environment for statistical computing and graphics. See the
 
 ##Base R
 
-R has hundreds of native functions that are part of the base package. These are the functions which allow R to perform as a programming language, including basic arithmetic and various programming inputs/outputs. 
+R has hundreds of native functions that are part of the [base package](https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html). These are the functions which allow R to perform as a programming language, including basic arithmetic and various programming inputs/outputs. 
 
 **Here are some mathematical operators that are automatically recognized by r.**
 
@@ -77,7 +77,7 @@ Not Equal to                 | **!**VariableName **=** Value
 ```
 
 
-#####These do not even scratch the surface of what [commands and functions are native to r as part of the base package.](https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html).
+#####These do not even scratch the surface of what [commands and functions are native to r as part of the base package.](https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html). Here is a helpful cheatsheet from the folks at [R Studio](https://www.rstudio.com/wp-content/uploads/2016/05/base-r.pdf).
 
 <br/>
 <br/>
@@ -101,7 +101,7 @@ install.packages("stringr")
 
 #####Loading packages for use
 Each time R is restarted, you will need to load the packages that you intend to use in the current session. 
-A packages is loaded as follows:
+A package is loaded as follows:
 ```{r, echo=TRUE, eval=TRUE}
 library(stringr)
 ```
@@ -116,7 +116,7 @@ If you type a "?" before the name of an installed package, you will pull up the 
 
 <br/>
 
-#####Using a package.
+#####Using a package
 The stringr package that we've installed above contains dozens of useful functions for dealing with text strings. For Example, the **str_detect()** function from stringr gives us a true or false value based on whether or not a specified string pattern appears in a body of text.
 
 ```{r, echo-TRUE}
