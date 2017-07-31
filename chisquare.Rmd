@@ -31,9 +31,13 @@ Pearson's Chi-Squared Test is used to evaluate
 
 ##Pearson's Chi-Squared Test for Independence
 
-The Chi-Square Test for **Independence** is used to test whether or not two categorical variables are statistically independent of eachother. 
+<hr width="90%">
 
-### Assumptions
+The Chi-SquaredTest for **Independence** is used to test whether or not two categorical variables are statistically independent of eachother. 
+
+<hr width="90%">
+
+#### Assumptions
 
 * 2 Categorical Variables
 
@@ -41,13 +45,9 @@ The Chi-Square Test for **Independence** is used to test whether or not two cate
 
 * Each category contains >= 5 observations.
 
-###Example
+####Example
 
-The table below shows number of male and female titanic passengers. 
-
-* **Row 1** shows non-survivors
-
-* **Row 2** shows survivors
+The table below shows number of male and female titanic passengers by Survival.
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 library(dplyr)
@@ -58,14 +58,18 @@ titanic_survival<- data.frame(Titanic)%>%
   group_by(Sex, Survived)%>%
   summarize(freq=sum(Freq))%>%
   spread(Sex, freq)%>%
-  subset(select=c("Male","Female"))
+  subset(select=c("Survived", "Male","Female"))
 
 kable(titanic_survival)
+
 ```
 
 We can use a chi-squared test for independence to determine  whether or not survival and sex are statistically independent from eachother.
 
 ```{r, echo=TRUE}
+titanic_survival <- titanic_survival%>%
+  subset(select=c("Male","Female"))  #Drop the "Survived" vector so that the table is read as a crosstab by chisq.test()
+
 chisq.test(titanic_survival)
 ```
 
@@ -77,29 +81,195 @@ A p-value <.01 tells us that we can conclude that sex and survival are **not** i
 <hr width="90%">
 
 ##Pearson's Chi-Squared Test for Goodness of Fit
-##Pearson's Chi-Squared Test for Homogeneity
-
 
 <hr width="90%">
 
-```{r, eval=FALSE, echo=FALSE}
+The Chi-Squared Test for **Goodness of Fit** allows us to assess whether or not there are statistically significant differences between an observed and an expected distribution. The **p-value** indicates the level of statistical significance of the difference between the observed & expected distributions. 
 
-ObservedValues <- c(1.5,
-                    2.5,
-                    3.5,
-                    4.5)
+* Lower p-value = Greater difference between distributions
 
-TheoreticalValues <- c(1.5,
-                       2.5,
-                       3.5,
-                       4.5)
+* Higher p-value = Less difference between distributions
 
-SampleData<- data.frame(ObservedValues, TheoreticalValues)
+<hr width="90%">
 
-chisq.test(SampleData$ObservedValues, SampleData$TheoreticalValues)
+####Let's say we are expecting observations to be equally distributed between 3 groups (1/3, 1/3, 1/3).
 
+<hr width="90%">
+
+**Good Fit:** Units evenly distributed between 3 groups.
+```{r, eval=TRUE, echo=TRUE}
+#Create lists of values for this exercise
+observed_distribution <- c(10, 10, 10)           #Number of observations in each group
+expected_distribution <- c(1/3, 1/3, 1/3)       #Expected distribution across groups
+
+
+#Run Chi Squared test
+chisq.test(observed_distribution, p=expected_distribution)
+```
+
+A p-value = 1 indicates a no difference between the observed and the expected distribution. The expected distribution is a good fit for the observed data.
+
+<br/>
+
+**Bad Fit:** Units not evenly distributed between 3 groups.
+```{r, eval=TRUE, echo=TRUE}
+#Create lists of values for this exercise
+observed_distribution <- c(3, 17, 10)           #Number of observations in each group
+expected_distribution <- c(1/3, 1/3, 1/3)       #Expected distribution across groups
+
+#Run Chi Squared test
+chisq.test(observed_distribution, p=expected_distribution)
+```
+
+A p-value = .007447 indicates a statistically significant difference at significance level of .01 between the observed and the expected distribution. The expected distribution is not a good fit for the observed data.
+
+
+<br/>
+<br/>
+
+<hr width="90%">
+
+##Pearson's Chi-Squared Test for Homogeneity
+
+<hr width="90%">
+
+The Chi-Squared Test for **Homogeneity** allows us to evaluate whether or not two samples are distributed equally across various levels/categories.The **p-value** indicates the level of statistical significance of the difference between the observed & expected distributions. 
+
+* Lower p-value = More Heterogeneous
+
+* Higher p-value = More Homogeneous
+
+<hr width="90%">
+
+####Let's say we want to test for homogeneity between two samples (A and B) in how they are distributed between 4 categories.
+
+<hr width="90%">
+
+**Heterogenous Example:** Two samples differ in their distribution between the 4 categories/levels.
+
+*First, let's produce sample data with a heterogenous distribution across 4 categories/levels.*
+```{r, eval=TRUE, echo=TRUE}
+A <- sample(1:4,  #Levels
+                     200,  #Number of Observations
+                     p=c(1/4,1/4,1/4,1/4), #Probabilities for Each Level
+                     replace=TRUE) #"Replace" if sample larger than population.
+
+
+B = sample(1:4,  #Levels
+                     200,  #Number of Observations
+                     p=c(1/8,1/16,3/16,2.5/4), #Probabilities for Each Level
+                     replace=TRUE) #"Replace" if sample larger than population.
+
+AB<- rbind(table(A),table(B))
+
+kable(AB)
 ```
 
 <br/>
+
+*Now, let's run the Chi Squared Test for Homogeneity*
+```{r, eval=TRUE, echo=TRUE}
+chisq.test(AB)
+```
+A p-value less than the signficiance level of .1/.05/.01 tells us that these groups show statistically significant differences in their distributions between the 4 categories. **The samples are heterogeneous**
+
+
 <br/>
-*This page is in progress...check back soon for updates*
+<br/>
+
+**Homogenous Example:** Two samples show a similar distribution between 4 categories.
+
+*First, let's produce sample data with a heterogenous distribution across 4 categories/levels.*
+```{r, eval=TRUE, echo=TRUE}
+A <- sample(1:4,  #Levels
+                     200,  #Number of Observations
+                     p=c(1/4,1/4,1/4,1/4), #Probabilities for Each Level
+                     replace=TRUE) #"Replace" if sample larger than population.
+
+
+B = sample(1:4,  #Levels
+                     200,  #Number of Observations
+                     p=c(1/4,1/4,1/4,1/4), #Probabilities for Each Level
+                     replace=TRUE) #"Replace" if sample larger than population.
+
+AB<- rbind(table(A),table(B))
+
+kable(AB)
+```
+
+*Now, let's run the Chi Squared Test for Homogeneity*
+```{r, eval=TRUE, echo=TRUE}
+chisq.test(AB)
+```
+A p-value greater than the signficiance level of .1/.05/.01 tells us that these groups do not show statistically significant differences in their distributions between the 4 categories. **The samples are homogeneous**
+
+<br/>
+<br/>
+
+<hr width="90%">
+
+##Extracting Values from the chisq.test() output
+
+<hr width="90%">
+
+We can extract the following values from the chisq.test() output
+
+* data.name (name(s) of the data)
+* statistic (chi-squared test statistic)
+* p.value (p-value for the test)
+* method (Type of test performed)
+* parameter (Degrees of freedom)
+* observed (observations)
+* expected (expected counts under the null hypothesis)
+* residuals (Pearson residuals)
+
+<hr width="90%">
+
+####data.name (name(s) of the data)
+```{r, eval=TRUE, echo=TRUE}
+MyTest <- chisq.test(AB)
+
+MyTest$data.name
+```
+
+####statistic (chi-squared test statistic)
+```{r, eval=TRUE, echo=TRUE}
+MyTest$statistic
+```
+
+####parameter (degrees of freedom)
+```{r, eval=TRUE, echo=TRUE}
+MyTest$parameter
+
+```
+
+
+####p.value (p-value for the test)
+```{r, eval=TRUE, echo=TRUE}
+MyTest$p.value
+
+```
+
+
+####method (Type of test performed)
+```{r, eval=TRUE, echo=TRUE}
+MyTest$method
+```
+
+####observed (observations)
+```{r, eval=TRUE, echo=TRUE}
+MyTest$observed
+```
+
+####expected (expected counts under the null hypothesis or given probabilty)
+```{r, eval=TRUE, echo=TRUE}
+MyTest$expected
+```
+
+
+####residuals (Pearson residuals)
+```{r, eval=TRUE, echo=TRUE}
+MyTest$residuals
+```
+
+<hr width="90%">

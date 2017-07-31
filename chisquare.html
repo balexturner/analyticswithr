@@ -362,22 +362,20 @@ div.tocify {
 <hr width="90%">
 <div id="pearsons-chi-squared-test-for-independence" class="section level2">
 <h2>Pearson’s Chi-Squared Test for Independence</h2>
-<p>The Chi-Square Test for <strong>Independence</strong> is used to test whether or not two categorical variables are statistically independent of eachother.</p>
-<div id="assumptions" class="section level3">
-<h3>Assumptions</h3>
+<hr width="90%">
+<p>The Chi-SquaredTest for <strong>Independence</strong> is used to test whether or not two categorical variables are statistically independent of eachother.</p>
+<hr width="90%">
+<div id="assumptions" class="section level4">
+<h4>Assumptions</h4>
 <ul>
 <li><p>2 Categorical Variables</p></li>
 <li><p>Random Sample</p></li>
 <li><p>Each category contains &gt;= 5 observations.</p></li>
 </ul>
 </div>
-<div id="example" class="section level3">
-<h3>Example</h3>
-<p>The table below shows number of male and female titanic passengers.</p>
-<ul>
-<li><p><strong>Row 1</strong> shows non-survivors</p></li>
-<li><p><strong>Row 2</strong> shows survivors</p></li>
-</ul>
+<div id="example" class="section level4">
+<h4>Example</h4>
+<p>The table below shows number of male and female titanic passengers by Survival.</p>
 <pre class="r"><code>library(dplyr)
 library(tidyr)
 library(knitr)
@@ -386,29 +384,35 @@ titanic_survival&lt;- data.frame(Titanic)%&gt;%
   group_by(Sex, Survived)%&gt;%
   summarize(freq=sum(Freq))%&gt;%
   spread(Sex, freq)%&gt;%
-  subset(select=c(&quot;Male&quot;,&quot;Female&quot;))
+  subset(select=c(&quot;Survived&quot;, &quot;Male&quot;,&quot;Female&quot;))
 
 kable(titanic_survival)</code></pre>
 <table>
 <thead>
 <tr class="header">
+<th align="left">Survived</th>
 <th align="right">Male</th>
 <th align="right">Female</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td align="left">No</td>
 <td align="right">1364</td>
 <td align="right">126</td>
 </tr>
 <tr class="even">
+<td align="left">Yes</td>
 <td align="right">367</td>
 <td align="right">344</td>
 </tr>
 </tbody>
 </table>
 <p>We can use a chi-squared test for independence to determine whether or not survival and sex are statistically independent from eachother.</p>
-<pre class="r"><code>chisq.test(titanic_survival)</code></pre>
+<pre class="r"><code>titanic_survival &lt;- titanic_survival%&gt;%
+  subset(select=c(&quot;Male&quot;,&quot;Female&quot;))  #Drop the &quot;Survived&quot; vector so that the table is read as a crosstab by chisq.test()
+
+chisq.test(titanic_survival)</code></pre>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
 ## 
@@ -421,11 +425,228 @@ kable(titanic_survival)</code></pre>
 </div>
 <div id="pearsons-chi-squared-test-for-goodness-of-fit" class="section level2">
 <h2>Pearson’s Chi-Squared Test for Goodness of Fit</h2>
+<hr width="90%">
+<p>The Chi-Squared Test for <strong>Goodness of Fit</strong> allows us to assess whether or not there are statistically significant differences between an observed and an expected distribution. The <strong>p-value</strong> indicates the level of statistical significance of the difference between the observed &amp; expected distributions.</p>
+<ul>
+<li><p>Lower p-value = Greater difference between distributions</p></li>
+<li><p>Higher p-value = Less difference between distributions</p></li>
+</ul>
+<hr width="90%">
+<div id="lets-say-we-are-expecting-observations-to-be-equally-distributed-between-3-groups-13-13-13." class="section level4">
+<h4>Let’s say we are expecting observations to be equally distributed between 3 groups (1/3, 1/3, 1/3).</h4>
+<hr width="90%">
+<p><strong>Good Fit:</strong> Units evenly distributed between 3 groups.</p>
+<pre class="r"><code>#Create lists of values for this exercise
+observed_distribution &lt;- c(10, 10, 10)           #Number of observations in each group
+expected_distribution &lt;- c(1/3, 1/3, 1/3)       #Expected distribution across groups
+
+
+#Run Chi Squared test
+chisq.test(observed_distribution, p=expected_distribution)</code></pre>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  observed_distribution
+## X-squared = 0, df = 2, p-value = 1</code></pre>
+<p>A p-value = 1 indicates a no difference between the observed and the expected distribution. The expected distribution is a good fit for the observed data.</p>
+<p><br/></p>
+<p><strong>Bad Fit:</strong> Units not evenly distributed between 3 groups.</p>
+<pre class="r"><code>#Create lists of values for this exercise
+observed_distribution &lt;- c(3, 17, 10)           #Number of observations in each group
+expected_distribution &lt;- c(1/3, 1/3, 1/3)       #Expected distribution across groups
+
+#Run Chi Squared test
+chisq.test(observed_distribution, p=expected_distribution)</code></pre>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  observed_distribution
+## X-squared = 9.8, df = 2, p-value = 0.007447</code></pre>
+<p>A p-value = .007447 indicates a statistically significant difference at significance level of .01 between the observed and the expected distribution. The expected distribution is not a good fit for the observed data.</p>
+<p><br/> <br/></p>
+<hr width="90%">
+</div>
 </div>
 <div id="pearsons-chi-squared-test-for-homogeneity" class="section level2">
 <h2>Pearson’s Chi-Squared Test for Homogeneity</h2>
 <hr width="90%">
-<p><br/> <br/> <em>This page is in progress…check back soon for updates</em></p>
+<p>The Chi-Squared Test for <strong>Homogeneity</strong> allows us to evaluate whether or not two samples are distributed equally across various levels/categories.The <strong>p-value</strong> indicates the level of statistical significance of the difference between the observed &amp; expected distributions.</p>
+<ul>
+<li><p>Lower p-value = More Heterogeneous</p></li>
+<li><p>Higher p-value = More Homogeneous</p></li>
+</ul>
+<hr width="90%">
+<div id="lets-say-we-want-to-test-for-homogeneity-between-two-samples-a-and-b-in-how-they-are-distributed-between-4-categories." class="section level4">
+<h4>Let’s say we want to test for homogeneity between two samples (A and B) in how they are distributed between 4 categories.</h4>
+<hr width="90%">
+<p><strong>Heterogenous Example:</strong> Two samples differ in their distribution between the 4 categories/levels.</p>
+<p><em>First, let’s produce sample data with a heterogenous distribution across 4 categories/levels.</em></p>
+<pre class="r"><code>A &lt;- sample(1:4,  #Levels
+                     200,  #Number of Observations
+                     p=c(1/4,1/4,1/4,1/4), #Probabilities for Each Level
+                     replace=TRUE) #&quot;Replace&quot; if sample larger than population.
+
+
+B = sample(1:4,  #Levels
+                     200,  #Number of Observations
+                     p=c(1/8,1/16,3/16,2.5/4), #Probabilities for Each Level
+                     replace=TRUE) #&quot;Replace&quot; if sample larger than population.
+
+AB&lt;- rbind(table(A),table(B))
+
+kable(AB)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">54</td>
+<td align="right">49</td>
+<td align="right">47</td>
+<td align="right">50</td>
+</tr>
+<tr class="even">
+<td align="right">20</td>
+<td align="right">17</td>
+<td align="right">32</td>
+<td align="right">131</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p><em>Now, let’s run the Chi Squared Test for Homogeneity</em></p>
+<pre class="r"><code>chisq.test(AB)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  AB
+## X-squared = 70.233, df = 3, p-value = 3.804e-15</code></pre>
+<p>A p-value less than the signficiance level of .1/.05/.01 tells us that these groups show statistically significant differences in their distributions between the 4 categories. <strong>The samples are heterogeneous</strong></p>
+<p><br/> <br/></p>
+<p><strong>Homogenous Example:</strong> Two samples show a similar distribution between 4 categories.</p>
+<p><em>First, let’s produce sample data with a heterogenous distribution across 4 categories/levels.</em></p>
+<pre class="r"><code>A &lt;- sample(1:4,  #Levels
+                     200,  #Number of Observations
+                     p=c(1/4,1/4,1/4,1/4), #Probabilities for Each Level
+                     replace=TRUE) #&quot;Replace&quot; if sample larger than population.
+
+
+B = sample(1:4,  #Levels
+                     200,  #Number of Observations
+                     p=c(1/4,1/4,1/4,1/4), #Probabilities for Each Level
+                     replace=TRUE) #&quot;Replace&quot; if sample larger than population.
+
+AB&lt;- rbind(table(A),table(B))
+
+kable(AB)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">46</td>
+<td align="right">43</td>
+<td align="right">57</td>
+<td align="right">54</td>
+</tr>
+<tr class="even">
+<td align="right">60</td>
+<td align="right">47</td>
+<td align="right">41</td>
+<td align="right">52</td>
+</tr>
+</tbody>
+</table>
+<p><em>Now, let’s run the Chi Squared Test for Homogeneity</em></p>
+<pre class="r"><code>chisq.test(AB)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  AB
+## X-squared = 4.6768, df = 3, p-value = 0.1971</code></pre>
+<p>A p-value greater than the signficiance level of .1/.05/.01 tells us that these groups do not show statistically significant differences in their distributions between the 4 categories. <strong>The samples are homogeneous</strong></p>
+<p><br/> <br/></p>
+<hr width="90%">
+</div>
+</div>
+<div id="extracting-values-from-the-chisq.test-output" class="section level2">
+<h2>Extracting Values from the chisq.test() output</h2>
+<hr width="90%">
+<p>We can extract the following values from the chisq.test() output</p>
+<ul>
+<li>data.name (name(s) of the data)</li>
+<li>statistic (chi-squared test statistic)</li>
+<li>p.value (p-value for the test)</li>
+<li>method (Type of test performed)</li>
+<li>parameter (Degrees of freedom)</li>
+<li>observed (observations)</li>
+<li>expected (expected counts under the null hypothesis)</li>
+<li>residuals (Pearson residuals)</li>
+</ul>
+<hr width="90%">
+<div id="data.name-names-of-the-data" class="section level4">
+<h4>data.name (name(s) of the data)</h4>
+<pre class="r"><code>MyTest &lt;- chisq.test(AB)
+
+MyTest$data.name</code></pre>
+<pre><code>## [1] &quot;AB&quot;</code></pre>
+</div>
+<div id="statistic-chi-squared-test-statistic" class="section level4">
+<h4>statistic (chi-squared test statistic)</h4>
+<pre class="r"><code>MyTest$statistic</code></pre>
+<pre><code>## X-squared 
+##  4.676815</code></pre>
+</div>
+<div id="parameter-degrees-of-freedom" class="section level4">
+<h4>parameter (degrees of freedom)</h4>
+<pre class="r"><code>MyTest$parameter</code></pre>
+<pre><code>## df 
+##  3</code></pre>
+</div>
+<div id="p.value-p-value-for-the-test" class="section level4">
+<h4>p.value (p-value for the test)</h4>
+<pre class="r"><code>MyTest$p.value</code></pre>
+<pre><code>## [1] 0.1970507</code></pre>
+</div>
+<div id="method-type-of-test-performed" class="section level4">
+<h4>method (Type of test performed)</h4>
+<pre class="r"><code>MyTest$method</code></pre>
+<pre><code>## [1] &quot;Pearson&#39;s Chi-squared test&quot;</code></pre>
+</div>
+<div id="observed-observations" class="section level4">
+<h4>observed (observations)</h4>
+<pre class="r"><code>MyTest$observed</code></pre>
+<pre><code>##       1  2  3  4
+## [1,] 46 43 57 54
+## [2,] 60 47 41 52</code></pre>
+</div>
+<div id="expected-expected-counts-under-the-null-hypothesis-or-given-probabilty" class="section level4">
+<h4>expected (expected counts under the null hypothesis or given probabilty)</h4>
+<pre class="r"><code>MyTest$expected</code></pre>
+<pre><code>##       1  2  3  4
+## [1,] 53 45 49 53
+## [2,] 53 45 49 53</code></pre>
+</div>
+<div id="residuals-pearson-residuals" class="section level4">
+<h4>residuals (Pearson residuals)</h4>
+<pre class="r"><code>MyTest$residuals</code></pre>
+<pre><code>##               1          2         3          4
+## [1,] -0.9615239 -0.2981424  1.142857  0.1373606
+## [2,]  0.9615239  0.2981424 -1.142857 -0.1373606</code></pre>
+<hr width="90%">
+</div>
 </div>
 </div>
 
