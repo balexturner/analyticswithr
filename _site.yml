@@ -28,4 +28,4 @@ navbar:
     - text: "Sample Analyses"
       menu:
         - text: "Text Analysis"
-          href: GOTtweets.html
+          href: GOTS7tweets.html

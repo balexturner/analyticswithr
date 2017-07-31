@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<html prefix="og: http://ogp.me/ns#">
+  
+<head>
+  <meta property="og:title" content="Winter is Here: Analyzing 100,000+ #GameOfThrones tweets" />
+  <meta property="og:description" content="A text analysis of 100,000 GameOfThrones tweets leading up to the season 7 premiere. " />
+  <meta property="og:url" content="http://analyticswithr.com/GOTS7Tweets.html" />
+  <meta property="og:image" content="http://analyticswithr.com/GOTS7tweets_files/figure-html/unnamed-chunk-16-1.png" />
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-102668977-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Analytics with R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="rbasics.html">R Basics</a>
+</li>
+<li>
+  <a href="datawrangling.html">Data Wrangling</a>
+</li>
+<li>
+  <a href="dataviz.html">Data Visualization</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="contingencytables.html">Contingency Tables</a>
+    </li>
+    <li>
+      <a href="chisquare.html">Pearson's Chi-Squared Test</a>
+    </li>
+    <li>
+      <a href="ttest.html">t-tests</a>
+    </li>
+    <li>
+      <a href="ols.html">Linear Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Sample Analyses
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="GOTS7tweets.html">Text Analysis</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p><br/></p>
+<div class="figure">
+<img src="Winter%20is%20Here.png" />
+
+</div>
+<p><br/></p>
+<p><em>A text analysis of 100,000 tweets observed under the #GameOfThrones hashtag from July 5th through July 16th, 2017</em></p>
+<hr width="90%">
+<div id="the-game-of-thrones-official-twitter-page-and-die-hard-fans-promoted-season-7-in-the-days-leading-up-to-the-the-july-16th-premiere." class="section level4">
+<h4>The Game of Thrones official Twitter page and die-hard fans promoted season 7 in the days leading up to the the July 16th Premiere.</h4>
+<hr width="90%">
+<p><br/> <br/></p>
+</div>
+<div id="the-season-was-promoted-on-twitter" class="section level3">
+<h3>The season was promoted on twitter…</h3>
+
+<div>
+    <div>
+    </div>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">“Fight every battle everywhere.”<br>On 7.16, <a href="https://twitter.com/hashtag/WinterIsHere?src=hash">#WinterIsHere</a>. <a href="https://t.co/wSvp3hHvZZ">pic.twitter.com/wSvp3hHvZZ</a></p>&mdash; Game Of Thrones (@GameOfThrones) <a href="https://twitter.com/GameOfThrones/status/885287678698180608">July 13, 2017</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+<p><br/></p>
+</div>
+<div id="the-streets-of-london" class="section level3">
+<h3>… the streets of London…</h3>
+<p><br/></p>
+
+<div>
+    <div>
+    </div>
+    <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Look out, London, Winter is here! The Night King and his otherworldly friends the White Walkers are in the big city. <a href="https://twitter.com/hashtag/GoTS7?src=hash">#GoTS7</a> <a href="https://twitter.com/hashtag/WinterIsHere?src=hash">#WinterIsHere</a> <a href="https://t.co/JMRjgiv8id">pic.twitter.com/JMRjgiv8id</a></p>&mdash; Sky Atlantic (@skyatlantic) <a href="https://twitter.com/skyatlantic/status/884745446073257984">July 11, 2017</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+<p><br/></p>
+</div>
+<div id="and-snapchat" class="section level3">
+<h3>…and snapchat…</h3>
+
+<div>
+    <div>
+    </div>
+    <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr" >.<a href="https://twitter.com/Maisie_Williams">@Maisie_Williams</a> transformed into a Whitewalker at the <a href="https://twitter.com/hashtag/GoTPremiereLA?src=hash">#GoTPremiereLA</a> using the <a href="https://twitter.com/hashtag/GoT?src=hash">#GoT</a> <a href="https://twitter.com/Snapchat">@snapchat</a> lens. <a href="https://twitter.com/hashtag/WinterIsHere?src=hash">#WinterIsHere</a> <a href="https://t.co/GcMrGagN7k">pic.twitter.com/GcMrGagN7k</a></p>&mdash; Game Of Thrones (@GameOfThrones) <a href="https://twitter.com/GameOfThrones/status/885326983944519681">July 13, 2017</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+<p><br/></p>
+</div>
+<div id="just-to-name-a-few-places." class="section level3">
+<h3>…just to name a few places.</h3>
+<hr width="90%">
+<div id="fanatics-and-latecomers-binge-watched-their-way-through-the-first-six-seasons-of-game-of-thrones-to-get-caught-up-for-the-season-7-premiere-on-sunday-june-16th." class="section level4">
+<h4>Fanatics and latecomers binge-watched their way through the first six seasons of Game of Thrones to get caught up for the Season 7 premiere on Sunday, June 16th.</h4>
+<hr width="90%">
+<p><br/></p>
+
+<div>
+    <div>
+    </div>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Managed to watch 5 seasons of Game of Thrones in 3 days only got 1 season to go 😊😄💯 <a href="https://twitter.com/GameOfThrones">@GameOfThrones</a> <a href="https://twitter.com/Thrones_Memes">@Thrones_Memes</a> <a href="https://t.co/LbS1uC1ZwT">pic.twitter.com/LbS1uC1ZwT</a></p>&mdash; Kelsey Heath (@k3135y) <a href="https://twitter.com/k3135y/status/885944192115105792">July 14, 2017</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+<p><br/> <br/></p>
+</div>
+</div>
+<div id="k-gameofthrones-tweets" class="section level2">
+<h2>100K #GameOfThrones Tweets</h2>
+<hr width="90%">
+<div id="we-kept-busy-by-downloading-about-100000-tweets-housed-under-the-gameofthrones-hashtag." class="section level4">
+<h4>We kept busy by downloading about 100,000 tweets housed under the #GameOfThrones hashtag.</h4>
+</div>
+<div id="this-is-what-the-twitterverse-was-saying-in-anticipation-of-the-season-7-premiere" class="section level4">
+<h4>This is what the twitterverse was saying in anticipation of the season 7 premiere…</h4>
+<hr width="90%">
+<p><br/></p>
+<div id="the-most-frequently-mentioned-words-among-these-tweets-were" class="section level5">
+<h5>The Most Frequently Mentioned Words among these tweets were:</h5>
+<p><img src="GOTS7tweets_files/figure-html/unnamed-chunk-4-1.png" width="480" /></p>
+</div>
+</div>
+<div id="in-a-wordcloud" class="section level4">
+<h4>In a wordcloud:</h4>
+<p><img src="GOTS7tweets_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><br/> <br/></p>
+</div>
+</div>
+<div id="sentiment-analysis" class="section level2">
+<h2>Sentiment Analysis</h2>
+<hr width="90%">
+<div id="disclaimer-we-will-analyze-the-words-in-these-tweets-to-get-an-idea-of-the-sentiments-that-are-inherent-to-the-language-that-is-used-when-speaking-about-gameofthrones-but-its-important-to-keep-in-mind-that-individual-words-do-not-neccesarily-represent-the-sentiment-of-an-overall-statement-." class="section level4">
+<h4><strong>Disclaimer</strong>: We will analyze the words in these tweets to get an idea of the sentiments that are inherent to the language that is used when speaking about #GameOfTHrones, but it’s important to keep in mind that * <strong>individual words do not neccesarily represent the sentiment of an overall statement</strong> *.</h4>
+<hr width="90%">
+</div>
+<div id="words-paired-with-sentiments-from-the-nrc-emotion-lexicon." class="section level4">
+<h4>Words paired with sentiments from the <a href="http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm">NRC Emotion Lexicon</a>.</h4>
+<hr width="90%">
+<p><br/></p>
+<div id="the-most-common-sentiments-represented-in-the-tweeted-words-were" class="section level5">
+<h5>The most common sentiments represented in the tweeted words were:</h5>
+<p><img src="GOTS7tweets_files/figure-html/unnamed-chunk-6-1.png" width="480" /></p>
+</div>
+<div id="most-common-words-by-sentiment" class="section level5">
+<h5>Most common words, by sentiment</h5>
+<p><img src="GOTS7tweets_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
+<p><br/> <br/></p>
+</div>
+</div>
+<div id="positive-negative-sentiments" class="section level3">
+<h3>Positive-Negative Sentiments</h3>
+<hr width="90%">
+<div id="more-simply-we-can-evaluate-words-as-inherently-positive-or-negative-using-the-bing-lexicon-for-its-positive-negative-word-classifications." class="section level4">
+<h4>More simply, we can evaluate words as inherently positive or negative using the <a href="https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html">Bing Lexicon</a> for it’s positive-negative word classifications.</h4>
+<hr width="90%">
+</div>
+<div id="total-number-of-positive-negative-words" class="section level4">
+<h4>Total Number of Positive / Negative Words</h4>
+<p><img src="GOTS7tweets_files/figure-html/unnamed-chunk-8-1.png" width="480" /></p>
+<p><br/></p>
+</div>
+<div id="most-frequently-mentioned-positive-negative-words" class="section level4">
+<h4>Most frequently mentioned Positive / Negative Words</h4>
+<p><img src="GOTS7tweets_files/figure-html/unnamed-chunk-9-1.png" width="480" /></p>
+<p><br/></p>
+</div>
+<div id="positive-negative-wordcloud" class="section level4">
+<h4>Positive / Negative Wordcloud</h4>
+<p><img src="GOTS7tweets_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="word-pairings" class="section level2">
+<h2>Word Pairings</h2>
+<hr width="90%">
+<div id="individual-words-may-lend-us-some-understanding-of-the-kinds-of-language-being-used-but-looking-at-word-pairings-helps-us-to-see-how-terms-appear-alongside-one-another-frequenly-and-consisently." class="section level4">
+<h4>Individual words may lend us some understanding of the kinds of language being used, but looking at word pairings helps us to see how terms appear alongside one another frequenly and consisently.</h4>
+<hr width="90%">
+</div>
+<div id="which-words-are-frequently-paired-together" class="section level4">
+<h4>Which words are frequently paired together?</h4>
+<p><img src="GOTS7tweets_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<hr width="90%">
+</div>
+<div id="the-word-web-above-displays-fequency-of-word-pairings.-words-that-appear-together-frequently-but-may-not-necessarily-be-paired-together-consistently.-the-word-web-below-joins-words-by-the-correlational-value-between-them." class="section level4">
+<h4>The word web above displays <em>fequency</em> of word pairings. Words that appear together frequently, but may not necessarily be paired together <em>consistently</em>. The word web below joins words by the correlational value between them.</h4>
+<hr width="90%">
+</div>
+<div id="which-words-are-highly-correlated" class="section level4">
+<h4>Which words are highly correlated?</h4>
+<p><img src="GOTS7tweets_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><br/> <br/></p>
+</div>
+</div>
+<div id="which-house-do-you-belong-to" class="section level2">
+<h2>Which House Do You Belong To?</h2>
+<hr width="90%">
+<div id="nothing-like-season-premiere-hype-to-make-a-which-house-do-you-belong-to-quiz-go-viral.-below-are-the-houses-that-these-twitter-users-belonged-to.-these-arent-the-official-buzzfeed-results." class="section level4">
+<h4>Nothing like season premiere hype to make a <a href="https://www.buzzfeed.com/katiemckenna206/which-house-from-game-of-thrones-would-you-be-in-f78n?utm_term=.faz15XLYPJ#.qcPawKYRN0">“Which house do you belong to?”</a> quiz go viral. Below are the houses that these twitter-users belonged to. <em>(These arent the official buzzfeed results.)</em></h4>
+<hr width="90%">
+<p><img src="GOTS7tweets_files/figure-html/unnamed-chunk-13-1.png" width="480" /></p>
+
+<div>
+    <div>
+    </div>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Which Game of Thrones house do you truly belong in? <a href="https://t.co/wpK6J2z8np">https://t.co/wpK6J2z8np</a></p>&mdash; BuzzFeed Community (@BuzzFeeders) <a href="https://twitter.com/BuzzFeeders/status/885616076817608704">July 13, 2017</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+<p><br/> <br/></p>
+</div>
+</div>
+<div id="winter-is-here" class="section level2">
+<h2>Winter is Here</h2>
+<hr width="90%">
+<div id="lastly-lets-celebrate-the-fact-that-winter-is-here-with-a-text-portrait-using-these-tweets." class="section level4">
+<h4>Lastly, let’s celebrate the fact that <strong>Winter is Here</strong> with a text portrait using these tweets.</h4>
+<p><em>A special shout out to <a href="http://giorasimchoni.com/2017/07/09/2017-07-09-read-my-face/">Giora Simchoni</a> of the Internet for putting together a neat function for simplifying text-portrait drawing in r. </em></p>
+<hr width="90%">
+<p><img src="GOTS7tweets_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="GOTS7tweets_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+</div>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p><em>H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2009.</em></p>
+<p><em><a href="http://giorasimchoni.com/2017/07/09/2017-07-09-read-my-face/">Giora Simchoni: Read my Face</a></em></p>
+<p><em><a href="http://tidytextmining.com/nasa.html#how-data-is-organized-at-nasa">Text Mining with R</a></em></p>
+<p><em>Jeff Gentry (2015). twitteR: R Based Twitter Client. R package version 1.1.9.</em> *<a href="https://CRAN.R-project.org/package=twitteR*" class="uri">https://CRAN.R-project.org/package=twitteR*</a></p>
+<p><em><a href="www.twitter.com">twitter.com</a></em></p>
+<p><em>Dataset available on <a href="https://data.world/balexturner/100-000-gameofthrones-tweets">data.world</a></em></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
