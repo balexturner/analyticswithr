@@ -409,11 +409,11 @@ kable(titanic_survival)</code></pre>
 </table>
 <p>We can use a chi-squared test for independence to determine whether or not survival and sex are statistically independent from eachother.</p>
 <pre class="r"><code>chisq.test(titanic_survival)</code></pre>
-<pre><code>
-    Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
-
-data:  titanic_survival
-X-squared = 454.5, df = 1, p-value &lt; 2.2e-16</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  titanic_survival
+## X-squared = 454.5, df = 1, p-value &lt; 2.2e-16</code></pre>
 <p>A p-value &lt;.01 tells us that we can conclude that sex and survival are <strong>not</strong> independent from eachother with 99% confidence.</p>
 <p><br/> <br/></p>
 <hr width="90%">
