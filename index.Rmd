@@ -44,7 +44,7 @@ opts_knit$set(width=75)
 
 <hr width="90%">
 
-The purpose of this website is to serve as a useful r-programming and data anlytics resource to programmers & analysts who are refreshing their skills or just becoming familiar with r. This site is not officially affiliated with r, rstudio, or any packages or programs that might be mentioned within.
+The purpose of this website is to serve as a useful r-programming and data analytics resource to programmers & analysts who are refreshing their skills or just becoming familiar with r. This site is not officially affiliated with r, rstudio, or any packages or programs that might be mentioned within.
 
 <hr width="90%">
 
