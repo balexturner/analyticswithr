@@ -632,7 +632,7 @@ drawImageWithText <- function(img, text, thresh, color = FALSE,
 }
 
 
-img <- load.image("/Users/Brett/Desktop/38c07cc303240e54f05da6072ceedaf8.jpg")
+img <- load.image("/Users/Brett/Desktop/AWR/38c07cc303240e54f05da6072ceedaf8.jpg")
 text <- freqwords$word
 drawImageWithText(img, text, thresh = 0.9, color=TRUE, fontSize = 5)
 ```
