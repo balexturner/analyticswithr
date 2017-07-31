@@ -306,13 +306,25 @@ div.tocify {
       <a href="contingencytables.html">Contingency Tables</a>
     </li>
     <li>
-      <a href="chisquare.html">Chi Square Test for Independence</a>
+      <a href="chisquare.html">Pearson's Chi-Squared Test</a>
     </li>
     <li>
       <a href="ttest.html">t-tests</a>
     </li>
     <li>
       <a href="ols.html">Linear Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Sample Analyses
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="GOTS7TweetAnalysis.html">Text Analysis</a>
     </li>
   </ul>
 </li>
@@ -542,11 +554,6 @@ library(ggplot2)</code></pre>
 <p><strong>Example(Right):</strong> Size indicates number of cylinders, however all points are blue since color is not tied to values in the data. <em>Again, this is achieved by putting the color argument <strong>outside of the aes() command</strong></em>.</p>
 <pre class="r"><code>ggplot(data=mtcars)+
   geom_point(aes(x=hp, y=mpg,size=cyl),color=&quot;blue&quot;)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;gridExtra&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     combine</code></pre>
 <p><img src="dataviz_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p><br/></p>
 </div>
@@ -719,15 +726,25 @@ ggplot(data=newmtcars)+
 <p>Example (<strong>Right</strong>): <strong>geom_smooth</strong> produces a line graph which is smoothed out according to a <strong>method=</strong> argument.</p>
 <pre class="r"><code>ggplot(mtcars)+
   geom_smooth(aes(x=hp, y=mpg))</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
 <p><img src="dataviz_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p><br/> <br/></p>
+</div>
+<div id="geom_tile" class="section level3">
+<h3>geom_tile</h3>
+<p>Example: <strong>geom_tile</strong> is useful for visualizing matrixes and effectively producing “heatmaps”. In the example below, geom_tile simplifies the interpretation of temperature readings across a 5 month period.</p>
+<pre class="r"><code>ggplot(airquality, aes(x = Month, y = Day)) +
+  geom_tile(aes(fill=Temp))+
+  scale_fill_gradient(name = &#39;Temperature&#39;, low = &#39;white&#39;, high = &#39;red&#39;)+
+  theme(legend.position=&quot;none&quot;)+
+  xlab(&quot;&quot;)+ylab(&quot;&quot;)+labs(title=&quot;Temperature Readings by Date&quot;) </code></pre>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-48-1.png" width="384" /></p>
 <p><br/> <br/></p>
 </div>
 <div id="geom_boxplot" class="section level3">
 <h3>geom_boxplot</h3>
 <pre class="r"><code>ggplot(mtcars)+
   geom_boxplot(aes(x=am, y=mpg, group=am))</code></pre>
-<p><img src="dataviz_files/figure-html/unnamed-chunk-48-1.png" width="384" /></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-49-1.png" width="384" /></p>
 </div>
 <div id="geom_text" class="section level3">
 <h3>geom_text</h3>
@@ -735,22 +752,75 @@ ggplot(data=newmtcars)+
 </div>
 <div id="theme-elements" class="section level2">
 <h2>Theme Elements</h2>
-<pre class="r"><code>theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
-  axis.title.x.top, axis.title.y, axis.title.y.right, axis.text, axis.text.x,
-  axis.text.x.top, axis.text.y, axis.text.y.right, axis.ticks, axis.ticks.x,
-  axis.ticks.y, axis.ticks.length, axis.line, axis.line.x, axis.line.y,
-  legend.background, legend.margin, legend.spacing, legend.spacing.x,
-  legend.spacing.y, legend.key, legend.key.size, legend.key.height,
-  legend.key.width, legend.text, legend.text.align, legend.title,
-  legend.title.align, legend.position, legend.direction, legend.justification,
-  legend.box, legend.box.just, legend.box.margin, legend.box.background,
-  legend.box.spacing, panel.background, panel.border, panel.spacing,
-  panel.spacing.x, panel.spacing.y, panel.grid, panel.grid.major,
-  panel.grid.minor, panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
-  panel.grid.minor.y, panel.ontop, plot.background, plot.title, plot.subtitle,
-  plot.caption, plot.margin, strip.background, strip.placement, strip.text,
-  strip.text.x, strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap, ...,
-  complete = FALSE, validate = TRUE)</code></pre>
+<p>The following are <a href="http://ggplot2.tidyverse.org/reference/theme.html">theme elements</a> which can be adjusted by adding a +theme() layer to your ggplot script.</p>
+<pre class="r"><code>theme(line, 
+      rect, 
+      text, 
+      title, 
+      aspect.ratio, 
+      axis.title, 
+      axis.title.x,
+      axis.title.x.top, 
+      axis.title.y, 
+      axis.title.y.right, 
+      axis.text, axis.
+      text.x,
+      axis.text.x.top, 
+      axis.text.y, 
+      axis.text.y.right, 
+      axis.ticks, 
+      axis.ticks.x,
+      axis.ticks.y, 
+      axis.ticks.length, 
+      axis.line, 
+      axis.line.x, 
+      axis.line.y,
+      legend.background, 
+      legend.margin, 
+      legend.spacing, 
+      legend.spacing.x,
+      legend.spacing.y, 
+      legend.key, 
+      legend.key.size, 
+      legend.key.height,
+      legend.key.width, 
+      legend.text, 
+      legend.text.align, 
+      legend.title,
+      legend.title.align, 
+      legend.position, 
+      legend.direction, 
+      legend.justification,
+      legend.box, 
+      legend.box.just, 
+      legend.box.margin, 
+      legend.box.background,
+      legend.box.spacing, 
+      panel.background, 
+      panel.border, 
+      panel.spacing,
+      panel.spacing.x, 
+      panel.spacing.y, 
+      panel.grid, 
+      panel.grid.major,
+      panel.grid.minor, 
+      panel.grid.major.x, 
+      panel.grid.major.y, 
+      panel.grid.minor.x,
+      panel.grid.minor.y, 
+      panel.ontop, 
+      plot.background, 
+      plot.title, 
+      plot.subtitle,
+      plot.caption, 
+      plot.margin, 
+      strip.background, 
+      strip.placement, 
+      strip.text,
+      strip.text.x, 
+      strip.text.y, 
+      strip.switch.pad.grid, 
+      strip.switch.pad.wrap)</code></pre>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
@@ -759,7 +829,7 @@ ggplot(data=newmtcars)+
 </div>
 <div id="questions-feedback" class="section level2">
 <h2>Questions &amp; Feedback</h2>
-<p>Please feel free to leave feedback that could help improve this site. If you have questions, please leave them below as well and I will do my best to support you as soon as possible.</p>
+<p>Please feel free to leave feedback that could help improve this site. If you have questions, please leave them below as well and I will do my best to reply as soon as possible.</p>
 <!-- begin wwww.htmlcommentbox.com -->
 <div id="HCB_comment_box">
 <a href="http://www.htmlcommentbox.com">Comment Box</a> is loading comments…

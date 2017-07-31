@@ -306,13 +306,25 @@ div.tocify {
       <a href="contingencytables.html">Contingency Tables</a>
     </li>
     <li>
-      <a href="chisquare.html">Chi Square Test for Independence</a>
+      <a href="chisquare.html">Pearson's Chi-Squared Test</a>
     </li>
     <li>
       <a href="ttest.html">t-tests</a>
     </li>
     <li>
       <a href="ols.html">Linear Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Sample Analyses
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="GOTS7TweetAnalysis.html">Text Analysis</a>
     </li>
   </ul>
 </li>
@@ -524,10 +536,9 @@ Kurtosis            1.661 0.197449    Assumptions acceptable.
 Link Function       2.329 0.126998    Assumptions acceptable.
 Heteroscedasticity  5.283 0.021530 Assumptions NOT satisfied!</code></pre>
 <p>We should run a diagnostic plot to assess the model.</p>
-<p><em>Notice that 35, 23, and 49 are marked as outliers</em></p>
+<p>The Q-Q plot below plots the quantiles of the first dataset (observed) against the quantiles of the second dataset (estimated), and helps us determine if the two samples have a common distribution. Below, we can see that there are some outliers in the observed dataset (23, 35, 49). We should remove outliers and rebuild the regression model.</p>
 <pre class="r"><code>plot(carslm)</code></pre>
 <p><img src="ols_files/figure-html/unnamed-chunk-10-1.png" width="672" /><img src="ols_files/figure-html/unnamed-chunk-10-2.png" width="672" /><img src="ols_files/figure-html/unnamed-chunk-10-3.png" width="672" /><img src="ols_files/figure-html/unnamed-chunk-10-4.png" width="672" /></p>
-<p>The Q-Q plot plots the quantiles of the first dataset (observed) against the quantiles of the second dataset (estimated), and helps us determine if the two samples have a common distribution. In the Q-Q plot below, we can see that there are some outliers in the observed dataset (23, 35, 49). We should remove outliers and rebuild the regression model.</p>
 <p>Removing the 3 outliers corrects our model, and all assumptions are accepted.</p>
 <pre class="r"><code>carslm2 &lt;- lm(dist ~ speed, data = cars[-c(23, 35, 49), ])
 gvlma(carslm2)  #Test assumptions linear regression. All Good!</code></pre>
@@ -553,7 +564,7 @@ Skewness           0.8129 0.36725 Assumptions acceptable.
 Kurtosis           0.2210 0.63831 Assumptions acceptable.
 Link Function      3.2239 0.07257 Assumptions acceptable.
 Heteroscedasticity 3.3332 0.06789 Assumptions acceptable.</code></pre>
-<p>We can visually test the assumption of normally distributed residuals manually by using the resid() function to access the residuals from our model, and plotting them in a histogram.</p>
+<p>We can also visually test the assumption of normally distributed residuals manually by using the resid() function to access the residuals from our model, and plotting them in a histogram.</p>
 <pre class="r"><code>kable(resid(carslm)[1:5])  #Print first 5 residual values</code></pre>
 <table>
 <tbody>
@@ -580,7 +591,7 @@ Heteroscedasticity 3.3332 0.06789 Assumptions acceptable.</code></pre>
 </div>
 <div id="questions-feedback" class="section level2">
 <h2>Questions &amp; Feedback</h2>
-<p>Please feel free to leave feedback that could help improve this site. If you have questions, please leave them below as well and I will do my best to support you as soon as possible.</p>
+<p>Please feel free to leave feedback that could help improve this site. If you have questions, please leave them below as well and I will do my best to reply you as soon as possible.</p>
 <!-- begin wwww.htmlcommentbox.com -->
 <div id="HCB_comment_box">
 <a href="http://www.htmlcommentbox.com">Comment Box</a> is loading comments…

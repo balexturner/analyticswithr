@@ -41,4 +41,17 @@ opts_knit$set(width=75)
 <br/>
 <br/>
 <br/>
-I hope you'll find this site to be a useful introductory r-programming and data analytics resource. This site takes a tidyverse-centric approach to r-programming, meaning that most of the techniques are instructed using tidyverse packages such as dplyr, tidyr, stringr, and ggplot2. The site is separated into the following four sections: **R Basics**, **Data Wrangling**, **Data Visualization**, **Data Analysis** . *Not all of the content is up yet, check back soon for updates!*
+
+<hr width="90%">
+
+The purpose of this website is to serve as a useful r-programming and data anlytics resource to programmers & analysts who are refreshing their skills or just becoming familiar with r. This site is not officially affiliated with r, rstudio, or any packages or programs that might be mentioned within.
+
+<hr width="90%">
+
+analyticswithr.com takes a tidyverse-centric approach to r-programming, meaning that most of the techniques are instructed using [tidyverse](http://tidyverse.org) packages such as dplyr, tidyr, stringr, and ggplot2. The site is separated into the following sections: **R Basics**, **Data Wrangling**, **Data Visualization**, **Data Analysis** and **Sample Analyses**. 
+
+<hr width="90%">
+
+*Not all of the content is up yet, check back soon for updates!*
+
+<hr width="90%">

@@ -175,12 +175,13 @@ gvlma(carslm)
 
 We should run a diagnostic plot to assess the model.
 
-*Notice that 35, 23, and 49 are marked as outliers*
+
+The Q-Q plot below plots the quantiles of the first dataset (observed) against the quantiles of the second dataset (estimated), and helps us determine if the two samples have a common distribution. Below, we can see that there are some outliers in the observed dataset (23, 35, 49). We should remove outliers and rebuild the regression model.
 ```{r, echo=TRUE}
 plot(carslm)
 ```
 
-The Q-Q plot plots the quantiles of the first dataset (observed) against the quantiles of the second dataset (estimated), and helps us determine if the two samples have a common distribution. In the Q-Q plot below, we can see that there are some outliers in the observed dataset (23, 35, 49). We should remove outliers and rebuild the regression model.
+
 
  Removing the 3 outliers corrects our model, and all assumptions are accepted.
 ```{r, echo=TRUE}
@@ -189,7 +190,7 @@ gvlma(carslm2) #Test assumptions linear regression. All Good!
 ```
 
 
-We can visually test the assumption of normally distributed residuals manually by using the resid() function to access the residuals from our model, and plotting them in a histogram.
+We can also visually test the assumption of normally distributed residuals manually by using the resid() function to access the residuals from our model, and plotting them in a histogram.
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 kable(resid(carslm)[1:5])   #Print first 5 residual values
 
@@ -203,7 +204,7 @@ ggplot(data=cars)+
 
 ##Questions & Feedback
 
-Please feel free to leave feedback that could help improve this site. If you have questions, please leave them below as well and I will do my best to support you as soon as possible.
+Please feel free to leave feedback that could help improve this site. If you have questions, please leave them below as well and I will do my best to reply you as soon as possible.
 
 <!-- begin wwww.htmlcommentbox.com -->
  <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Comment Box</a> is loading comments...</div>

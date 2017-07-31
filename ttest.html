@@ -306,13 +306,25 @@ div.tocify {
       <a href="contingencytables.html">Contingency Tables</a>
     </li>
     <li>
-      <a href="chisquare.html">Chi Square Test for Independence</a>
+      <a href="chisquare.html">Pearson's Chi-Squared Test</a>
     </li>
     <li>
       <a href="ttest.html">t-tests</a>
     </li>
     <li>
       <a href="ols.html">Linear Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Sample Analyses
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="GOTS7TweetAnalysis.html">Text Analysis</a>
     </li>
   </ul>
 </li>
@@ -353,17 +365,17 @@ div.tocify {
 <li><p><strong>Group B</strong> (center) has a normal distribution, with a mean of +1</p></li>
 <li><p>When we plot them together (right), the difference is visible <img src="ttest_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p></li>
 </ul>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  listA and listB
-## t = -54.672, df = 2996.5, p-value &lt; 2.2e-16
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -2.094016 -1.949018
-## sample estimates:
-##  mean of x  mean of y 
-## -1.0328177  0.9886994</code></pre>
+<pre><code>
+    Welch Two Sample t-test
+
+data:  listA and listB
+t = -54.319, df = 2996.1, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -2.047808 -1.905120
+sample estimates:
+ mean of x  mean of y 
+-0.9820964  0.9943675 </code></pre>
 <ul>
 <li><p>Large <strong>t-value</strong> and a Small <strong>p-value &lt;.01</strong> = we accept the hypothesis that the means of list A and list B show statistically significant differences at a 99% confidence interval.</p></li>
 <li><p><strong>listA mean</strong> is estimated at approxiately -1 and <strong>listB mean</strong> is estimated at approximately 1.</p></li>
@@ -387,52 +399,47 @@ listB &lt;- rnorm(1500, mean = 1)  #Produce list of random values w/ mean of 1 &
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">-1.3545005</td>
-<td align="right">1.5403710</td>
+<td align="right">-2.2202856</td>
+<td align="right">2.1377326</td>
 </tr>
 <tr class="even">
-<td align="right">-1.6375959</td>
-<td align="right">0.1420701</td>
+<td align="right">-0.7562433</td>
+<td align="right">0.2299179</td>
 </tr>
 <tr class="odd">
-<td align="right">-0.2843273</td>
-<td align="right">0.0084206</td>
+<td align="right">1.3910150</td>
+<td align="right">1.7383662</td>
 </tr>
 <tr class="even">
-<td align="right">0.0531385</td>
-<td align="right">0.1398901</td>
+<td align="right">-1.2729832</td>
+<td align="right">1.3481052</td>
 </tr>
 <tr class="odd">
-<td align="right">-3.1462450</td>
-<td align="right">1.6279171</td>
+<td align="right">-0.6795580</td>
+<td align="right">1.7318593</td>
 </tr>
 <tr class="even">
-<td align="right">0.2457779</td>
-<td align="right">1.7787919</td>
+<td align="right">-2.4568064</td>
+<td align="right">1.0822352</td>
 </tr>
 </tbody>
 </table>
 <p><strong>t.test syntax:</strong> t.test(variableA, variableB)</p>
-<pre class="r"><code>t.test(listA,listB) #If data are contained in two separate lists</code></pre>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  listA and listB
-## t = -53.562, df = 2996.4, p-value &lt; 2.2e-16
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -2.037818 -1.893889
-## sample estimates:
-##  mean of x  mean of y 
-## -0.9579611  1.0078923</code></pre>
+<pre><code>
+    Welch Two Sample t-test
+
+data:  listA and listB
+t = -56.046, df = 2994.5, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -2.125982 -1.982257
+sample estimates:
+mean of x mean of y 
+-1.029195  1.024924 </code></pre>
 <p><br/></p>
 </div>
 <div id="if-data-are-contained-in-1-dataset-distinguished-by-a-binary-grouping-variable" class="section level4">
 <h4>If data are contained in 1 dataset, distinguished by a binary grouping variable:</h4>
-<pre class="r"><code>groupAB &lt;- data.frame(listA, listB)%&gt;%
-           gather(groupAB)
-
-kable(head(groupAB))</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -443,43 +450,42 @@ kable(head(groupAB))</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">listA</td>
-<td align="right">-1.3545005</td>
+<td align="right">-2.2202856</td>
 </tr>
 <tr class="even">
 <td align="left">listA</td>
-<td align="right">-1.6375959</td>
+<td align="right">-0.7562433</td>
 </tr>
 <tr class="odd">
 <td align="left">listA</td>
-<td align="right">-0.2843273</td>
+<td align="right">1.3910150</td>
 </tr>
 <tr class="even">
 <td align="left">listA</td>
-<td align="right">0.0531385</td>
+<td align="right">-1.2729832</td>
 </tr>
 <tr class="odd">
 <td align="left">listA</td>
-<td align="right">-3.1462450</td>
+<td align="right">-0.6795580</td>
 </tr>
 <tr class="even">
 <td align="left">listA</td>
-<td align="right">0.2457779</td>
+<td align="right">-2.4568064</td>
 </tr>
 </tbody>
 </table>
 <p><strong>t.test syntax:</strong> t.test(continuous_var~binary_var, data=data)</p>
-<pre class="r"><code>t.test(value~groupAB, data=groupAB) </code></pre>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  value by groupAB
-## t = -53.562, df = 2996.4, p-value &lt; 2.2e-16
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -2.037818 -1.893889
-## sample estimates:
-## mean in group listA mean in group listB 
-##          -0.9579611           1.0078923</code></pre>
+<pre><code>
+    Welch Two Sample t-test
+
+data:  value by groupAB
+t = -56.046, df = 2994.5, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -2.125982 -1.982257
+sample estimates:
+mean in group listA mean in group listB 
+          -1.029195            1.024924 </code></pre>
 <p><br/></p>
 </div>
 </div>
@@ -488,18 +494,17 @@ kable(head(groupAB))</code></pre>
 <h2>Paired t-tests</h2>
 <p>If two sets of observations are made on the same subjets, in a before-and-after or other similar scenario, you can used a paired t-test</p>
 <p><strong>t.test syntax:</strong> t.test(continuous_var~binary_var, paried=TRUE, data=data)</p>
-<pre class="r"><code>t.test(value~groupAB, paired=TRUE, data=groupAB) </code></pre>
-<pre><code>## 
-##  Paired t-test
-## 
-## data:  value by groupAB
-## t = -54.266, df = 1499, p-value &lt; 2.2e-16
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -2.036913 -1.894794
-## sample estimates:
-## mean of the differences 
-##               -1.965853</code></pre>
+<pre><code>
+    Paired t-test
+
+data:  value by groupAB
+t = -55.616, df = 1499, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -2.126567 -1.981672
+sample estimates:
+mean of the differences 
+              -2.054119 </code></pre>
 <ul>
 <li><p>Large <strong>t-value</strong> and a Small <strong>p-value &lt;.01</strong> = we accept the hypothesis that the means of listA and listB show statistically significant differences at a 99% confidence interval.</p></li>
 <li><p>The <strong>mean of the differences:</strong> As the name implies, this shows the mean of the differences between groups. <em>When comparing experimental results on the same group of subjects, this might be considered something of an effect size</em>.</p></li>

@@ -5,7 +5,7 @@ output:
     includes:
        in_header: GA_Script.html
     toc: true
-    toc_depth: 3
+    toc_depth: 2
     toc_float: true
 ---
 
@@ -15,11 +15,25 @@ output:
 
 <hr width="90%">
 
-#Chi-Square Test for Independence
+#Pearson's Chi-Squared Test 
 
-The Chi-Square Test for Independence is used to test whether or not two categorical variables are independent of eachother. 
+Pearson's Chi-Squared Test is used to evaluate 
 
-## Assumptions
+* The **goodness of fit** between observed and estimated values.
+
+* **Homogeneity** between groups regarding their distribution among categorical variables.
+
+* Whether or not two variables whose frequencies are represented in a contingency table have **statistical independence** from one another.
+
+<br/>
+
+<hr width="90%">
+
+##Pearson's Chi-Squared Test for Independence
+
+The Chi-Square Test for **Independence** is used to test whether or not two categorical variables are statistically independent of eachother. 
+
+### Assumptions
 
 * 2 Categorical Variables
 
@@ -27,7 +41,7 @@ The Chi-Square Test for Independence is used to test whether or not two categori
 
 * Each category contains >= 5 observations.
 
-##Example
+###Example
 
 The table below shows number of male and female titanic passengers. 
 
@@ -49,11 +63,43 @@ titanic_survival<- data.frame(Titanic)%>%
 kable(titanic_survival)
 ```
 
-We can use a chi-squared test for independence to determine  whether or not survival and sex are independent from eachother.
+We can use a chi-squared test for independence to determine  whether or not survival and sex are statistically independent from eachother.
 
 ```{r, echo=TRUE}
 chisq.test(titanic_survival)
 ```
 
-A p-value <.01 tells us that we can conclude that sex and survival are not independent from eachother with 99% confidence.
+A p-value <.01 tells us that we can conclude that sex and survival are **not** independent from eachother with 99% confidence.
 
+<br/>
+<br/>
+
+<hr width="90%">
+
+##Pearson's Chi-Squared Test for Goodness of Fit
+##Pearson's Chi-Squared Test for Homogeneity
+
+
+<hr width="90%">
+
+```{r, eval=FALSE, echo=FALSE}
+
+ObservedValues <- c(1.5,
+                    2.5,
+                    3.5,
+                    4.5)
+
+TheoreticalValues <- c(1.5,
+                       2.5,
+                       3.5,
+                       4.5)
+
+SampleData<- data.frame(ObservedValues, TheoreticalValues)
+
+chisq.test(SampleData$ObservedValues, SampleData$TheoreticalValues)
+
+```
+
+<br/>
+<br/>
+*This page is in progress...check back soon for updates*

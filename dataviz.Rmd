@@ -655,6 +655,23 @@ grid.arrange(line, smooth, ncol=2)
 <br/>
 <br/>
 
+###geom_tile
+
+
+Example: **geom_tile** is useful for visualizing matrixes and effectively producing "heatmaps". In the example below, geom_tile simplifies the interpretation of temperature readings across a 5 month period.
+
+```{r, eval=TRUE, echo=TRUE, fig.height=5, fig.width=4, message=FALSE, warning=FALSE}
+
+ggplot(airquality, aes(x = Month, y = Day)) +
+  geom_tile(aes(fill=Temp))+
+  scale_fill_gradient(name = 'Temperature', low = 'white', high = 'red')+
+  theme(legend.position="none")+
+  xlab("")+ylab("")+labs(title="Temperature Readings by Date") 
+```
+
+<br/>
+<br/>
+
 ###geom_boxplot
 ```{r, eval=TRUE, echo=TRUE, fig.height=3, fig.width=4, message=FALSE, warning=FALSE}
 ggplot(mtcars)+
@@ -664,23 +681,78 @@ ggplot(mtcars)+
 ###geom_text
 
 ##Theme Elements
+
+The following are [theme elements](http://ggplot2.tidyverse.org/reference/theme.html) which can be adjusted by adding a +theme() layer to your ggplot script.
+
 ```{r, eval=FALSE, echo=TRUE}
-theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
-  axis.title.x.top, axis.title.y, axis.title.y.right, axis.text, axis.text.x,
-  axis.text.x.top, axis.text.y, axis.text.y.right, axis.ticks, axis.ticks.x,
-  axis.ticks.y, axis.ticks.length, axis.line, axis.line.x, axis.line.y,
-  legend.background, legend.margin, legend.spacing, legend.spacing.x,
-  legend.spacing.y, legend.key, legend.key.size, legend.key.height,
-  legend.key.width, legend.text, legend.text.align, legend.title,
-  legend.title.align, legend.position, legend.direction, legend.justification,
-  legend.box, legend.box.just, legend.box.margin, legend.box.background,
-  legend.box.spacing, panel.background, panel.border, panel.spacing,
-  panel.spacing.x, panel.spacing.y, panel.grid, panel.grid.major,
-  panel.grid.minor, panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
-  panel.grid.minor.y, panel.ontop, plot.background, plot.title, plot.subtitle,
-  plot.caption, plot.margin, strip.background, strip.placement, strip.text,
-  strip.text.x, strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap, ...,
-  complete = FALSE, validate = TRUE)
+theme(line, 
+      rect, 
+      text, 
+      title, 
+      aspect.ratio, 
+      axis.title, 
+      axis.title.x,
+      axis.title.x.top, 
+      axis.title.y, 
+      axis.title.y.right, 
+      axis.text, axis.
+      text.x,
+      axis.text.x.top, 
+      axis.text.y, 
+      axis.text.y.right, 
+      axis.ticks, 
+      axis.ticks.x,
+      axis.ticks.y, 
+      axis.ticks.length, 
+      axis.line, 
+      axis.line.x, 
+      axis.line.y,
+      legend.background, 
+      legend.margin, 
+      legend.spacing, 
+      legend.spacing.x,
+      legend.spacing.y, 
+      legend.key, 
+      legend.key.size, 
+      legend.key.height,
+      legend.key.width, 
+      legend.text, 
+      legend.text.align, 
+      legend.title,
+      legend.title.align, 
+      legend.position, 
+      legend.direction, 
+      legend.justification,
+      legend.box, 
+      legend.box.just, 
+      legend.box.margin, 
+      legend.box.background,
+      legend.box.spacing, 
+      panel.background, 
+      panel.border, 
+      panel.spacing,
+      panel.spacing.x, 
+      panel.spacing.y, 
+      panel.grid, 
+      panel.grid.major,
+      panel.grid.minor, 
+      panel.grid.major.x, 
+      panel.grid.major.y, 
+      panel.grid.minor.x,
+      panel.grid.minor.y, 
+      panel.ontop, 
+      plot.background, 
+      plot.title, 
+      plot.subtitle,
+      plot.caption, 
+      plot.margin, 
+      strip.background, 
+      strip.placement, 
+      strip.text,
+      strip.text.x, 
+      strip.text.y, 
+      strip.switch.pad.grid, 
+      strip.switch.pad.wrap)
 
 ```
 
@@ -697,7 +769,7 @@ H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New Yor
 
 ##Questions & Feedback
 
-Please feel free to leave feedback that could help improve this site. If you have questions, please leave them below as well and I will do my best to support you as soon as possible.
+Please feel free to leave feedback that could help improve this site. If you have questions, please leave them below as well and I will do my best to reply as soon as possible.
 
 <!-- begin wwww.htmlcommentbox.com -->
  <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Comment Box</a> is loading comments...</div>

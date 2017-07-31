@@ -184,7 +184,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1,h2,h3",
+      selectors: "h1,h2",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
@@ -306,13 +306,25 @@ div.tocify {
       <a href="contingencytables.html">Contingency Tables</a>
     </li>
     <li>
-      <a href="chisquare.html">Chi Square Test for Independence</a>
+      <a href="chisquare.html">Pearson's Chi-Squared Test</a>
     </li>
     <li>
       <a href="ttest.html">t-tests</a>
     </li>
     <li>
       <a href="ols.html">Linear Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Sample Analyses
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="GOTS7TweetAnalysis.html">Text Analysis</a>
     </li>
   </ul>
 </li>
@@ -338,19 +350,29 @@ div.tocify {
 
 </div>
 <hr width="90%">
-<div id="chi-square-test-for-independence" class="section level1">
-<h1>Chi-Square Test for Independence</h1>
-<p>The Chi-Square Test for Independence is used to test whether or not two categorical variables are independent of eachother.</p>
-<div id="assumptions" class="section level2">
-<h2>Assumptions</h2>
+<div id="pearsons-chi-squared-test" class="section level1">
+<h1>Pearson’s Chi-Squared Test</h1>
+<p>Pearson’s Chi-Squared Test is used to evaluate</p>
+<ul>
+<li><p>The <strong>goodness of fit</strong> between observed and estimated values.</p></li>
+<li><p><strong>Homogeneity</strong> between groups regarding their distribution among categorical variables.</p></li>
+<li><p>Whether or not two variables whose frequencies are represented in a contingency table have <strong>statistical independence</strong> from one another.</p></li>
+</ul>
+<p><br/></p>
+<hr width="90%">
+<div id="pearsons-chi-squared-test-for-independence" class="section level2">
+<h2>Pearson’s Chi-Squared Test for Independence</h2>
+<p>The Chi-Square Test for <strong>Independence</strong> is used to test whether or not two categorical variables are statistically independent of eachother.</p>
+<div id="assumptions" class="section level3">
+<h3>Assumptions</h3>
 <ul>
 <li><p>2 Categorical Variables</p></li>
 <li><p>Random Sample</p></li>
 <li><p>Each category contains &gt;= 5 observations.</p></li>
 </ul>
 </div>
-<div id="example" class="section level2">
-<h2>Example</h2>
+<div id="example" class="section level3">
+<h3>Example</h3>
 <p>The table below shows number of male and female titanic passengers.</p>
 <ul>
 <li><p><strong>Row 1</strong> shows non-survivors</p></li>
@@ -385,14 +407,25 @@ kable(titanic_survival)</code></pre>
 </tr>
 </tbody>
 </table>
-<p>We can use a chi-squared test for independence to determine whether or not survival and sex are independent from eachother.</p>
+<p>We can use a chi-squared test for independence to determine whether or not survival and sex are statistically independent from eachother.</p>
 <pre class="r"><code>chisq.test(titanic_survival)</code></pre>
-<pre><code>## 
-##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
-## 
-## data:  titanic_survival
-## X-squared = 454.5, df = 1, p-value &lt; 2.2e-16</code></pre>
-<p>A p-value &lt;.01 tells us that we can conclude that sex and survival are not independent from eachother with 99% confidence.</p>
+<pre><code>
+    Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+
+data:  titanic_survival
+X-squared = 454.5, df = 1, p-value &lt; 2.2e-16</code></pre>
+<p>A p-value &lt;.01 tells us that we can conclude that sex and survival are <strong>not</strong> independent from eachother with 99% confidence.</p>
+<p><br/> <br/></p>
+<hr width="90%">
+</div>
+</div>
+<div id="pearsons-chi-squared-test-for-goodness-of-fit" class="section level2">
+<h2>Pearson’s Chi-Squared Test for Goodness of Fit</h2>
+</div>
+<div id="pearsons-chi-squared-test-for-homogeneity" class="section level2">
+<h2>Pearson’s Chi-Squared Test for Homogeneity</h2>
+<hr width="90%">
+<p><br/> <br/> <em>This page is in progress…check back soon for updates</em></p>
 </div>
 </div>
 

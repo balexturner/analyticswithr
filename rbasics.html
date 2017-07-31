@@ -306,13 +306,25 @@ div.tocify {
       <a href="contingencytables.html">Contingency Tables</a>
     </li>
     <li>
-      <a href="chisquare.html">Chi Square Test for Independence</a>
+      <a href="chisquare.html">Pearson's Chi-Squared Test</a>
     </li>
     <li>
       <a href="ttest.html">t-tests</a>
     </li>
     <li>
       <a href="ols.html">Linear Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Sample Analyses
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="GOTS7TweetAnalysis.html">Text Analysis</a>
     </li>
   </ul>
 </li>
@@ -405,7 +417,7 @@ div.tocify {
 </table>
 <p><strong>example</strong></p>
 <pre class="r"><code>4*4</code></pre>
-<pre><code>## [1] 16</code></pre>
+<pre><code>[1] 16</code></pre>
 <p><strong>Here are some comparative operators that are automatically recognized by r.</strong></p>
 <table>
 <thead>
@@ -459,7 +471,7 @@ div.tocify {
 </table>
 <p><strong>example</strong></p>
 <pre class="r"><code>4&gt;3</code></pre>
-<pre><code>## [1] TRUE</code></pre>
+<pre><code>[1] TRUE</code></pre>
 <div id="these-do-not-even-scratch-the-surface-of-what-commands-and-functions-are-native-to-r-as-part-of-the-base-package..-here-is-a-helpful-cheatsheet-from-the-folks-at-r-studio." class="section level5">
 <h5>These do not even scratch the surface of what <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html">commands and functions are native to r as part of the base package.</a>. Here is a helpful cheatsheet from the folks at <a href="https://www.rstudio.com/wp-content/uploads/2016/05/base-r.pdf">R Studio</a>.</h5>
 <p><br/> <br/></p>
@@ -492,10 +504,7 @@ div.tocify {
 <div id="using-a-package" class="section level5">
 <h5>Using a package</h5>
 <p>The stringr package that we’ve installed above contains dozens of useful functions for dealing with text strings. For Example, the <strong>str_detect()</strong> function from stringr gives us a true or false value based on whether or not a specified string pattern appears in a body of text.</p>
-<pre class="r"><code>#str_detect(string, pattern)  This is the syntax for the str_detect function
-
-str_detect(&quot;Mary had a little lamb&quot;, &quot;Mary&quot;)  #example</code></pre>
-<pre><code>## [1] TRUE</code></pre>
+<pre><code>[1] TRUE</code></pre>
 <p><br/> <br/></p>
 </div>
 </div>
