@@ -641,22 +641,15 @@ drawImageWithText(img, text, thresh = 0.9, color=TRUE, fontSize = 5)
 
 ##References
 
-H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2009.
+*H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2009.*
 
-<br/>
+*[Giora Simchoni: Read my Face](http://giorasimchoni.com/2017/07/09/2017-07-09-read-my-face/)*
 
-[Giora Simchoni: Read my Face](http://giorasimchoni.com/2017/07/09/2017-07-09-read-my-face/)
+*[Text Mining with R](http://tidytextmining.com/nasa.html#how-data-is-organized-at-nasa)*
 
-<br/>
+*Jeff Gentry (2015). twitteR: R Based Twitter Client. R package version 1.1.9.*
+  *https://CRAN.R-project.org/package=twitteR*
 
-[Text Mining with R](http://tidytextmining.com/nasa.html#how-data-is-organized-at-nasa)
+*[twitter.com](www.twitter.com)*
 
-<br/>
-
-Jeff Gentry (2015). twitteR: R Based Twitter Client. R package version 1.1.9.
-  https://CRAN.R-project.org/package=twitteR
-  
-<br/>
-[twitter.com](www.twitter.com)
-
-
+*Dataset available on [data.world](https://data.world/balexturner/100-000-gameofthrones-tweets)*
