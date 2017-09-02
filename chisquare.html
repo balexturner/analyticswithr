@@ -316,18 +316,6 @@ div.tocify {
     </li>
   </ul>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sample Analyses
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="GOTS7tweets.html">Text Analysis</a>
-    </li>
-  </ul>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -506,16 +494,16 @@ kable(AB)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">47</td>
-<td align="right">40</td>
-<td align="right">62</td>
+<td align="right">55</td>
 <td align="right">51</td>
+<td align="right">48</td>
+<td align="right">46</td>
 </tr>
 <tr class="even">
-<td align="right">21</td>
-<td align="right">18</td>
-<td align="right">31</td>
-<td align="right">130</td>
+<td align="right">30</td>
+<td align="right">13</td>
+<td align="right">39</td>
+<td align="right">118</td>
 </tr>
 </tbody>
 </table>
@@ -526,7 +514,7 @@ kable(AB)</code></pre>
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  AB
-## X-squared = 63.1, df = 3, p-value = 1.278e-13</code></pre>
+## X-squared = 62.456, df = 3, p-value = 1.755e-13</code></pre>
 <p>A p-value less than the signficiance level of .1/.05/.01 tells us that these groups show statistically significant differences in their distributions between the 4 categories. <strong>The samples are heterogeneous</strong></p>
 <p><br/> <br/></p>
 <p><strong>Homogenous Example:</strong> Two samples show a similar distribution between 4 categories.</p>
@@ -556,16 +544,16 @@ kable(AB)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">50</td>
-<td align="right">45</td>
+<td align="right">51</td>
+<td align="right">48</td>
 <td align="right">52</td>
-<td align="right">53</td>
+<td align="right">49</td>
 </tr>
 <tr class="even">
-<td align="right">52</td>
-<td align="right">45</td>
-<td align="right">52</td>
-<td align="right">51</td>
+<td align="right">55</td>
+<td align="right">50</td>
+<td align="right">48</td>
+<td align="right">47</td>
 </tr>
 </tbody>
 </table>
@@ -575,7 +563,7 @@ kable(AB)</code></pre>
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  AB
-## X-squared = 0.077677, df = 3, p-value = 0.9944</code></pre>
+## X-squared = 0.39343, df = 3, p-value = 0.9416</code></pre>
 <p>A p-value greater than the signficiance level of .1/.05/.01 tells us that these groups do not show statistically significant differences in their distributions between the 4 categories. <strong>The samples are homogeneous</strong></p>
 <p><br/> <br/></p>
 <hr width="90%">
@@ -606,8 +594,8 @@ MyTest$data.name</code></pre>
 <div id="statistic-chi-squared-test-statistic" class="section level4">
 <h4>statistic (chi-squared test statistic)</h4>
 <pre class="r"><code>MyTest$statistic</code></pre>
-<pre><code>##  X-squared 
-## 0.07767722</code></pre>
+<pre><code>## X-squared 
+## 0.3934264</code></pre>
 </div>
 <div id="parameter-degrees-of-freedom" class="section level4">
 <h4>parameter (degrees of freedom)</h4>
@@ -618,7 +606,7 @@ MyTest$data.name</code></pre>
 <div id="p.value-p-value-for-the-test" class="section level4">
 <h4>p.value (p-value for the test)</h4>
 <pre class="r"><code>MyTest$p.value</code></pre>
-<pre><code>## [1] 0.9943745</code></pre>
+<pre><code>## [1] 0.9415971</code></pre>
 </div>
 <div id="method-type-of-test-performed" class="section level4">
 <h4>method (Type of test performed)</h4>
@@ -629,22 +617,22 @@ MyTest$data.name</code></pre>
 <h4>observed (observations)</h4>
 <pre class="r"><code>MyTest$observed</code></pre>
 <pre><code>##       1  2  3  4
-## [1,] 50 45 52 53
-## [2,] 52 45 52 51</code></pre>
+## [1,] 51 48 52 49
+## [2,] 55 50 48 47</code></pre>
 </div>
 <div id="expected-expected-counts-under-the-null-hypothesis-or-given-probabilty" class="section level4">
 <h4>expected (expected counts under the null hypothesis or given probabilty)</h4>
 <pre class="r"><code>MyTest$expected</code></pre>
 <pre><code>##       1  2  3  4
-## [1,] 51 45 52 52
-## [2,] 51 45 52 52</code></pre>
+## [1,] 53 49 50 48
+## [2,] 53 49 50 48</code></pre>
 </div>
 <div id="residuals-pearson-residuals" class="section level4">
 <h4>residuals (Pearson residuals)</h4>
 <pre class="r"><code>MyTest$residuals</code></pre>
-<pre><code>##              1 2 3         4
-## [1,] -0.140028 0 0  0.138675
-## [2,]  0.140028 0 0 -0.138675</code></pre>
+<pre><code>##               1          2          3          4
+## [1,] -0.2747211 -0.1428571  0.2828427  0.1443376
+## [2,]  0.2747211  0.1428571 -0.2828427 -0.1443376</code></pre>
 <hr width="90%">
 </div>
 </div>

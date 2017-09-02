@@ -24,8 +24,3 @@ navbar:
           href: ttest.html
         - text: "Linear Regression"
           href: ols.html
-          
-    - text: "Sample Analyses"
-      menu:
-        - text: "Text Analysis"
-          href: GOTS7tweets.html
