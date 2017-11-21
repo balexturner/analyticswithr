@@ -1,0 +1,15 @@
+---
+title: ""
+output: html_document
+---
+
+##How to upload new/updated files to the Github Repository
+
+If you have a project in RStudio which is connected to a Github Repository, you will want to make sure that the changes you've made are reflected on Github. This will allow collaborators to access the most up-to-date version of the files, inclusive of any changes that you might have made.
+
+*Click here* for a tutorial on how to connect your Github repository with RStudio.
+
+###Step 1: Make sure that the project associated with the repository is open.
+
+
+###Step 2: 
