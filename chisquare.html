@@ -494,16 +494,16 @@ kable(AB)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
+<td align="right">41</td>
+<td align="right">58</td>
+<td align="right">53</td>
 <td align="right">48</td>
-<td align="right">54</td>
-<td align="right">43</td>
-<td align="right">55</td>
 </tr>
 <tr class="even">
-<td align="right">21</td>
-<td align="right">8</td>
-<td align="right">41</td>
-<td align="right">130</td>
+<td align="right">27</td>
+<td align="right">9</td>
+<td align="right">33</td>
+<td align="right">131</td>
 </tr>
 </tbody>
 </table>
@@ -514,7 +514,7 @@ kable(AB)</code></pre>
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  AB
-## X-squared = 75.147, df = 3, p-value = 3.369e-16</code></pre>
+## X-squared = 81.855, df = 3, p-value &lt; 2.2e-16</code></pre>
 <p>A p-value less than the signficiance level of .1/.05/.01 tells us that these groups show statistically significant differences in their distributions between the 4 categories. <strong>The samples are heterogeneous</strong></p>
 <p><br/> <br/></p>
 <p><strong>Homogenous Example:</strong> Two samples show a similar distribution between 4 categories.</p>
@@ -544,16 +544,16 @@ kable(AB)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">46</td>
-<td align="right">54</td>
-<td align="right">55</td>
-<td align="right">45</td>
+<td align="right">58</td>
+<td align="right">47</td>
+<td align="right">42</td>
+<td align="right">53</td>
 </tr>
 <tr class="even">
-<td align="right">47</td>
-<td align="right">57</td>
-<td align="right">61</td>
-<td align="right">35</td>
+<td align="right">45</td>
+<td align="right">52</td>
+<td align="right">48</td>
+<td align="right">55</td>
 </tr>
 </tbody>
 </table>
@@ -563,7 +563,7 @@ kable(AB)</code></pre>
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  AB
-## X-squared = 1.6522, df = 3, p-value = 0.6476</code></pre>
+## X-squared = 2.3303, df = 3, p-value = 0.5067</code></pre>
 <p>A p-value greater than the signficiance level of .1/.05/.01 tells us that these groups do not show statistically significant differences in their distributions between the 4 categories. <strong>The samples are homogeneous</strong></p>
 <p><br/> <br/></p>
 <hr width="90%">
@@ -595,7 +595,7 @@ MyTest$data.name</code></pre>
 <h4>statistic (chi-squared test statistic)</h4>
 <pre class="r"><code>MyTest$statistic</code></pre>
 <pre><code>## X-squared 
-##  1.652179</code></pre>
+##  2.330339</code></pre>
 </div>
 <div id="parameter-degrees-of-freedom" class="section level4">
 <h4>parameter (degrees of freedom)</h4>
@@ -606,7 +606,7 @@ MyTest$data.name</code></pre>
 <div id="p.value-p-value-for-the-test" class="section level4">
 <h4>p.value (p-value for the test)</h4>
 <pre class="r"><code>MyTest$p.value</code></pre>
-<pre><code>## [1] 0.6476174</code></pre>
+<pre><code>## [1] 0.5067337</code></pre>
 </div>
 <div id="method-type-of-test-performed" class="section level4">
 <h4>method (Type of test performed)</h4>
@@ -617,22 +617,22 @@ MyTest$data.name</code></pre>
 <h4>observed (observations)</h4>
 <pre class="r"><code>MyTest$observed</code></pre>
 <pre><code>##       1  2  3  4
-## [1,] 46 54 55 45
-## [2,] 47 57 61 35</code></pre>
+## [1,] 58 47 42 53
+## [2,] 45 52 48 55</code></pre>
 </div>
 <div id="expected-expected-counts-under-the-null-hypothesis-or-given-probabilty" class="section level4">
 <h4>expected (expected counts under the null hypothesis or given probabilty)</h4>
 <pre class="r"><code>MyTest$expected</code></pre>
 <pre><code>##         1    2  3  4
-## [1,] 46.5 55.5 58 40
-## [2,] 46.5 55.5 58 40</code></pre>
+## [1,] 51.5 49.5 45 54
+## [2,] 51.5 49.5 45 54</code></pre>
 </div>
 <div id="residuals-pearson-residuals" class="section level4">
 <h4>residuals (Pearson residuals)</h4>
 <pre class="r"><code>MyTest$residuals</code></pre>
-<pre><code>##                1          2          3          4
-## [1,] -0.07332356 -0.2013468 -0.3939193  0.7905694
-## [2,]  0.07332356  0.2013468  0.3939193 -0.7905694</code></pre>
+<pre><code>##               1          2          3          4
+## [1,]  0.9057529 -0.3553345 -0.4472136 -0.1360828
+## [2,] -0.9057529  0.3553345  0.4472136  0.1360828</code></pre>
 <hr width="90%">
 </div>
 </div>
@@ -663,7 +663,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
