@@ -9,7 +9,11 @@ If you have a project in RStudio which is connected to a Github Repository, you 
 
 *Click here* for a tutorial on how to connect your Github repository with RStudio.
 
+
+
 ###Step 1: Make sure that the project associated with the repository is open.
+
+
 
 
 ###Step 2: 

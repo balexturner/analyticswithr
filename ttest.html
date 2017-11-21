@@ -357,13 +357,13 @@ div.tocify {
 ##  Welch Two Sample t-test
 ## 
 ## data:  listA and listB
-## t = -55.822, df = 2995.8, p-value &lt; 2.2e-16
+## t = -53.878, df = 2992.2, p-value &lt; 2.2e-16
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -2.097696 -1.955332
+##  -2.078726 -1.932740
 ## sample estimates:
-##  mean of x  mean of y 
-## -0.9955335  1.0309805</code></pre>
+## mean of x mean of y 
+## -1.014098  0.991635</code></pre>
 <ul>
 <li><p>Large <strong>t-value</strong> and a Small <strong>p-value &lt;.01</strong> = we accept the hypothesis that the means of list A and list B show statistically significant differences at a 99% confidence interval.</p></li>
 <li><p><strong>listA mean</strong> is estimated at approxiately -1 and <strong>listB mean</strong> is estimated at approximately 1.</p></li>
@@ -387,28 +387,28 @@ listB &lt;- rnorm(1500, mean = 1)  #Produce list of random values w/ mean of 1 &
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">-1.0496810</td>
-<td align="right">1.0545169</td>
+<td align="right">0.3331812</td>
+<td align="right">0.5523527</td>
 </tr>
 <tr class="even">
-<td align="right">-1.5027733</td>
-<td align="right">1.2537240</td>
+<td align="right">-1.6772201</td>
+<td align="right">2.5600491</td>
 </tr>
 <tr class="odd">
-<td align="right">-0.7705414</td>
-<td align="right">1.9502973</td>
+<td align="right">0.9139560</td>
+<td align="right">1.2009382</td>
 </tr>
 <tr class="even">
-<td align="right">-1.0109034</td>
-<td align="right">-0.8806415</td>
+<td align="right">-1.9383215</td>
+<td align="right">1.1982463</td>
 </tr>
 <tr class="odd">
-<td align="right">-1.1865402</td>
-<td align="right">0.9516308</td>
+<td align="right">-0.0096800</td>
+<td align="right">1.0137419</td>
 </tr>
 <tr class="even">
-<td align="right">-0.6934949</td>
-<td align="right">0.7760313</td>
+<td align="right">-0.3920836</td>
+<td align="right">1.6985306</td>
 </tr>
 </tbody>
 </table>
@@ -418,13 +418,13 @@ listB &lt;- rnorm(1500, mean = 1)  #Produce list of random values w/ mean of 1 &
 ##  Welch Two Sample t-test
 ## 
 ## data:  listA and listB
-## t = -55.034, df = 2994.4, p-value &lt; 2.2e-16
+## t = -55.359, df = 2997.5, p-value &lt; 2.2e-16
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -2.070223 -1.927783
+##  -2.083782 -1.941222
 ## sample estimates:
 ##  mean of x  mean of y 
-## -0.9887373  1.0102655</code></pre>
+## -1.0154567  0.9970449</code></pre>
 <p><br/></p>
 </div>
 <div id="if-data-are-contained-in-1-dataset-distinguished-by-a-binary-grouping-variable" class="section level4">
@@ -443,27 +443,27 @@ kable(head(groupAB))</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">listA</td>
-<td align="right">-1.0496810</td>
+<td align="right">0.3331812</td>
 </tr>
 <tr class="even">
 <td align="left">listA</td>
-<td align="right">-1.5027733</td>
+<td align="right">-1.6772201</td>
 </tr>
 <tr class="odd">
 <td align="left">listA</td>
-<td align="right">-0.7705414</td>
+<td align="right">0.9139560</td>
 </tr>
 <tr class="even">
 <td align="left">listA</td>
-<td align="right">-1.0109034</td>
+<td align="right">-1.9383215</td>
 </tr>
 <tr class="odd">
 <td align="left">listA</td>
-<td align="right">-1.1865402</td>
+<td align="right">-0.0096800</td>
 </tr>
 <tr class="even">
 <td align="left">listA</td>
-<td align="right">-0.6934949</td>
+<td align="right">-0.3920836</td>
 </tr>
 </tbody>
 </table>
@@ -473,13 +473,13 @@ kable(head(groupAB))</code></pre>
 ##  Welch Two Sample t-test
 ## 
 ## data:  value by groupAB
-## t = -55.034, df = 2994.4, p-value &lt; 2.2e-16
+## t = -55.359, df = 2997.5, p-value &lt; 2.2e-16
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -2.070223 -1.927783
+##  -2.083782 -1.941222
 ## sample estimates:
 ## mean in group listA mean in group listB 
-##          -0.9887373           1.0102655</code></pre>
+##          -1.0154567           0.9970449</code></pre>
 <p><br/></p>
 </div>
 </div>
@@ -493,13 +493,13 @@ kable(head(groupAB))</code></pre>
 ##  Paired t-test
 ## 
 ## data:  value by groupAB
-## t = -54.726, df = 1499, p-value &lt; 2.2e-16
+## t = -56.03, df = 1499, p-value &lt; 2.2e-16
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -2.070654 -1.927352
+##  -2.082957 -1.942046
 ## sample estimates:
 ## mean of the differences 
-##               -1.999003</code></pre>
+##               -2.012502</code></pre>
 <ul>
 <li><p>Large <strong>t-value</strong> and a Small <strong>p-value &lt;.01</strong> = we accept the hypothesis that the means of listA and listB show statistically significant differences at a 99% confidence interval.</p></li>
 <li><p>The <strong>mean of the differences:</strong> As the name implies, this shows the mean of the differences between groups. <em>When comparing experimental results on the same group of subjects, this might be considered something of an effect size</em>.</p></li>
@@ -532,7 +532,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

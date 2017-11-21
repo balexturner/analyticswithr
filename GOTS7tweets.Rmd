@@ -126,7 +126,7 @@ library(knitr)
 ```{r, echo=FALSE}
 #####Load Data
 
-gameofthrones_tweets <- read.csv("/Users/Brett/Desktop/AWR/GOT Tweets July5_thru_July16.csv")%>%
+gameofthrones_tweets <- read.csv("/Users/Brett/Desktop/AWR/GOTS7/GOT Tweets July5_thru_July16.csv")%>%
   filter(isRetweet == FALSE)
 
 gameofthrones_tweets$text <- sapply(gameofthrones_tweets$text, function(row) iconv(row, "latin1", "ASCII", sub=""))
@@ -562,7 +562,7 @@ freqwords <- gameofthronestext2 %>%
           filter(n > 950) %>%
           mutate(word = reorder(word, n))
 
-img <- load.image("/Users/Brett/Desktop/AWR/jon-snow-1280.jpg")
+img <- load.image("/Users/Brett/Desktop/AWR/GOTS7/JonSnow2.jpg")
 text <- freqwords$word
 drawImageWithText(img, text, thresh = 0.3, fontSize = 5)
 
@@ -632,7 +632,7 @@ drawImageWithText <- function(img, text, thresh, color = FALSE,
 }
 
 
-img <- load.image("/Users/Brett/Desktop/AWR/38c07cc303240e54f05da6072ceedaf8.jpg")
+img <- load.image("/Users/Brett/Desktop/AWR/GOTS7/JonSnow1.jpg")
 text <- freqwords$word
 drawImageWithText(img, text, thresh = 0.9, color=TRUE, fontSize = 5)
 ```
